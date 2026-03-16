@@ -50,5 +50,6 @@
 
 - [Workplan Roadmap](project/workplan-roadmap.md)
 - [Extraction Checklist](project/extraction-checklist.md)
-- [Service Inventory](project/service-inventory.md)
+- [Service Inventory](project/service-inventory.md) — 작업 관리용 (폴더명, Repo URL, 진행 현황)
+- [Platform Service Inventory](project/platform-service-inventory.md) — 플랫폼 관점 참조용 (앱/단말/서버)
 - [Glossary](glossary.md)

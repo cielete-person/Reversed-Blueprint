@@ -17,7 +17,8 @@ inclusion: manual
 ├── project/                      ← 프로젝트 관리 문서
 │   ├── workplan-roadmap.md
 │   ├── extraction-checklist.md
-│   └── service-inventory.md
+│   ├── service-inventory.md
+│   └── platform-service-inventory.md
 ├── docs-integrated/              ← 전체 서비스 통합 설계도 (복붙 문서화용)
 ```
 

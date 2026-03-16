@@ -33,16 +33,16 @@ inclusion: manual
 │   │       ├── views/           ← Phase 2: 아키텍처 View 문서
 │   │       └── gap-analysis/    ← Phase 3: Gap 분석
 │   │
-│   ├── mobile-home/             ← 예시: 모바일 홈
-│   │   ├── src/                 ← git clone https://bitbucket.lguplus.co.kr/.../mobile-home.git
+│   ├── media-iptv-vod/          ← SVC-001: IPTV VOD
+│   │   ├── src/                 ← git clone {Repo URL} services/media-iptv-vod/src
 │   │   └── docs/
-│   ├── iptv-stb-app/            ← 예시: IPTV STB 앱
+│   ├── auth-pass/               ← SVC-005: PASS
 │   │   ├── src/
 │   │   └── docs/
-│   ├── billing-api/             ← 예시: 과금 API
+│   ├── msg-sms/                 ← SVC-011: SMS
 │   │   ├── src/
 │   │   └── docs/
-│   └── ...
+│   └── ...                      ← 전체 30개 서비스 (service-inventory.md 참조)
 │
 ├── docs-integrated/             ← 전체 서비스 통합 설계도 (복붙 문서화용)
 │   ├── extraction/              ← Phase 1 통합본 (서비스별 섹션 구분)
@@ -70,31 +70,38 @@ inclusion: manual
 ├── project/                     ← 프로젝트 관리 문서
 │   ├── workplan-roadmap.md
 │   ├── extraction-checklist.md
-│   └── service-inventory.md
+│   ├── service-inventory.md
+│   └── platform-service-inventory.md
 ├── glossary.md                  ← 용어 사전 초안
 └── scripts/
 ```
 
-## 서비스 인벤토리 작성
+## 서비스 인벤토리 관련 문서
 
-작업 시작 전, `project/service-inventory.md`에 대상 서비스 목록을 작성하라:
+프로젝트에는 서비스 인벤토리 관련 문서가 2개 있으며, 역할이 다르다:
 
-```markdown
-| 서비스 ID | 서비스명 | 폴더명 | Bitbucket Repo URL | 담당조직 | 소스 유무 | 비고 |
-|---|---|---|---|---|---|---|
-| SVC-001 | 모바일 홈 | mobile-home | https://bitbucket.../mobile-home.git | 모바일개발팀 | ✅ | |
-| SVC-002 | IPTV STB 앱 | iptv-stb-app | https://bitbucket.../iptv-stb.git | 홈개발팀 | ✅ | 저사양 STB |
-| SVC-003 | 과금 API | billing-api | — | 과금팀 | ❌ | 소스 없음 |
-```
+| 문서 | 역할 | 주요 컬럼 |
+|---|---|---|
+| `project/service-inventory.md` | **작업 관리용** (KIRO 작업 시 참조) | 서비스 ID, 폴더명, Repo URL, 소스 유무, 분석 진행 현황 |
+| `project/platform-service-inventory.md` | **플랫폼 관점 참조용** | 플랫폼 그룹, 앱 목록, 관련 단말, 관련 서버 |
+
+### 서비스 인벤토리 작성
+
+작업 시작 전, `project/service-inventory.md`에서 대상 서비스의 Repo URL과 소스 유무를 확정하라.
+30개 서비스의 서비스 ID, 폴더명은 이미 등록되어 있다.
+
+- 폴더명 규칙: `{플랫폼약어}-{서비스영문명}` (예: `media-iptv-vod`, `auth-pass`)
+- 플랫폼 약어: `media`, `auth`, `msg`, `pay`, `adm`, `iot`, `loc`, `voip`
 
 ## 서비스별 소스코드 준비
 
 각 서비스의 소스코드를 `services/{서비스명}/src/` 에 clone한다:
 
 ```bash
-# 예시
-git clone https://bitbucket.lguplus.co.kr/.../mobile-home.git services/mobile-home/src
-git clone https://bitbucket.lguplus.co.kr/.../iptv-stb.git services/iptv-stb-app/src
+# 예시: service-inventory.md의 Repo URL과 폴더명 참조
+git clone {Repo URL} services/media-iptv-vod/src
+git clone {Repo URL} services/auth-pass/src
+git clone {Repo URL} services/msg-sms/src
 ```
 
 ## KIRO 서비스별 작업 방법
@@ -131,13 +138,13 @@ git clone https://bitbucket.lguplus.co.kr/.../iptv-stb.git services/iptv-stb-app
 ```markdown
 # 01. 코드 구조 분석 — 통합본
 
-## SVC-001: 모바일 홈 (mobile-home)
-(services/mobile-home/docs/extraction/01-code-structure/ 내용)
+## SVC-001: IPTV VOD (media-iptv-vod)
+(services/media-iptv-vod/docs/extraction/01-code-structure/ 내용)
 
 ---
 
-## SVC-002: IPTV STB 앱 (iptv-stb-app)
-(services/iptv-stb-app/docs/extraction/01-code-structure/ 내용)
+## SVC-005: PASS (auth-pass)
+(services/auth-pass/docs/extraction/01-code-structure/ 내용)
 
 ---
 ...
