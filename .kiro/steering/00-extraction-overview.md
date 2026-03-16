@@ -2,7 +2,7 @@
 inclusion: manual
 ---
 
-# 설계도 역추적 프로젝트 — Steering 개요
+# 설계도 파묘 프로젝트 — Steering 개요
 
 이 프로젝트는 소스코드를 분석하여 Stakeholder별 설계도를 역추적·추출하는 작업입니다.
 

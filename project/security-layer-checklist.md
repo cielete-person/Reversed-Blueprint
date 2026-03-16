@@ -3,7 +3,7 @@
 > 출처: 보안기술팀 송준기 CTO
 > 서비스 개발 시 설계/구현 준수내용을 확인하여 개발해야 하는 보안 체크리스트.
 > 설계도 역추적 시, 각 서비스의 소스코드가 이 체크리스트를 준수하는지 대비 분석한다.
-> 역추적 프로젝트의 보안 추출 항목은 [extraction-checklist.md](extraction-checklist.md) 1-7 참조
+> 파묘 프로젝트의 보안 추출 항목은 [extraction-checklist.md](extraction-checklist.md) 1-7 참조
 
 ---
 
