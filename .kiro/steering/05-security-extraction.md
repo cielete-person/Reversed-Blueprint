@@ -60,6 +60,20 @@ inclusion: manual
 - 프론트엔드 외부 스크립트(광고 SDK, 분석 도구 등) 목록을 작성하라
 - SRI 적용 여부, 개인정보 유출 위험을 평가하라
 
+### 10. 모바일 앱 쉴딩 현황 (Android/iOS)
+- 코드 난독화 적용 여부를 확인하라:
+  - Android: ProGuard/R8 설정 파일(proguard-rules.pro), 난독화 제외 항목
+  - iOS: 난독화 도구(iXGuard, SwiftShield 등) 적용 여부
+  - 크로스플랫폼(React Native/Flutter): Hermes 엔진, 코드 번들 난독화
+- 앱 위변조 탐지 메커니즘을 식별하라 (서명 검증, 해시 비교, 대응 로직)
+- 루팅/탈옥 탐지 현황을 확인하라 (RootBeer, SafetyNet/Play Integrity, DeviceCheck)
+- 디버깅/리버스 엔지니어링 방지 현황을 확인하라 (디버거 탐지, 에뮬레이터 탐지, Frida/Xposed 탐지)
+- 상용 앱 쉴딩 솔루션 적용 여부를 확인하라 (AppSealing, Arxan, Promon, 에스이웍스 등)
+- 안전한 키 저장(Android Keystore/iOS Keychain) 활용 여부를 확인하라
+- Security Layer 체크리스트 169~181번(모바일 앱 환경) 대비 현황을 매핑하라
+
+산출물: `services/{서비스명}/docs/extraction/05-security/app-shielding.md`
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
@@ -76,6 +90,7 @@ inclusion: manual
 - `encryption-inventory.md` — 데이터 암호화 인벤토리
 - `security-hardening.md` — 보안 하드닝 체크리스트
 - `third-party-scripts.md` — 서드파티 스크립트 인벤토리
+- `app-shielding.md` — 모바일 앱 쉴딩 현황 (난독화, 위변조 탐지, 루팅/탈옥, 디버깅 방지, 쉴딩 솔루션)
 
 ### 10. Security Layer 체크리스트 대비 현황 분석
 
