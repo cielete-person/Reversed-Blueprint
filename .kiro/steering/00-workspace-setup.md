@@ -71,7 +71,8 @@ inclusion: manual
 │   ├── workplan-roadmap.md
 │   ├── extraction-checklist.md
 │   ├── service-inventory.md
-│   └── platform-service-inventory.md
+│   ├── platform-service-inventory.md
+│   └── security-layer-checklist.md
 ├── glossary.md                  ← 용어 사전 초안
 └── scripts/
 ```

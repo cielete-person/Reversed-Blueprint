@@ -13,9 +13,11 @@
 ```
 ├── .kiro/steering/        ← KIRO steering 문서 (10단계 순차 작업 가이드)
 ├── project/               ← 프로젝트 관리 문서
-│   ├── workplan-roadmap.md      로드맵 (Phase 0~4, 18주)
-│   ├── extraction-checklist.md  추출 항목 체크리스트
-│   └── service-inventory.md     서비스 인벤토리
+│   ├── workplan-roadmap.md            로드맵 (Phase 0~4, 18주)
+│   ├── extraction-checklist.md        추출 항목 체크리스트
+│   ├── service-inventory.md           서비스 인벤토리 (작업 관리용)
+│   ├── platform-service-inventory.md  플랫폼 서비스 인벤토리 (참조용)
+│   └── security-layer-checklist.md    보안 체크리스트 (217항목)
 ├── services/              ← 서비스별 소스코드 + 설계도
 │   ├── {서비스명}/src/          Bitbucket clone 소스코드
 │   ├── {서비스명}/docs/         KIRO 추출 설계도
@@ -23,6 +25,7 @@
 ├── docs-integrated/       ← 전체 서비스 통합 설계도 (문서화용)
 ├── glossary.md            ← 용어 사전
 └── scripts/               ← 자동화 스크립트/가이드
+    └── jira-confluence-sync.md  Jira/Confluence 동기화 가이드
 ```
 
 ## 작업 방법 (KIRO 기반)
@@ -52,4 +55,5 @@
 - [Extraction Checklist](project/extraction-checklist.md)
 - [Service Inventory](project/service-inventory.md) — 작업 관리용 (폴더명, Repo URL, 진행 현황)
 - [Platform Service Inventory](project/platform-service-inventory.md) — 플랫폼 관점 참조용 (앱/단말/서버)
+- [Security Layer Checklist](project/security-layer-checklist.md) — 보안기술팀 설계/구현 체크리스트 (217항목)
 - [Glossary](glossary.md)
