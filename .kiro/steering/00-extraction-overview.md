@@ -44,6 +44,26 @@ inclusion: manual
 
 ## 공통 규칙
 
+0. **서비스 ID 확인 필수 (작업 시작 전 반드시 수행)**
+   - 사용자가 서비스명을 지정하면, 반드시 `project/service-inventory.md`를 열어 해당 서비스의 정보를 확인하라
+   - 확인 항목: 서비스 ID, 폴더명, 소스 유무, Bitbucket Repo URL
+   - 확인 후 사용자에게 아래 형식으로 응답하라:
+     ```
+     📋 대상 서비스 확인:
+     - 서비스 ID: SVC-001
+     - 서비스명: IPTV VOD
+     - 폴더명: media-iptv-vod
+     - 플랫폼: 미디어플랫폼
+     - 소스 유무: 🔍 (확인 필요)
+     - 소스 경로: services/media-iptv-vod/src/
+     - 산출물 경로: services/media-iptv-vod/docs/
+     
+     이 서비스로 진행할까요?
+     ```
+   - 사용자가 확인(승인)한 후에만 분석 작업을 시작하라
+   - 서비스명이 불명확하거나 `service-inventory.md`에 없는 경우, 30개 서비스 목록을 보여주고 선택을 요청하라
+   - 앱/단말/서버 등 플랫폼 관점 상세 정보가 필요하면 `project/platform-service-inventory.md`도 함께 참조하라
+
 1. **서비스 단위 작업**: 한 번에 하나의 서비스를 대상으로 작업. 소스는 `services/{서비스명}/src/`, 산출물은 `services/{서비스명}/docs/`
 
 2. **확인 상태 표기**: 모든 항목에 아래 상태를 반드시 표기

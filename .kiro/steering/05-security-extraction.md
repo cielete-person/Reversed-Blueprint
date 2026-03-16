@@ -5,6 +5,7 @@ inclusion: manual
 # Step 5: 보안 관련 설계도 추출
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-7. 보안 관련 추출
+> 참조: #[[file:project/security-layer-checklist.md]] — 보안기술팀 Security Layer 체크리스트 (217항목)
 
 ## 목표
 
@@ -69,6 +70,21 @@ inclusion: manual
 - `encryption-inventory.md` — 데이터 암호화 인벤토리
 - `security-hardening.md` — 보안 하드닝 체크리스트
 - `third-party-scripts.md` — 서드파티 스크립트 인벤토리
+
+### 10. Security Layer 체크리스트 대비 현황 분석
+
+> 참조: #[[file:project/security-layer-checklist.md]] — 보안기술팀 217항목 체크리스트
+
+- 소스코드 분석 결과를 Security Layer 체크리스트 10개 구분(인증/인가, 입력검증, 중요정보, 에러처리, 파일보안, API보안, 오픈소스, 웹앱, 모바일, CI/CD)과 대비하라
+- 각 체크리스트 항목(1~217)에 대해 해당 서비스의 준수 여부를 판정하라:
+  - ✅ 준수: 코드에서 해당 보안 요구사항이 구현됨
+  - ⚠️ 부분 준수: 일부만 구현되었거나 불완전
+  - ❌ 미준수: 해당 요구사항이 구현되지 않음
+  - ➖ 해당없음: 서비스 특성상 적용 대상 아님
+- 미준수(❌) 항목은 위험도(🔴 Critical / 🟡 Warning)를 부여하라
+- 서비스별 준수율 요약표를 작성하라 (구분별 준수/부분/미준수/해당없음 수)
+
+산출물: `services/{서비스명}/docs/extraction/05-security/security-layer-compliance.md`
 
 ## 완료 기준
 - 모든 보안 항목에 확인 상태가 표기됨

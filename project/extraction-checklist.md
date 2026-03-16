@@ -135,6 +135,8 @@
 
 ### 1-7. 보안 관련 추출
 
+> 📋 보안센터 Security Layer 체크리스트(217항목)와 대비 분석 필수 → [security-layer-checklist.md](security-layer-checklist.md)
+
 - [ ] 크리덴셜/시크릿 관리 현황 스캔 (Credential Scan) `[KIRO]`
   - 소스코드 내 하드코딩된 ID/PW, API Key, 토큰 탐지 (git-secrets, truffleHog, gitleaks 등)
   - 설정 파일 내 크리덴셜 저장 방식 식별 (평문, 암호화, 환경변수, Vault 참조 등)
