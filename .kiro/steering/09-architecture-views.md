@@ -30,11 +30,17 @@ Step 01~08의 산출물이 `services/{서비스명}/docs/extraction/` 하위에 
 - 상태 전이 다이어그램 (정상 + 예외/이상 전이 경로 구분)
 - → 대상: PM, 개발자
 
-### 2-3. 비즈니스 규칙 & 에러 처리 View
+### 2-3. 비즈니스 규칙 & 에러 처리 & Use Case View
 - 비즈니스 규칙 카탈로그 완성 (규칙 ID, 규칙명, 설명, 적용 서비스, 소스 위치, 확인 상태)
 - 규칙 간 의존 관계 매핑
 - 에러/예외 처리 패턴 맵 완성 (에러 코드 체계, 예외 처리 흐름도, fallback 시나리오)
-- → 대상: PM, 개발자, 품질센터
+- Use Case 다이어그램 & 시나리오 문서 완성:
+  - B2C 공통 Use Case 카탈로그 (가입/해지/변경/조회/결제/인증/고객센터/알림/계정)
+  - 서비스 특화 Use Case 카탈로그
+  - 주요 Use Case별 시퀀스 다이어그램 (Mermaid sequenceDiagram)
+  - Use Case ↔ API ↔ 화면 ↔ 비즈니스 규칙 교차 매핑 테이블
+  - Use Case별 정상/대안/예외 시나리오 문서
+- → 대상: PM, 개발자, 품질센터, PO
 
 ### 2-4. 이벤트/메시지 흐름 View
 - 서비스 간 비동기 메시지 발행-구독 관계 시각화
@@ -103,7 +109,7 @@ Step 01~08의 산출물이 `services/{서비스명}/docs/extraction/` 하위에 
 `services/{서비스명}/docs/views/` 에 아래 구조로 생성:
 - `system-context/` — C4 Level 1-2 다이어그램 및 설명
 - `component-code/` — C4 Level 3-4, 시퀀스, 상태 전이 다이어그램
-- `business-rules/` — 비즈니스 규칙 카탈로그, 에러 처리 패턴 맵
+- `business-rules/` — 비즈니스 규칙 카탈로그, 에러 처리 패턴 맵, Use Case 카탈로그/시나리오
 - `event-flow/` — 이벤트 흐름도, 이벤트 스토밍 결과
 - `data/` — ERD, DFD
 - `ui-ux/` — 화면 카탈로그, 화면 흐름도, 인터랙션 맵, 검증 규칙, 접근성

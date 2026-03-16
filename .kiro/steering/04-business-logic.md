@@ -34,6 +34,30 @@ inclusion: manual
 - 이벤트 토픽/큐 목록, 이벤트 스키마(페이로드 구조)를 정리하라
 - 발행-구독 관계를 매핑하라
 
+### 5. 유저 시나리오(Use Case) 추출
+
+> B2C 상품의 공통 Use Case와 서비스 특화 Use Case를 체계적으로 식별한다.
+
+#### 5-1. B2C 공통 Use Case 매핑
+- 아래 9개 공통 카테고리를 기준으로 코드 내 구현 여부를 확인하라:
+  - 가입(Subscription), 해지(Cancellation), 변경(Modification), 조회(Inquiry)
+  - 결제/과금(Billing), 인증/본인확인(Verification), 고객센터(Support)
+  - 알림/마케팅(Notification), 계정 관리(Account)
+- 각 Use Case에 ID를 부여하라: UC-{서비스약어}-{순번}
+- Controller/Service 클래스에서 해당 기능의 엔드포인트, 소스 위치를 매핑하라
+- 02-screens 결과의 화면 ID와 연결하라
+
+#### 5-2. 서비스 특화 Use Case 발굴
+- 공통 Use Case에 매핑되지 않는 API 엔드포인트를 추출하라
+- 도메인 서비스 클래스에서 공통 카테고리 외 비즈니스 로직 메서드를 식별하라
+- 상태 전이(3번 결과)에서 공통 Use Case로 설명되지 않는 전이 경로를 확인하라
+- 이벤트/메시지(4번 결과)에서 공통 Use Case 외 비동기 처리를 확인하라
+
+#### 5-3. Use Case 시나리오 상세화
+- 주요 Use Case에 대해 정상/대안/예외 시나리오를 작성하라
+- 사전 조건(Precondition)과 사후 조건(Postcondition)을 명시하라
+- 코드에서 추출한 근거(메서드명, 조건문, 에러코드)를 기재하라
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
@@ -45,9 +69,14 @@ inclusion: manual
 - `error-handling.md` — 에러 코드/예외 처리 패턴 목록
 - `state-machines.md` — 상태 전이 다이어그램 (Mermaid stateDiagram)
 - `event-flows.md` — 이벤트/메시지 토픽 목록 및 발행-구독 관계
+- `use-cases.md` — Use Case 카탈로그 (공통 + 서비스 특화, ID/구현여부/API/화면 매핑)
+- `use-case-scenarios.md` — 주요 Use Case 시나리오 상세 (정상/대안/예외)
 
 ## 완료 기준
 - 주요 비즈니스 규칙이 ID와 함께 목록화됨
 - 에러 코드 체계가 서비스별로 정리됨
 - 핵심 도메인 객체의 상태 전이도가 작성됨
 - 비동기 메시지 흐름이 매핑됨
+- B2C 공통 Use Case 9개 카테고리에 대한 구현 여부가 확인됨
+- 서비스 특화 Use Case가 식별되어 ID가 부여됨
+- 주요 Use Case의 정상/예외 시나리오가 작성됨
