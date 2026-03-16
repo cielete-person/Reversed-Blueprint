@@ -1,4 +1,4 @@
-# LG유플러스 서비스 설계도 역추적 프로젝트 — Workplan Roadmap
+# LG유플러스 서비스 설계도 파묘 프로젝트 — Workplan Roadmap
 
 ## 프로젝트 목표
 
