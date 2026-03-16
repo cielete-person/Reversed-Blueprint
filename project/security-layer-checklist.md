@@ -4,6 +4,11 @@
 > 서비스 개발 시 설계/구현 준수내용을 확인하여 개발해야 하는 보안 체크리스트.
 > 설계도 역추적 시, 각 서비스의 소스코드가 이 체크리스트를 준수하는지 대비 분석한다.
 > 파묘 프로젝트의 보안 추출 항목은 [extraction-checklist.md](extraction-checklist.md) 1-7 참조
+>
+> ⚠️ **이 체크리스트를 추가·수정·고도화하려는 경우:**
+> CTO보안허브의 정책 문서(패스워드 관리, 개인정보 파기, 암호화 적용 등)를 반영하여
+> 1~2 depth 더 상세한 수준으로 항목을 세분화하고, `05-security-extraction.md` steering도 함께 고도화해야 합니다.
+> 상세 안내: `.kiro/steering/00-extraction-overview.md` 공통 규칙 8번 참조
 
 ---
 

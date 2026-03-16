@@ -82,6 +82,29 @@ inclusion: manual
 6. **통합 문서**: 모든 서비스 분석 완료 후, `docs-integrated/`에 서비스별 섹션으로 구분된 통합본 생성 (Confluence 복붙용)
 
 7. **산출물 버전 백업**: 설계도 파일을 덮어쓰기 전에 반드시 이전 버전을 백업
+
+8. **보안 관련 steering/checklist 수정 시 필수 안내**
+   - `05-security-extraction.md`, `security-layer-checklist.md`, `extraction-checklist.md`의 1-7 보안 섹션을 수정·고도화하려는 경우, 반드시 아래 안내를 먼저 출력하라:
+     ```
+     ⚠️ 보안 관련 steering/checklist 수정 전 필수 확인:
+     
+     현재 보안 체크리스트(217항목)는 보안기술팀 CTO 제공 기준입니다.
+     이 항목을 추가·수정·고도화하려면, 아래 CTO보안허브 정책 문서를 반영하여
+     1~2 depth 더 상세한 수준으로 설계도를 추출할 수 있도록 steering을 고도화해야 합니다.
+     
+     📌 반영 필수 정책 (CTO보안허브):
+     - 패스워드 관리 정책 (복잡도, 주기, 이력, 잠금, 초기화 절차)
+     - 개인정보 파기 정책 (파기 주기, 파기 방법, 파기 대상, 파기 증적)
+     - 암호화 적용 정책 (대상 데이터, 알고리즘, 키 관리, 적용 구간)
+     - 기타 CTO보안허브 내 설계/구현 관련 정책
+     
+     👉 CTO보안허브에서 해당 정책 문서를 확보한 후,
+        security-layer-checklist.md 항목을 세분화하고
+        05-security-extraction.md steering의 작업 절차를 고도화하세요.
+     
+     이 안내를 확인했으면 작업을 계속하세요.
+     ```
+   - 이 안내는 사용자 본인 포함 누구든 보안 steering을 수정하려 할 때 반드시 출력한다
    - 백업 위치: 해당 파일과 같은 폴더 내 `_backup/` 하위
    - 백업 파일명: `{원본파일명}_v{버전}_{yyyyMMdd_HHmm}.md`
      - 예: `api-endpoints.md` → `_backup/api-endpoints_v1_20260316_1430.md`
