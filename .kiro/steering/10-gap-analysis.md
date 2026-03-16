@@ -88,9 +88,11 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 `services/{서비스명}/docs/gap-analysis/` 에 아래 파일 생성:
 - `traceability-matrix.md` — 요구사항-코드 추적 매트릭스
 - `screen-api-impact.md` — 화면-API 영향도 매트릭스 (화면 ID 기준)
+- `dead-code-unused.md` — Dead Code / 미사용 API 리포트
+- `orphan-screens.md` — 미사용 화면 / Orphan Screen 리포트
 - `user-scenario-gap.md` — 유저 시나리오 완전성 Gap 리포트
 - `quality-infra-gap.md` — 품질 인프라 Gap 리포트
-- `security-gap.md` — 보안 Gap 리포트 (개인정보보호법, 입력 보안, API 보안, 암호화, 감사 로그, 하드닝)
+- `security-gap.md` — 보안 Gap 리포트 (개인정보보호법, 입력 보안, API 보안, 암호화, 감사 로그, 하드닝, 앱 쉴딩)
 - `code-quality-risk-matrix.md` — 코드 품질 위험도 종합 매트릭스
 - `data-integrity-risk.md` — 데이터 정합성 위험 시나리오 리포트
 - `stb-resource-gap.md` — STB 리소스 Gap 분석
