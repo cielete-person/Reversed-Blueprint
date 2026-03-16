@@ -1,0 +1,15 @@
+# IDE
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Kiro hooks (자동 생성됨)
+.kiro/hooks/
+
+# 서비스 소스코드 (각 서비스의 src/는 별도 repo이므로 제외)
+services/*/src/
+
+# 백업 파일 (선택: Git에 포함하지 않으려면 주석 해제)
+# **/_backup/
