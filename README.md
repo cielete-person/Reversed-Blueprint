@@ -18,7 +18,7 @@
 ## 폴더 구조
 
 ```
-├── .kiro/steering/        ← KIRO steering 문서 (10단계 순차 작업 가이드)
+├── .kiro/steering/        ← KIRO steering 문서 (11단계 순차 작업 가이드)
 ├── project/               ← 프로젝트 관리 문서
 │   ├── workplan-roadmap.md            로드맵 (Phase 0~4, 18주)
 │   ├── extraction-checklist.md        추출 항목 체크리스트
