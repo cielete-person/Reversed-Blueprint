@@ -46,7 +46,7 @@ inclusion: manual
 | 6 | `06-quality-extraction` | 테스트 현황, 변경 빈도, 로깅, 의존성 건강도, 동시성, 정합성, 성능 | `services/{서비스명}/docs/extraction/06-quality/` |
 | 7 | `07-ux-extraction` | 인터랙션 패턴, 유효성 검증, 로딩 UX, 다국어/접근성, 딥링크, 피처 플래그 | `services/{서비스명}/docs/extraction/07-ux/` |
 | 8 | `08-infra-and-integration` | 외부 연동, 배포 토폴로지, STB 리소스, 비기능 현황 | `services/{서비스명}/docs/extraction/08-infra/` |
-| 9 | `09-architecture-views` | Phase 1 결과 기반 C4 다이어그램, Stakeholder별 View 문서, E2E Call Flow View, Layer Stack View 생성 | `services/{서비스명}/docs/views/` |
+| 9 | `09-architecture-views` | Phase 1 결과 기반 C4 다이어그램, Stakeholder별 View 문서, E2E Call Flow View, Function–External Stack View, Layer Stack View 생성 | `services/{서비스명}/docs/views/` |
 | 10 | `10-gap-analysis` | 추적성 매핑, Gap 분석, 위험도 매트릭스, 용어 사전 확정 | `services/{서비스명}/docs/gap-analysis/` |
 | — | 통합 | 모든 서비스 완료 후, 서비스별 결과를 `docs-integrated/`에 통합 | `docs-integrated/` |
 

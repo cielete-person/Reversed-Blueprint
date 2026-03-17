@@ -887,6 +887,23 @@
 - [ ] Layer Stack 다이어그램 작성 (Mermaid block-beta 또는 flowchart) `[KIRO]`
 - → 대상: PM, 개발자, 인프라팀
 
+### 2-13. Function–External Stack Call Flow View (기능-외부 스택 호출 관계)
+- [ ] 관점 A: Function → 공통 모듈/사내 라이브러리 호출 맵 `[KIRO]`
+  - 주요 비즈니스 Function별 공통 모듈 의존 관계 시각화
+  - 공통 모듈 변경 시 영향받는 Function 역추적 테이블
+- [ ] 관점 B: Function → 외부 SDK/Library 호출 맵 `[KIRO]`
+  - Function별 외부 SDK/3rd-party Library 호출 매핑
+  - SDK 장애 시 영향 Function 및 Fallback 유무 테이블
+- [ ] 관점 C: Function → 서버 간(Inter-Service) 호출 맵 `[KIRO]`
+  - Function 레벨 서비스 간 호출 관계 (프로토콜, 타임아웃, Circuit Breaker)
+  - 서비스 간 호출 매트릭스 (히트맵)
+- [ ] 관점 D: Function → OS/Platform API 호출 맵 `[KIRO]`
+  - Function별 OS 레벨 API 호출 매핑 (플랫폼별 분기 포함)
+  - Deprecated OS API 영향 Function 역추적 테이블
+- [ ] 관점 E: 통합 의존성 매트릭스 (Function × External Stack) `[KIRO]`
+  - A~D 종합, Function별 외부 의존 수 및 위험도 등급(🔴/🟡/🟢)
+- → 대상: PM, 개발자
+
 ### Phase 2 산출물
 
 - C4 Model 기반 아키텍처 문서 세트
@@ -945,6 +962,7 @@
 - AI Fail-safe 아키텍처 리포트 `[CDR 12장]`
 - AI 의사결정 흐름도 `[CDR 12장]`
 - Layer Stack View (Client/Middleware/OS/Firmware/Network/Server/Infra 계층 다이어그램)
+- Function–External Stack Call Flow View (관점 A~E: 공통 모듈, SDK/Library, 서버 간, OS API 호출 맵 및 통합 매트릭스)
 
 ---
 

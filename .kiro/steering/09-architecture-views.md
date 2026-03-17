@@ -240,6 +240,92 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - Mermaid block-beta 또는 flowchart로 Layer 다이어그램 작성
 - → 대상: PM, 개발자, 인프라팀
 
+### 2-13. Function–External Stack Call Flow View (기능-외부 스택 호출 관계)
+
+> 개발 PM이 주요 비즈니스 Function과 공통 모듈, SDK, Library, 서버 간 통신, OS API 등 외부 스택 간의 호출 관계를 여러 관점에서 파악할 수 있도록 다중 관점 Call Flow를 생성한다.
+
+#### 관점 A: Function → 공통 모듈/사내 라이브러리 호출 맵
+- 주요 비즈니스 Function(Service 클래스의 핵심 메서드)이 호출하는 공통 모듈(util, common, core 등)을 매핑하라
+- Step 1c(`01c-common-modules/`) 결과를 기반으로, Function별 공통 모듈 의존 관계를 시각화
+- Mermaid flowchart로 작성: `비즈니스 Function` → `공통 모듈` → `사내 라이브러리`
+- 각 연결선에 호출 빈도(High/Medium/Low)와 영향 범위 등급(🔴/🟡/🟢) 표기
+- 공통 모듈 변경 시 영향받는 비즈니스 Function 역추적 테이블:
+  | 공통 모듈 | 영향 등급 | 영향받는 Function | 영향받는 Use Case |
+  |---|---|---|---|
+  | CommonAuthUtil | 🔴 High | login(), verifyToken(), refreshSession() | UC-001, UC-004 |
+- → PM 활용: 공통 모듈 수정 시 영향 범위 즉시 파악, 변경 리스크 사전 판단
+
+#### 관점 B: Function → 외부 SDK/Library 호출 맵
+- 주요 비즈니스 Function이 직접 호출하는 외부 SDK 및 3rd-party Library를 매핑하라
+- 대상: 결제 SDK, DRM SDK, 푸시 SDK, 분석 SDK, 인증 SDK, 앱 쉴딩 SDK, 광고 SDK 등
+- Mermaid flowchart로 작성: `비즈니스 Function` → `SDK/Library` → `외부 서비스(API)`
+- 각 SDK/Library에 아래 메타정보를 주석으로 기재:
+  - 소스 접근 가능 여부: `<<binary SDK>>` / 소스 포함
+  - 버전, EOL 여부, 알려진 CVE
+  - 대체 가능 여부 (벤더 락인 수준)
+- SDK 장애 시 영향받는 Function과 사용자 시나리오를 역추적:
+  | SDK/Library | 장애 시 영향 Function | 영향 Use Case | Fallback 유무 |
+  |---|---|---|---|
+  | 결제 SDK v3.2 | processPayment(), refund() | UC-020 요금납부 | ⚠️ 부분 (재시도만) |
+  | DRM SDK v2.1 `<<binary SDK>>` | playContent(), validateLicense() | UC-030 VOD 재생 | ❌ 없음 |
+- → PM 활용: SDK 업데이트/교체 시 영향 범위 파악, 벤더 리스크 관리
+
+#### 관점 C: Function → 서버 간(Inter-Service) 호출 맵
+- 주요 비즈니스 Function이 다른 서비스를 호출하는 관계를 매핑하라 (Feign, RestTemplate, gRPC, MQ 등)
+- Mermaid flowchart로 작성: `Service A.function()` → `[프로토콜]` → `Service B.endpoint()`
+- 동기 호출(실선)과 비동기 호출(점선)을 구분하라
+- 각 연결선에 프로토콜, 타임아웃, Circuit Breaker 설정, 인증 방식을 주석으로 기재
+- 서비스 간 호출 깊이(Depth) 표기: 1-hop, 2-hop, 3-hop 이상은 ⚠️ 경고
+- 순환 호출(Circular Dependency) 패턴은 🔴 표기
+- 서비스 간 호출 매트릭스 (히트맵 형태):
+  | 호출자 \ 피호출자 | Auth Service | Payment Service | User Service | Notification |
+  |---|---|---|---|---|
+  | API Gateway | ●●● | ●● | ●●● | ● |
+  | Order Service | ●● | ●●● | ● | ●● |
+  | Batch Service | ● | ●● | — | ●●● |
+  (●●● = 고빈도, ●● = 중빈도, ● = 저빈도, — = 호출 없음)
+- → PM 활용: 서비스 간 결합도 파악, 장애 전파 경로 예측, MSA 분리/통합 판단 근거
+
+#### 관점 D: Function → OS/Platform API 호출 맵
+- 주요 비즈니스 Function이 OS 레벨 API를 직접 호출하는 관계를 매핑하라
+- 대상 OS API: Keystore/Keychain(보안 저장), 생체인증(BiometricPrompt/LAContext), 카메라, 위치(GPS), 파일 시스템, 네트워크 상태, 푸시 토큰(FCM/APNs), 앱 권한(Permission) 등
+- 플랫폼별 분기 표기: 동일 Function이 iOS/Android에서 다른 OS API를 호출하는 경우 양쪽 모두 표기
+  ```
+  authenticateUser()
+  ├── [Android] BiometricPrompt → KeyStore
+  └── [iOS] LAContext → Keychain
+  ```
+- STB 전용: 튜너 API, HDMI-CEC, CAS 모듈, 리모컨 키 이벤트 등 하드웨어 API 호출 매핑
+- OS API 변경(minSdk 상향, Deprecated API) 시 영향받는 Function 역추적 테이블:
+  | OS API | 플랫폼 | Deprecated 여부 | 영향 Function | 대체 API |
+  |---|---|---|---|---|
+  | FingerprintManager | Android | ⚠️ Deprecated (API 28+) | authenticateUser() | BiometricPrompt |
+  | UIWebView | iOS | 🔴 Removed (iOS 12+) | loadWebContent() | WKWebView |
+- → PM 활용: OS 버전 업그레이드 시 영향 범위 파악, minSdk 상향 판단 근거
+
+#### 관점 E: 통합 의존성 매트릭스 (Function × External Stack)
+- 위 A~D 관점을 종합하여, 주요 비즈니스 Function별 외부 의존성을 단일 매트릭스로 정리하라
+- 매트릭스 형태:
+  | Function | 공통 모듈 | SDK/Library | 서버 간 호출 | OS API | 총 의존 수 | 위험도 |
+  |---|---|---|---|---|---|---|
+  | processPayment() | CommonCrypto, CommonAuth | 결제SDK, 분석SDK | PaymentSvc, AuthSvc | Keystore | 6 | 🔴 |
+  | playContent() | CommonDRM | DRM SDK `<<binary>>` | ContentSvc, LicenseSvc | MediaCodec | 5 | 🔴 |
+  | login() | CommonAuth | — | AuthSvc | BiometricPrompt | 3 | 🟡 |
+- 위험도 산정 기준:
+  - 🔴 High: 외부 의존 5개 이상 또는 `<<binary SDK>>` 포함 또는 순환 호출 존재
+  - 🟡 Medium: 외부 의존 3~4개
+  - 🟢 Low: 외부 의존 1~2개
+- 의존성 변경 시 영향 시뮬레이션: 특정 외부 스택(SDK, 서비스, OS API)이 변경/장애 시 영향받는 Function 목록을 역추적할 수 있는 참조 문서
+- → PM 활용: 기능별 외부 의존도 한눈에 파악, 변경/장애 영향 범위 즉시 판단, 리팩토링 우선순위 결정
+
+#### Function–External Stack View 산출물 규칙
+- 각 관점(A~E)별 독립 문서로 작성하되, 관점 E(통합 매트릭스)에서 A~D를 교차 참조
+- 주요 Function 선정 기준: Use Case Tree의 핵심 UC에 매핑된 Service 클래스의 public 메서드 (최소 10개 이상)
+- 모든 외부 스택 노드에 확인 상태(✅/⚠️/🔍) 표기
+- `<<binary SDK>>`, `<<no-source>>` 등 코드 없는 구성 요소는 점선 테두리로 구분
+- Mermaid flowchart + Markdown 테이블 병행 사용
+- → 대상: PM, 개발자
+
 ## 산출물
 
 `services/{서비스명}/docs/views/` 에 아래 구조로 생성:
@@ -255,6 +341,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - `resilience-dr/` — 장애 복원력 및 DR View (장애 유형, SPOF, 격리, DR 아키텍처) `[CDR 11장]`
 - `ai-governance/` — AI 거버넌스 View (활용 맵, 모델 인벤토리, Fail-safe, 의사결정 흐름) `[CDR 12장]`
 - `layer-stack/` — Layer Stack View (Client/Middleware/OS/Firmware/Network/Server/Infra 계층 다이어그램)
+- `function-stack-callflow/` — Function–External Stack Call Flow View (관점 A~E: 공통 모듈, SDK/Library, 서버 간, OS API 호출 맵 및 통합 매트릭스)
 - `stakeholder-summary/` — Stakeholder별 맞춤 요약 문서
 
 ## 다이어그램 작성 규칙
@@ -265,7 +352,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 기타 흐름도: Mermaid `flowchart` 사용
 
 ## 완료 기준
-- 12개 View 섹션(2-1 ~ 2-12) 모두 문서화됨
+- 13개 View 섹션(2-1 ~ 2-13) 모두 문서화됨
 - 각 View에 대상 Stakeholder가 명시됨
 - 모든 다이어그램이 Mermaid 또는 Structurizr로 렌더링 가능
 - Phase 1 추출 결과의 확인 상태(✅/⚠️/❌/🔍)가 View에 반영됨
@@ -277,3 +364,5 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 멀티 Repo 서비스에서 앱↔서버 간 Call Flow 교차 매핑이 완료됨
 - Use Case ↔ Call Flow 교차 매핑 테이블이 작성됨
 - Layer Stack View(2-12)에 7개 Layer가 모두 식별되고, 각 항목에 추정 근거와 확인 상태가 표기됨
+- Function–External Stack View(2-13)에 5개 관점(A~E) 모두 작성됨
+- 주요 Function(최소 10개)별 외부 의존성 통합 매트릭스가 위험도 등급과 함께 작성됨
