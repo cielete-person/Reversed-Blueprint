@@ -39,6 +39,20 @@ inclusion: manual
 - 수집 결과를 `services/{서비스명}/docs/extraction/runtime-data.md`에 기록
 - KIRO가 코드에서 추출한 Call Flow / 성능 병목 후보와 런타임 데이터를 비교 검증하는 데 활용
 
+## 필수 탐색 파일 패턴 (Pass 1 구조 스캔용)
+
+> 대용량 Repo에서 이 Step의 항목을 "해당 없음"으로 판정하기 전에, 아래 패턴을 반드시 검색하라.
+
+| 카테고리 | fileSearch 패턴 | grepSearch 키워드 |
+|---|---|---|
+| 컨테이너/배포 | `Dockerfile`, `docker-compose*`, `*.yaml`, `*.yml` (k8s) | `FROM`, `EXPOSE`, `apiVersion`, `kind: Deployment`, `kind: Service`, `kind: Ingress` |
+| k8s manifest | `*deployment*`, `*service*`, `*ingress*`, `*configmap*`, `*secret*` | `replicas`, `containers`, `resources`, `limits`, `requests`, `livenessProbe` |
+| 외부 연동 설정 | `*Client*`, `*Gateway*`, `*Adapter*`, `*Connector*`, `*Integration*` | `@FeignClient`, `RestTemplate`, `WebClient`, `HttpClient`, `SoapClient`, `FTP`, `SFTP` |
+| 캐시 설정 | `*Cache*`, `*Redis*`, `*Memcached*` | `@Cacheable`, `RedisTemplate`, `CacheManager`, `spring.cache`, `spring.redis` |
+| 메시지 큐 | `*Kafka*`, `*Rabbit*`, `*MQ*`, `*Messaging*` | `spring.kafka`, `spring.rabbitmq`, `@KafkaListener`, `@RabbitListener`, `JmsTemplate` |
+| STB 리소스 | `*Watchdog*`, `*OOM*`, `*Memory*`, `*Resource*` | `watchdog`, `oom`, `lowMemory`, `onTrimMemory`, `getMemoryInfo`, `Runtime.getRuntime` |
+| NFR 설정 | `application*.yml`, `*timeout*`, `*pool*` | `timeout`, `connection-pool`, `max-connections`, `ttl`, `rate-limit`, `circuit-breaker` |
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드

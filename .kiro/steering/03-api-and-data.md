@@ -69,6 +69,20 @@ REST API 엔드포인트를 자동 추출하고, DB 스키마를 역추적하여
 - 서비스 A → 서비스 B 호출 관계를 매트릭스로 정리하라
 - 동기(API) / 비동기(MQ) 구분하라
 
+## 필수 탐색 파일 패턴 (Pass 1 구조 스캔용)
+
+> 대용량 Repo에서 이 Step의 항목을 "해당 없음"으로 판정하기 전에, 아래 패턴을 반드시 검색하라.
+
+| 카테고리 | fileSearch 패턴 | grepSearch 키워드 |
+|---|---|---|
+| Controller/Router | `*Controller*`, `*Resource*`, `*Router*`, `*Endpoint*`, `*Handler*` | `@RestController`, `@RequestMapping`, `@GetMapping`, `@PostMapping`, `router.get`, `@app.get` |
+| DTO/VO | `*Dto*`, `*DTO*`, `*Vo*`, `*VO*`, `*Request*`, `*Response*` | `@RequestBody`, `@ResponseBody`, `@Valid`, `@NotNull` |
+| Entity/Model | `*Entity*`, `*Model*`, `*Domain*` | `@Entity`, `@Table`, `@Column`, `@Id`, `@ManyToOne` |
+| Repository/DAO | `*Repository*`, `*Dao*`, `*DAO*`, `*Mapper*` | `@Repository`, `JpaRepository`, `CrudRepository`, `@Mapper` |
+| Mapper XML | `*Mapper.xml`, `*-mapper.xml`, `sqlmap/**` | `<mapper`, `<select`, `<insert`, `<update`, `<delete`, `resultMap` |
+| DB 마이그레이션 | `V*.sql`, `*changelog*`, `*migration*`, `flyway/**`, `db/migrate/**` | `CREATE TABLE`, `ALTER TABLE`, `flyway`, `liquibase` |
+| Feign/gRPC | `*Client*`, `*FeignClient*`, `*.proto` | `@FeignClient`, `RestTemplate`, `WebClient`, `gRPC`, `ManagedChannel` |
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드

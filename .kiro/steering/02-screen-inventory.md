@@ -45,6 +45,17 @@ inclusion: manual
   - iOS 네이밍 vs Android 네이밍 중 대표 명칭 하나로 확정
   - 용어 사전에 플랫폼별 원본 명칭 → 대표 명칭 매핑 등록
 
+## 필수 탐색 파일 패턴 (Pass 1 구조 스캔용)
+
+> 대용량 Repo에서 이 Step의 항목을 "해당 없음"으로 판정하기 전에, 아래 패턴을 반드시 검색하라.
+
+| 카테고리 | fileSearch 패턴 | grepSearch 키워드 |
+|---|---|---|
+| 라우터/네비게이션 | `*router*`, `*route*`, `*navigation*`, `*Routes*` | `createBrowserRouter`, `vue-router`, `@angular/router`, `NavHost`, `UINavigationController` |
+| 화면 컴포넌트 | `*Screen*`, `*Page*`, `*View*`, `*Activity*`, `*ViewController*`, `*Fragment*` | `@Composable`, `struct.*View.*Body`, `class.*Activity`, `class.*Fragment` |
+| 팝업/모달 | `*Modal*`, `*Dialog*`, `*Popup*`, `*BottomSheet*`, `*Alert*` | `showDialog`, `present`, `showModalBottomSheet`, `AlertDialog` |
+| STB 화면 | `*Launcher*`, `*Leanback*`, `*TvActivity*` | `BrowseSupportFragment`, `LeanbackActivity`, `D-pad`, `KeyEvent` |
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드

@@ -74,6 +74,19 @@ inclusion: manual
 
 산출물: `services/{서비스명}/docs/extraction/05-security/app-shielding.md`
 
+## 필수 탐색 파일 패턴 (Pass 1 구조 스캔용)
+
+> 대용량 Repo에서 이 Step의 항목을 "해당 없음"으로 판정하기 전에, 아래 패턴을 반드시 검색하라.
+
+| 카테고리 | fileSearch 패턴 | grepSearch 키워드 |
+|---|---|---|
+| Security 설정 | `*SecurityConfig*`, `*WebSecurityConfig*`, `*AuthConfig*`, `*SecurityFilter*` | `@EnableWebSecurity`, `SecurityFilterChain`, `HttpSecurity`, `cors`, `csrf` |
+| 암호화 | `*Crypto*`, `*Encrypt*`, `*Cipher*`, `*Hash*`, `*Aes*`, `*Rsa*` | `AES`, `RSA`, `SHA-256`, `BCrypt`, `PBKDF2`, `MessageDigest`, `Cipher.getInstance` |
+| 인증/인가 | `*Auth*`, `*Login*`, `*Token*`, `*Jwt*`, `*OAuth*`, `*Session*` | `@PreAuthorize`, `@Secured`, `JWT`, `Bearer`, `AccessToken`, `RefreshToken` |
+| 개인정보 필드 | — | `phone`, `email`, `name`, `address`, `ci`, `di`, `ssn`, `주민`, `전화`, `이메일`, `@PersonalInfo` |
+| 감사 로그 | `*Audit*`, `*AuditLog*`, `*AccessLog*` | `@Audit`, `AuditTrail`, `audit_log`, `access_log`, `감사` |
+| 앱 쉴딩 | `proguard-rules.pro`, `*Guard*`, `*Shield*`, `*Root*`, `*Jailbreak*` | `ProGuard`, `R8`, `RootBeer`, `SafetyNet`, `DeviceCheck`, `iXGuard`, `AppSealing` |
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드

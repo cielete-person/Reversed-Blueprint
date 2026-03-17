@@ -91,6 +91,19 @@ inclusion: manual
 - 시나리오 문서 내 각 단계에 `[보안]` `[품질]` `[성능]` 태그로 인라인 표기
 - 미충족 NFR 항목은 Phase 3 Gap 분석(10-gap-analysis)의 입력으로 연계
 
+## 필수 탐색 파일 패턴 (Pass 1 구조 스캔용)
+
+> 대용량 Repo에서 이 Step의 항목을 "해당 없음"으로 판정하기 전에, 아래 패턴을 반드시 검색하라.
+
+| 카테고리 | fileSearch 패턴 | grepSearch 키워드 |
+|---|---|---|
+| Service 클래스 | `*Service*`, `*ServiceImpl*`, `*UseCase*`, `*Interactor*` | `@Service`, `@Transactional`, `@Component` |
+| Enum/Status | `*Enum*`, `*Status*`, `*State*`, `*Type*`, `*Code*` | `enum`, `status`, `state`, `valueOf` |
+| 이벤트/메시지 | `*Producer*`, `*Consumer*`, `*Listener*`, `*Publisher*`, `*Handler*` | `@KafkaListener`, `@RabbitListener`, `KafkaTemplate`, `@EventListener`, `@StreamListener` |
+| 배치/스케줄러 | `*Job*`, `*Scheduler*`, `*Batch*`, `*Task*` | `@Scheduled`, `@EnableScheduling`, `Quartz`, `cron`, `JobDetail`, `Step` |
+| Feign/내부호출 | `*Client*`, `*FeignClient*`, `*Proxy*` | `@FeignClient`, `RestTemplate`, `WebClient`, `circuitBreaker`, `@Retry` |
+| 에러 처리 | `*Exception*`, `*ErrorHandler*`, `*ExceptionHandler*`, `*ErrorCode*` | `@ExceptionHandler`, `@ControllerAdvice`, `ErrorBoundary`, `GlobalException` |
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드

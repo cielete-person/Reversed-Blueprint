@@ -33,8 +33,6 @@
 │   └── _template/               새 서비스 추가 시 복사용 템플릿
 ├── docs-integrated/       ← 전체 서비스 통합 설계도 (문서화용)
 ├── glossary.md            ← 용어 사전
-└── scripts/               ← 자동화 스크립트/가이드
-    └── jira-confluence-sync.md  Jira/Confluence 동기화 가이드
 ```
 
 ## 작업 방법 (KIRO 기반)

@@ -73,6 +73,19 @@ inclusion: manual
 - 자동 롤백 트리거 조건을 식별하라
 - 환경별 배포 파이프라인 차이를 정리하라 (dev/staging/prod)
 
+## 필수 탐색 파일 패턴 (Pass 1 구조 스캔용)
+
+> 대용량 Repo에서 이 Step의 항목을 "해당 없음"으로 판정하기 전에, 아래 패턴을 반드시 검색하라.
+
+| 카테고리 | fileSearch 패턴 | grepSearch 키워드 |
+|---|---|---|
+| 빌드 파일 | `pom.xml`, `build.gradle`, `package.json`, `go.mod`, `requirements.txt`, `Cargo.toml`, `*.csproj` | `dependencies`, `plugins`, `devDependencies` |
+| 설정 파일 | `application*.yml`, `application*.properties`, `*.env*`, `config/**`, `bootstrap*.yml` | `spring.profiles`, `server.port`, `datasource` |
+| IaC 파일 | `*.tf`, `Chart.yaml`, `values.yaml`, `kustomization.yaml`, `*.cfn.yml`, `playbook*.yml` | `resource`, `provider`, `helm`, `ansible` |
+| CI/CD | `Jenkinsfile`, `.gitlab-ci.yml`, `bitbucket-pipelines.yml`, `.github/workflows/*.yml` | `pipeline`, `stage`, `deploy`, `build` |
+| 플랫폼 분기 | `*.ios.js`, `*.android.js`, `Info.plist`, `AndroidManifest.xml`, `proguard-rules.pro` | `Platform.OS`, `Build.VERSION`, `#if os(iOS)` |
+| 기술 부채 | — | `TODO`, `FIXME`, `HACK`, `WORKAROUND`, `XXX`, `DEPRECATED` |
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드

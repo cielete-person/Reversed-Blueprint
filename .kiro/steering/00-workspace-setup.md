@@ -80,7 +80,6 @@ inclusion: manual
 │   ├── cdr-design-checklist.md
 │   └── manual-tasks.md              ← 수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증)
 ├── glossary.md                  ← 용어 사전 초안
-└── scripts/
 ```
 
 ## 서비스 인벤토리 관련 문서

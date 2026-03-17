@@ -43,6 +43,20 @@ inclusion: manual
 ### 8. 성능 병목 후보
 - N+1 쿼리, 루프 내 외부 호출, 메모리 집약 처리 영역을 식별하라
 
+## 필수 탐색 파일 패턴 (Pass 1 구조 스캔용)
+
+> 대용량 Repo에서 이 Step의 항목을 "해당 없음"으로 판정하기 전에, 아래 패턴을 반드시 검색하라.
+
+| 카테고리 | fileSearch 패턴 | grepSearch 키워드 |
+|---|---|---|
+| 테스트 디렉토리 | `*test*/**`, `*Test*`, `*Spec*`, `*spec*`, `__tests__/**` | `@Test`, `@SpringBootTest`, `describe(`, `it(`, `test(`, `expect(`, `assert` |
+| 로깅 설정 | `logback*.xml`, `log4j*.xml`, `log4j*.properties`, `*logging*` | `LoggerFactory`, `@Slf4j`, `log.info`, `log.error`, `winston`, `pino` |
+| 의존성 파일 | `pom.xml`, `build.gradle`, `package.json`, `package-lock.json`, `yarn.lock` | `version`, `dependency`, `devDependencies` |
+| 동시성 패턴 | — | `synchronized`, `ReentrantLock`, `@Async`, `CompletableFuture`, `ExecutorService`, `AtomicInteger`, `ConcurrentHashMap` |
+| 트랜잭션 | — | `@Transactional`, `TransactionTemplate`, `propagation`, `isolation`, `REQUIRES_NEW` |
+| 캐시 | `*Cache*`, `*Redis*`, `*Ehcache*` | `@Cacheable`, `@CacheEvict`, `RedisTemplate`, `CacheManager`, `ehcache` |
+| 모니터링 | `*Health*`, `*Metric*`, `*Actuator*` | `@HealthIndicator`, `actuator`, `micrometer`, `prometheus`, `/health` |
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
