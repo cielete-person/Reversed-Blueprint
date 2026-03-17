@@ -95,6 +95,17 @@ Modal, Dialog, Popup, BottomSheet, Alert, Toast, Snackbar 컴포넌트를 모두
 호출부(showDialog, present, showModal)도 추적해줘.
 ```
 
+## 🔧 작업자 수작업 보충 항목
+
+> 이 Step에서 KIRO 자동 추출만으로는 완성할 수 없는 항목입니다.
+> 산출물 생성 후 아래 항목을 작업자가 직접 보충해 주세요.
+> 상세: [manual-tasks.md](../project/manual-tasks.md)
+
+| 항목 ID | 항목명 | 유형 | 해야 할 일 |
+|---|---|---|---|
+| P1-5 | 화면명 정규화 최종 확정 | `[확정]` | KIRO가 제시한 화면명 정규화 후보를 PO/UX 담당자가 검토하고 대표 명칭 확정 |
+| P1-1 | 런타임 트래픽 데이터 수집 | `[런타임]` | 화면별 진입 빈도(GA/Firebase Analytics)를 수집하여 DAU 기준 PV, 이탈률, 체류 시간 보충 |
+
 ## 완료 기준
 - 모든 라우트/페이지가 식별되고 화면 ID가 부여됨
 - 서브 화면(팝업/모달 등)이 누락 없이 포함됨

@@ -10,6 +10,8 @@ Thumbs.db
 
 # 서비스 소스코드 (각 서비스의 src/는 별도 repo이므로 제외)
 services/*/src/
+# _template의 src/README.md는 가이드 문서이므로 추적
+!services/_template/src/README.md
 
 # 백업 파일 (선택: Git에 포함하지 않으려면 주석 해제)
 # **/_backup/

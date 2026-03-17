@@ -351,6 +351,19 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - ERD: Mermaid `erDiagram` 사용
 - 기타 흐름도: Mermaid `flowchart` 사용
 
+## 🔧 작업자 수작업 보충 항목
+
+> 이 Step에서 KIRO 자동 추출만으로는 완성할 수 없는 항목입니다.
+> 산출물 생성 후 아래 항목을 작업자가 직접 보충해 주세요.
+> 상세: [manual-tasks.md](../project/manual-tasks.md)
+
+| 항목 ID | 항목명 | 유형 | 해야 할 일 |
+|---|---|---|---|
+| P2-1 | Stakeholder 리뷰 체크포인트 | `[확정]` | 각 View별 Stakeholder(PO/PM/개발자/UX/보안/품질)가 산출물을 리뷰하고 누락/오류 확인 |
+| P2-2 | STB 하드웨어 스펙 수집 | `[인터뷰]` | STB 리소스 관리 View(2-9) 작성 시 기종별 실제 하드웨어 스펙 보충 필요 |
+| P2-3 | 운영 환경 정보 수집 | `[인터뷰]` | 배포 토폴로지 View 작성 시 실제 인스턴스 수, LB/CDN 구성 보충 필요 |
+| P1-3 | 분산 추적 데이터 수집 | `[런타임]` | E2E Call Flow View 작성 시 실제 런타임 호출 그래프와 비교 검증 필요 |
+
 ## 완료 기준
 - 13개 View 섹션(2-1 ~ 2-13) 모두 문서화됨
 - 각 View에 대상 Stakeholder가 명시됨

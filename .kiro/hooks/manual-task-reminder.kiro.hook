@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "수작업 보충 항목 리마인더",
+  "description": "services/*/docs/ 하위에 산출물 .md 파일을 생성할 때, 해당 Step의 수작업 보충 항목을 작업자에게 안내합니다.",
+  "version": "1",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": [
+      "write"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "방금 쓴 파일의 경로를 확인하세요. 아래 조건을 모두 만족하는 경우에만 수작업 리마인더를 출력하세요:\n1. 파일 경로가 services/*/docs/ 하위인가?\n2. 파일 확장자가 .md인가?\n3. 파일명이 README.md가 아닌가?\n\n조건을 만족하면, 파일 경로에서 어떤 extraction Step의 산출물인지 판별하세요:\n- extraction/01-code-structure/ → Step 01 (P1-4, P1-7, P1-6)\n- extraction/01b-dead-code/ → Step 1b (P1-4, P1-1)\n- extraction/01c-common-modules/ → Step 1c (P1-7)\n- extraction/02-screens/ → Step 02 (P1-5, P1-1)\n- extraction/03-api-data/ → Step 03 (P1-1, P1-2, P1-6, P1-8)\n- extraction/04-business-logic/ → Step 04 (P1-3, P1-8, P1-4)\n- extraction/05-security/ → Step 05 (P3-3, P3-4, P2-1)\n- extraction/06-quality/ → Step 06 (P1-2, P1-1, P2-1)\n- extraction/07-ux/ → Step 07 (P1-5, P2-1, P1-1)\n- extraction/08-infra/ → Step 08 (P1-1~P1-3, P1-8, P2-2, P2-3)\n- views/ → Step 09 (P2-1~P2-3, P1-3)\n- gap-analysis/ → Step 10 (P3-1~P3-5)\n\n판별된 Step에 해당하는 수작업 항목을 아래 형식으로 작업자에게 안내하세요:\n\n\"🔧 이 Step에서 작업자가 수작업으로 보충해야 할 항목이 있습니다:\n{해당 항목 ID와 항목명, 해야 할 일을 간략히 나열}\n상세: project/manual-tasks.md 또는 해당 steering 파일의 '🔧 작업자 수작업 보충 항목' 섹션을 참조하세요.\"\n\n조건을 만족하지 않으면 아무것도 출력하지 마세요."
+  }
+}
