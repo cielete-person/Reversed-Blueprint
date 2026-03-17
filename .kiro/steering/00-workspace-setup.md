@@ -24,6 +24,7 @@ inclusion: manual
 │   │       │   ├── 01-code-structure/
 │   │       │   │   └── _backup/ ← 이전 버전 백업 (자동 생성)
 │   │       │   ├── 01b-dead-code/
+│   │       │   ├── 01c-common-modules/
 │   │       │   ├── 02-screens/
 │   │       │   ├── 03-api-data/
 │   │       │   ├── 04-business-logic/

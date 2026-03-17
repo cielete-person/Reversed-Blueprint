@@ -15,7 +15,7 @@ inclusion: auto
 
 작업자가 서비스명이나 소스코드 경로를 알려주면, KIRO가 아래를 자동으로 수행합니다:
 1. 서비스 폴더 생성 및 소스코드 배치
-2. 11단계 steering(01→1b→02~10)에 따른 설계도 추출
+2. 13단계 steering(01→1b→1c→02~10)에 따른 설계도 추출
 3. 산출물 생성 및 버전 백업
 
 ## 작업자 프롬프트 감지 및 자동 안내
@@ -86,4 +86,5 @@ inclusion: auto
 - `services/*/docs/` 산출물 작업 완료 시 프롬프트 피드백 수집 (`collect-prompt-feedback` hook 동작)
 - ❌ 판정 전 최소 6회 검색 검증 필수 (2-Pass 스캔 전략)
 - Step 01 완료 후 반드시 Step 1b(Dead Code 분석)를 실행하여 미사용 코드/DB/API를 식별
+- Step 1b 완료 후 Step 1c(공통 모듈 그룹핑)를 실행하여 공통 패키지/사내 라이브러리를 식별
 - 보안 steering 수정 시 CTO보안허브 정책 안내 필수 출력

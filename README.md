@@ -18,7 +18,7 @@
 ## 폴더 구조
 
 ```
-├── .kiro/steering/        ← KIRO steering 문서 (11단계 순차 작업 가이드)
+├── .kiro/steering/        ← KIRO steering 문서 (13단계 순차 작업 가이드)
 ├── project/               ← 프로젝트 관리 문서
 │   ├── workplan-roadmap.md            로드맵 (Phase 0~4, 18주)
 │   ├── extraction-checklist.md        추출 항목 체크리스트
@@ -48,6 +48,7 @@
    - `#00-workspace-setup` → 환경 구성
    - `#01-code-structure-scan` ~ `#08-infra-and-integration` → Phase 1 추출
      - Step 01 완료 후 `#01b-dead-code-analysis` → Dead Code/미사용 리소스 식별
+     - Step 1b 완료 후 `#01c-common-module-grouping` → 공통 모듈 그룹핑/사내 라이브러리 식별
    - `#09-architecture-views` → Phase 2 View 생성
    - `#10-gap-analysis` → Phase 3 Gap 분석
 4. 서비스별 완료 후 `docs-integrated/`에 통합

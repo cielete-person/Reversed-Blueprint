@@ -210,6 +210,7 @@ KIRO 채팅창에 아래 형식으로 입력한다:
 |---|---|---|---|
 | Step 01 | `#01-code-structure-scan 서비스: media-iptv-vod` | 기술 스택, 의존성, 플랫폼 분기 | `extraction/01-code-structure/` |
 | Step 1b | `#01b-dead-code-analysis 서비스: media-iptv-vod` | Dead Code, 미사용 DB/API/설정 | `extraction/01b-dead-code/` |
+| Step 1c | `#01c-common-module-grouping 서비스: media-iptv-vod` | 공통 모듈 그룹핑, 사내 라이브러리, 영향 범위 | `extraction/01c-common-modules/` |
 | Step 02 | `#02-screen-inventory 서비스: media-iptv-vod` | 화면 목록, 크로스 플랫폼 동기화 | `extraction/02-screens/` |
 | Step 03 | `#03-api-and-data 서비스: media-iptv-vod` | API, DB 스키마, 쿼리 패턴 | `extraction/03-api-data/` |
 | Step 04 | `#04-business-logic 서비스: media-iptv-vod` | 비즈니스 규칙, 상태 전이, Use Case, NFR 체크포인트 | `extraction/04-business-logic/` |
@@ -415,6 +416,7 @@ git push origin main
        ↓
 4. Phase 1 추출 (Step 01~08): KIRO 채팅에서 순서대로 실행
    ※ Step 01 완료 후 반드시 Step 1b(Dead Code 분석)를 실행
+   ※ Step 1b 완료 후 Step 1c(공통 모듈 그룹핑)를 실행
    산출물 → services/{폴더명}/docs/extraction/
        ↓
 5. Phase 2 View 생성 (Step 09)
@@ -493,4 +495,4 @@ git push origin main
 | 수작업 항목 목록 | `project/manual-tasks.md` | KIRO 자동 추출 불가 항목 (런타임 데이터, 인터뷰, 교차 검증 등) |
 | 프롬프트 쿡북 | `project/prompt-cookbook.md` | 효과적인 추가 프롬프트 패턴 축적소 |
 | 용어 사전 | `glossary.md` | 프로젝트 공통 용어 정의 |
-| Steering 문서 (13개) | `.kiro/steering/` | KIRO 실행 가이드 (Step 00~10, 1b 포함) |
+| Steering 문서 (15개) | `.kiro/steering/` | KIRO 실행 가이드 (Step 00~10, 1b, 1c 포함) |
