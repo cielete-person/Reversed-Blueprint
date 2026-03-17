@@ -99,6 +99,35 @@ inclusion: manual
 0. **서비스 ID 확인 필수 (작업 시작 전 반드시 수행)**
    - 사용자가 서비스명을 지정하면, 반드시 `project/service-inventory.md`를 열어 해당 서비스의 정보를 확인하라
    - 확인 항목: 서비스 ID, 폴더명, 소스 유무, Bitbucket Repo URL
+   - **사용자가 이미 clone한 소스 경로를 알려준 경우**:
+     1. `service-inventory.md`에서 서비스 정보를 확인하라
+     2. `services/_template/`을 복사하여 `services/{폴더명}/` 폴더를 생성하라
+     3. 사용자가 알려준 경로의 소스코드를 `services/{폴더명}/src/`로 복사하라 (멀티 Repo면 `src/app-android/`, `src/app-ios/`, `src/server/` 등으로 구분)
+     4. `service-inventory.md`의 소스 유무를 `✅`로, Repo URL을 기입하라
+     5. 아래 확인 메시지를 출력하고 승인을 받은 후 Step 01부터 시작하라
+   - **사용자가 여러 경로를 알려준 경우 (멀티 Repo 자동 판별)**:
+     1. 각 경로의 루트 디렉토리를 `listDirectory`로 스캔하라
+     2. 아래 기준으로 플랫폼 유형을 자동 판별하라:
+        | 판별 파일/패턴 | 플랫폼 유형 | 배치 폴더 |
+        |---|---|---|
+        | `AndroidManifest.xml` + `build.gradle(.kts)` (android 플러그인) | Android 앱 | `src/app-android/` |
+        | `Info.plist` + `*.xcodeproj` 또는 `*.xcworkspace` | iOS 앱 | `src/app-ios/` |
+        | `AndroidManifest.xml` + Leanback/TV 의존성 | STB 앱 | `src/app-stb/` |
+        | `pom.xml` 또는 `build.gradle(.kts)` (spring 의존성) | 서버 (Java/Kotlin) | `src/server/` |
+        | `package.json` + express/nest/koa 의존성 | 서버 (Node.js) | `src/server/` |
+        | `pubspec.yaml` (Flutter) 또는 `react-native` 의존성 | 크로스플랫폼 앱 | `src/app-cross/` |
+     3. 판별 결과를 아래 형식으로 출력하고 승인을 받은 후 배치하라:
+        ```
+        📋 멀티 Repo 플랫폼 자동 판별 결과:
+        | 경로 | 판별 근거 | 플랫폼 유형 | 배치 위치 |
+        |---|---|---|---|
+        | C:\Projects\my-app-android | AndroidManifest.xml, com.android.application | Android 앱 | src/app-android/ |
+        | C:\Projects\my-app-ios | Info.plist, MyApp.xcworkspace | iOS 앱 | src/app-ios/ |
+        | C:\Projects\my-server | pom.xml, spring-boot-starter | 서버 (Java) | src/server/ |
+        
+        이대로 배치할까요? (수정이 필요하면 알려주세요)
+        ```
+     4. 승인 후 각 경로를 해당 배치 위치로 복사하고 Step 01부터 시작하라
    - 확인 후 사용자에게 아래 형식으로 응답하라:
      ```
      📋 대상 서비스 확인:

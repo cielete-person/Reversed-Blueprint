@@ -38,6 +38,10 @@
 
 ## 작업 방법 (KIRO 기반)
 
+> KIRO에서 이 폴더를 열면, 자동 가이드 steering(`00-project-entry`)이 항상 로드됩니다.
+> 작업자가 소스코드 경로나 서비스명을 알려주면 KIRO가 자동으로 절차를 안내합니다.
+> 상세 실행 가이드: [작업자용 매뉴얼](project/operator-manual.md)
+
 1. `project/service-inventory.md`에 대상 서비스 등록
 2. 소스코드를 `services/{서비스명}/src/`에 clone
 3. KIRO 채팅에서 steering 문서를 순서대로 실행:
@@ -60,6 +64,7 @@
 ## 상세 문서
 
 - [작업자용 매뉴얼](project/operator-manual.md) — KIRO 설계도 추출 작업 실행 가이드 (신규 작업자 필독)
+- [자동 가이드 Steering](.kiro/steering/00-project-entry.md) — KIRO가 항상 자동 로드하는 진입점 (작업자 프롬프트 감지 → 자동 안내)
 - [Workplan Roadmap](project/workplan-roadmap.md)
 - [Extraction Checklist](project/extraction-checklist.md)
 - [Service Inventory](project/service-inventory.md) — 작업 관리용 (폴더명, Repo URL, 진행 현황)

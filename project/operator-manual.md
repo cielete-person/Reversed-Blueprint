@@ -24,6 +24,10 @@
 2. KIRO에서 clone한 폴더를 연다: `File > Open Folder > Reversed-Blueprint`
 3. 채팅에서 `#` 입력 시 steering 문서 목록이 보이는지 확인한다
 
+> 📌 KIRO가 이 폴더를 열면 자동 가이드(`00-project-entry` steering)가 항상 로드된다.
+> 따라서 작업자가 아무 프롬프트(예: "설계도 추출 시작하고 싶어", "소스코드 경로는 C:\xxx야")를
+> 입력하기만 하면, KIRO가 자동으로 올바른 절차를 안내한다.
+
 ### 0-3. KIRO 모드 설정
 
 | 모드 | 설명 | 권장 상황 |
@@ -32,6 +36,64 @@
 | Supervised | 변경 사항 제안 → 작업자 승인 후 반영 | 처음 작업 시, 중요 서비스 |
 
 처음에는 Supervised 모드로 시작하여 산출물 품질을 확인하면서 진행할 것을 권장한다.
+
+### 0-4. 빠른 시작 — "이미 소스코드를 clone해 뒀어요"
+
+이미 Bitbucket에서 소스코드를 별도 폴더에 clone해 둔 경우, KIRO 채팅에 아래처럼 입력하면 된다:
+
+```
+소스코드를 이미 clone해 뒀어. 경로는 C:\Projects\my-service-repo 야.
+서비스명은 {서비스명}이고, 설계도 추출을 시작하고 싶어.
+```
+
+이렇게 하면 KIRO가 아래를 자동으로 수행한다:
+
+| 순서 | 누가 | 무엇을 |
+|---|---|---|
+| 1 | **KIRO** | `service-inventory.md`에서 해당 서비스를 찾아 서비스 ID, 폴더명을 확인 |
+| 2 | **KIRO** | `services/_template/`을 복사하여 서비스 폴더 생성 (`services/{폴더명}/`) |
+| 3 | **KIRO** | 작업자가 알려준 경로의 소스코드를 `services/{폴더명}/src/`로 복사 또는 심볼릭 링크 |
+| 4 | **KIRO** | 소스 구조를 확인하고 서비스 정보를 출력 → 작업자 승인 대기 |
+| 5 | **작업자** | "네" 또는 "진행"으로 승인 |
+| 6 | **KIRO** | 첫 번째 Step(01-code-structure-scan)부터 순차 실행 |
+
+> ⚠️ 작업자가 할 일: 소스코드 경로와 서비스명을 KIRO에게 알려주는 것뿐이다.
+> 나머지(폴더 생성, 복사, 구조 확인, Step 실행)는 모두 KIRO가 한다.
+
+**멀티 Repo인 경우:**
+```
+소스코드를 이미 clone해 뒀어.
+- Android: C:\Projects\my-app-android
+- iOS: C:\Projects\my-app-ios
+- 서버: C:\Projects\my-server
+서비스명은 media-iptv-vod이고, 설계도 추출을 시작하고 싶어.
+```
+
+이렇게 하면 KIRO가 각 폴더의 빌드 파일(AndroidManifest.xml, Info.plist, pom.xml 등)을 확인하여 플랫폼을 자동 판별하고, 아래와 같이 결과를 보여준다:
+
+```
+📋 멀티 Repo 플랫폼 자동 판별 결과:
+| 경로 | 판별 근거 | 플랫폼 유형 | 배치 위치 |
+|---|---|---|---|
+| C:\Projects\my-app-android | AndroidManifest.xml, com.android.application | Android 앱 | src/app-android/ |
+| C:\Projects\my-app-ios | Info.plist, MyApp.xcworkspace | iOS 앱 | src/app-ios/ |
+| C:\Projects\my-server | pom.xml, spring-boot-starter | 서버 (Java) | src/server/ |
+
+이대로 배치할까요? (수정이 필요하면 알려주세요)
+```
+
+| 순서 | 누가 | 무엇을 |
+|---|---|---|
+| 1 | **KIRO** | 각 경로의 빌드 파일을 스캔하여 플랫폼 유형 자동 판별 |
+| 2 | **KIRO** | 판별 결과 테이블을 출력 → 작업자 승인 대기 |
+| 3 | **작업자** | 결과 확인 후 "네" 또는 수정 요청 |
+| 4 | **KIRO** | 승인된 구조로 `services/{폴더명}/src/` 하위에 배치 후 Step 01 시작 |
+
+> ⚠️ 작업자가 할 일: 각 Repo 경로와 서비스명을 알려주고, 판별 결과를 확인하는 것뿐이다.
+> 플랫폼 판별, 폴더 배치, 분석 시작은 모두 KIRO가 한다.
+
+> 📌 소스코드를 아직 clone하지 않았다면, 섹션 1~2를 따라 직접 준비하거나,
+> KIRO에게 "SVC-001 서비스 작업을 시작하고 싶어"라고만 말하면 KIRO가 안내해 준다.
 
 ---
 
@@ -419,6 +481,7 @@ git push origin main
 | 문서 | 위치 | 용도 |
 |---|---|---|
 | 프로젝트 개요 | `README.md` | 프로젝트 목표, 폴더 구조, Phase 구성 |
+| 자동 가이드 Steering | `.kiro/steering/00-project-entry.md` | KIRO 자동 로드 진입점 (프롬프트 감지 → 자동 안내) |
 | 추출 항목 체크리스트 | `project/extraction-checklist.md` | 전체 추출 항목 상세 (Phase 1/2/3) |
 | 서비스 인벤토리 | `project/service-inventory.md` | 서비스 목록, Repo URL, 진행 현황 |
 | 플랫폼 서비스 인벤토리 | `project/platform-service-inventory.md` | 앱/단말/서버 관계 참조 |
