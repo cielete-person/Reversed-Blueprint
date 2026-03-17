@@ -73,6 +73,23 @@ inclusion: manual
 - `data-integrity.md` — 데이터 정합성 검증 포인트
 - `performance-hotspots.md` — 성능 병목 후보 영역
 
+## 💡 효과적인 추가 프롬프트 예시
+
+> 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)
+
+**테스트 파일 누락 시:**
+```
+test, spec, __tests__ 폴더와 *Test.java, *Spec.js, *.test.ts 파일을 모두 찾아줘.
+통합 테스트(IT), E2E 테스트도 별도 구분해줘.
+```
+
+**동시성 패턴 누락 시:**
+```
+synchronized, ReentrantLock, @Async, CompletableFuture, ExecutorService,
+AtomicInteger, ConcurrentHashMap 키워드를 모두 검색해줘.
+Reactor/RxJava 비동기 패턴도 포함해줘.
+```
+
 ## 완료 기준
 - 테스트 피라미드 현황(단위 > 통합 > E2E 비율)이 파악됨
 - 고위험 영역(변경 빈도 높음 + 테스트 없음)이 식별됨

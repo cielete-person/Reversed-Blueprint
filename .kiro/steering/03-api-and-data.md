@@ -99,6 +99,28 @@ REST API 엔드포인트를 자동 추출하고, DB 스키마를 역추적하여
 - `erd.md` — ERD 초안 (Mermaid erDiagram 사용)
 - `service-communication-matrix.md` — 서비스 간 통신 매트릭스
 
+## 💡 효과적인 추가 프롬프트 예시
+
+> 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)
+
+**MyBatis XML 누락 시:**
+```
+src/ 하위에서 *.xml 파일 중 <mapper 또는 <select 태그가 포함된 파일을 모두 찾아줘.
+sqlmap/, mapper/, mybatis/ 폴더도 확인해줘.
+```
+
+**DB 마이그레이션 누락 시:**
+```
+flyway, liquibase, migration, V1__, V2__ 키워드로 파일을 검색해줘.
+db/, sql/, resources/db/ 폴더도 확인해줘.
+```
+
+**내부 API 호출 누락 시:**
+```
+@FeignClient, RestTemplate, WebClient, HttpClient 사용부를 모두 찾아줘.
+URL이 하드코딩된 경우와 설정에서 주입되는 경우를 구분해줘.
+```
+
 ## 완료 기준
 - 모든 Controller/Router의 엔드포인트가 목록화됨
 - API 요청/응답 스키마가 DTO/VO 필드 레벨까지 추출됨 (Swagger 미정비 레거시 포함)

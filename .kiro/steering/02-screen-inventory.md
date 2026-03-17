@@ -74,6 +74,22 @@ inclusion: manual
 |---|---|---|---|---|---|---|---|---|---|
 ```
 
+## 💡 효과적인 추가 프롬프트 예시
+
+> 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)
+
+**라우터 누락 시:**
+```
+src/ 하위에서 router, route, navigation, Routes 가 포함된 파일을 모두 찾아줘.
+설정 파일뿐 아니라 동적 라우팅(lazy import)도 포함해줘.
+```
+
+**서브 화면(팝업/모달) 누락 시:**
+```
+Modal, Dialog, Popup, BottomSheet, Alert, Toast, Snackbar 컴포넌트를 모두 찾아줘.
+호출부(showDialog, present, showModal)도 추적해줘.
+```
+
 ## 완료 기준
 - 모든 라우트/페이지가 식별되고 화면 ID가 부여됨
 - 서브 화면(팝업/모달 등)이 누락 없이 포함됨

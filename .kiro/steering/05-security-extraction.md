@@ -120,6 +120,25 @@ inclusion: manual
 
 산출물: `services/{서비스명}/docs/extraction/05-security/security-layer-compliance.md`
 
+## 💡 효과적인 추가 프롬프트 예시
+
+> 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)
+
+**개인정보 필드 약어 탐지:**
+```
+개인정보 관련 필드를 다시 확인해줘.
+phone, tel, mobile, hp, 전화, email, mail, name, nm, 이름,
+addr, address, 주소, ssn, jumin, 주민, ci, di, birth, 생년
+이런 약어/한글 변형까지 모두 grepSearch 해줘.
+```
+
+**크리덴셜 하드코딩 심층 스캔:**
+```
+.java, .kt, .properties, .yml 파일에서
+password, passwd, secret, api_key, token, credential 이 포함된 라인을 모두 찾아줘.
+테스트 코드는 별도 구분해줘.
+```
+
 ## 완료 기준
 - 모든 보안 항목에 확인 상태가 표기됨
 - 개인정보 항목별 라이프사이클(수집→저장→처리→전송→파기)이 추적됨

@@ -121,6 +121,23 @@ inclusion: manual
 - `use-cases.md` — Use Case 카탈로그 (공통 + 서비스 특화, ID/구현여부/API/화면 매핑)
 - `use-case-scenarios.md` — 주요 Use Case 시나리오 상세 (정상/대안/예외, NFR 체크포인트 인라인 태그 포함)
 
+## 💡 효과적인 추가 프롬프트 예시
+
+> 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)
+
+**숨겨진 상태 전이 발견:**
+```
+DB 테이블에서 status, state, flag, type 컬럼을 가진 Entity를 모두 찾고,
+해당 컬럼 값을 변경하는 UPDATE 쿼리나 setter 호출부를 추적해줘.
+enum이 아닌 String/int 타입 상태값도 포함해줘.
+```
+
+**배치/스케줄러 누락 시:**
+```
+@Scheduled, cron, Quartz, JobDetail, Spring Batch Step 키워드를 모두 검색해줘.
+XML 설정 기반 스케줄러도 포함해줘.
+```
+
 ## 완료 기준
 - 주요 비즈니스 규칙이 ID와 함께 목록화됨
 - 에러 코드 체계가 서비스별로 정리됨

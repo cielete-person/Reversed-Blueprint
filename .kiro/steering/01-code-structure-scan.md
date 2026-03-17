@@ -85,6 +85,7 @@ inclusion: manual
 | CI/CD | `Jenkinsfile`, `.gitlab-ci.yml`, `bitbucket-pipelines.yml`, `.github/workflows/*.yml` | `pipeline`, `stage`, `deploy`, `build` |
 | 플랫폼 분기 | `*.ios.js`, `*.android.js`, `Info.plist`, `AndroidManifest.xml`, `proguard-rules.pro` | `Platform.OS`, `Build.VERSION`, `#if os(iOS)` |
 | 기술 부채 | — | `TODO`, `FIXME`, `HACK`, `WORKAROUND`, `XXX`, `DEPRECATED` |
+| 하드코딩 탐지 | — | `http://`, `https://` (*.java/*.kt/*.js/*.ts 내 문자열), `password`, `passwd`, `secret`, `api_key`, `apikey`, `token`, `jdbc:`, `port = ` |
 
 ## 소스코드 위치
 
@@ -101,6 +102,28 @@ inclusion: manual
 - `tech-debt-markers.md` — 기술 부채 마커 목록 (TODO/FIXME/HACK, 밀집도 분석)
 - `iac-inventory.md` — IaC 인벤토리 (Terraform/Helm/Ansible/CloudFormation → 인프라 역추적)
 - `cicd-pipeline.md` — CI/CD 파이프라인 분석서 (빌드 스테이지, 배포 전략, 롤백 조건)
+
+## 💡 효과적인 추가 프롬프트 예시
+
+> 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)
+
+**빌드 파일 누락 시:**
+```
+src/ 하위에서 pom.xml, build.gradle, package.json, go.mod 파일을 모두 찾아줘.
+멀티 모듈이면 하위 모듈의 빌드 파일도 포함해줘.
+```
+
+**하드코딩 전수 스캔:**
+```
+소스코드(.java/.kt/.js/.ts)에서 http://, https://, jdbc:, password, secret, api_key 가
+포함된 문자열 리터럴을 모두 찾아줘. 설정파일(.yml/.properties)은 제외하고.
+```
+
+**IaC 파일 누락 시:**
+```
+프로젝트 루트와 ops/, deploy/, infra/, k8s/, helm/ 폴더에서
+Dockerfile, *.tf, Chart.yaml, values.yaml, kustomization.yaml 을 찾아줘.
+```
 
 ## 완료 기준
 - 대상 서비스의 기술 프로파일이 작성됨

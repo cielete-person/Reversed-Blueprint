@@ -417,5 +417,6 @@ git push origin main
 | CDR 설계 체크리스트 | `project/cdr-design-checklist.md` | CTO품질PMO팀 CDR 가이드 매핑 |
 | 워크플랜 로드맵 | `project/workplan-roadmap.md` | Phase 0~4 일정 계획 |
 | 수작업 항목 목록 | `project/manual-tasks.md` | KIRO 자동 추출 불가 항목 (런타임 데이터, 인터뷰, 교차 검증 등) |
+| 프롬프트 쿡북 | `project/prompt-cookbook.md` | 효과적인 추가 프롬프트 패턴 축적소 |
 | 용어 사전 | `glossary.md` | 프로젝트 공통 용어 정의 |
 | Steering 문서 (12개) | `.kiro/steering/` | KIRO 실행 가이드 (Step 00~10) |

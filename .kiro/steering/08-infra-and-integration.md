@@ -66,6 +66,22 @@ inclusion: manual
 - `nfr-baseline.md` — 비기능 현황 베이스라인
 - `runtime-data.md` — 런타임 트래픽/성능 데이터 (수작업 수집, manual-tasks.md P1-1~P1-3)
 
+## 💡 효과적인 추가 프롬프트 예시
+
+> 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)
+
+**외부 연동 누락 시:**
+```
+@FeignClient, RestTemplate, WebClient, HttpClient, SoapClient, FTP 키워드를 검색해줘.
+application.yml에서 외부 URL 설정도 확인해줘.
+```
+
+**k8s 리소스 누락 시:**
+```
+Dockerfile, docker-compose, k8s manifest(deployment, service, ingress, configmap)를 찾아줘.
+ops/, deploy/, k8s/, helm/ 폴더도 확인해줘.
+```
+
 ## 완료 기준
 - 외부 연동 시스템이 연동 방식과 함께 목록화됨
 - 배포 환경별 구성 차이가 식별됨
