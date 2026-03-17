@@ -25,6 +25,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 문서화되지 않은 기능(Undocumented Feature)을 식별하라
 - 설계 문서 없이 구현된 영역 Gap 리포트를 작성하라
 - Dead Code / 미사용 API를 식별하라
+  - **Step 1b 결과 참조 필수**: `01b-dead-code/` 산출물에서 이미 Dead 판정(✅)된 항목은 Gap 분석에서 중복 식별하지 말고, "Step 1b에서 판정 완료"로 참조 처리하라
+  - Step 1b에서 `⚠️ 일부확인`(조건부 Dead)인 항목만 Phase 3에서 추가 검증하라
 - 미사용 화면 / 도달 불가 화면(Orphan Screen)을 식별하라
 
 ### 2. 유저 시나리오 완전성 Gap 분석
