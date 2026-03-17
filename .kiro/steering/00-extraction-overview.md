@@ -37,6 +37,7 @@ inclusion: manual
 |---|---|---|---|
 | 0 | `00-workspace-setup` | 폴더 구조 구성, 서비스 인벤토리, 소스 clone | `service-inventory.md` |
 | 1 | `01-code-structure-scan` | Repository 스캔, 기술 스택 식별, 의존성 추출 | `services/{서비스명}/docs/extraction/01-code-structure/` |
+| 1b | `01b-dead-code-analysis` | Dead Code, 미사용 DB/API/설정 식별, 코드 연대 분석 | `services/{서비스명}/docs/extraction/01b-dead-code/` |
 | 2 | `02-screen-inventory` | 화면 목록 추출, 화면명 정규화, 화면 ID 부여 | `services/{서비스명}/docs/extraction/02-screens/` |
 | 3 | `03-api-and-data` | API 엔드포인트 추출, DB 스키마 역추적, ERD | `services/{서비스명}/docs/extraction/03-api-data/` |
 | 4 | `04-business-logic` | 비즈니스 규칙, 에러 처리, 상태 전이, 이벤트 흐름, Use Case Tree, NFR 체크포인트 | `services/{서비스명}/docs/extraction/04-business-logic/` |

@@ -87,6 +87,32 @@
   - 자동 롤백 트리거 조건 식별
   - 환경별 배포 파이프라인 차이 (dev/staging/prod)
 
+### 1-1b. Dead Code 및 미사용 리소스 분석
+
+> Step 01 완료 후, Step 02 시작 전에 실행. 별도 Step으로 분리하여 컨텍스트 윈도우 보호.
+
+- [ ] 미사용 코드 식별 (Dead Code Detection) `[KIRO]`
+  - 미호출 클래스/메서드 탐지: 참조 0건 + 리플렉션/프레임워크 자동 등록 재확인
+  - 미사용 import/의존성 탐지: 선언만 되고 사용되지 않는 import, 빌드 의존성
+  - 도달 불가 코드: 항상 false 조건문, return/throw 이후 코드, 영구 비활성 피처 플래그
+- [ ] 미사용 DB 리소스 식별 `[KIRO+확정]`
+  - 미참조 테이블/컬럼: Entity/Mapper 정의 vs 코드 내 참조 교차 검증
+  - 레거시 마이그레이션 잔존물: DROP 누락 테이블, ADD 후 미사용 컬럼
+  - ⚠️ 외부 시스템 직접 DB 참조 가능성 → 개발 리드 확정 필요
+- [ ] 미사용 API 식별 `[KIRO+확정]`
+  - 미호출 API 엔드포인트: Controller 정의 vs 프론트엔드/Feign Client 호출 교차 검증
+  - Deprecated API 현황: @Deprecated 표기 API 중 여전히 호출되는 것 vs 완전 미사용
+  - ⚠️ 외부 시스템/파트너사 호출 가능성 → 개발 리드 확정 필요
+- [ ] 미사용 설정/리소스 식별 `[KIRO]`
+  - 미참조 설정값: application.yml/properties 정의 vs @Value/@ConfigurationProperties 참조
+  - 미사용 리소스 파일: resources/assets 하위 이미지/템플릿/정적 파일
+  - 미사용 Spring Bean: @Component 등록 vs @Autowired/생성자 주입 참조
+- [ ] 코드 연대 분석 (Code Age Analysis) `[KIRO+도구]`
+  - git log 기반 파일별 마지막 수정일 추출
+  - 12개월+ 미변경 파일 = "장기 미변경 코드" 분류
+  - 장기 미변경 + 미호출 = Dead Code 가능성 높음
+  - ⚠️ 안정적 유틸리티/공통 모듈은 장기 미변경이 정상 → 참조 횟수와 교차 판단
+
 ### 1-2. 화면 목록 및 정규화
 
 - [ ] 화면 목록(Screen Inventory) 추출 `[KIRO]`
@@ -633,6 +659,11 @@
 - 메시지 전달 보장/순서/멱등성 현황표 `[CDR 4.3]`
 - AI/ML 활용 현황 리포트 (사용 여부, 역할, 모델 출처, Fail-safe) `[CDR 12장]`
 - 기술 부채 마커 목록 (TODO/FIXME/HACK 전수 스캔, 파일별 밀집도)
+- Dead Code 리포트 (미사용 클래스/메서드/import, 판정 등급 🔴/🟡/🟠/🟢)
+- 미사용 DB 리소스 리포트 (미참조 테이블/컬럼, 레거시 마이그레이션 잔존물)
+- 미사용 API 엔드포인트 리포트 (미호출 API, Deprecated API 현황)
+- 미사용 설정/리소스 리포트 (미참조 설정값, 리소스 파일, Bean)
+- 코드 연대 분석 리포트 (파일별 마지막 수정일, 장기 미변경 코드)
 - IaC 인벤토리 (Terraform/Helm/Ansible/CloudFormation 파일 기반 인프라 역추적)
 - CI/CD 파이프라인 분석서 (빌드 스테이지, 배포 전략, 롤백 조건)
 - DB 마이그레이션 이력 (Flyway/Liquibase 스키마 변경 이력)
@@ -871,6 +902,9 @@
 - [ ] 문서화되지 않은 기능(Undocumented Feature) 식별 `[KIRO]`
 - [ ] 설계 문서 없이 구현된 영역 Gap 리포트 `[KIRO]`
 - [ ] Dead Code / 미사용 API 식별 `[KIRO]`
+  - Step 1b(`01b-dead-code-analysis`) 결과를 기반으로 최종 정리
+  - Phase 1 이후 추가 발견된 미사용 코드를 보완
+  - 🔴 Dead 판정 항목의 개발 리드 확정 결과 반영
 - [ ] 미사용 화면 / 도달 불가 화면(Orphan Screen) 식별 `[KIRO]`
 - [ ] 유저 시나리오 완전성 Gap 분석 `[KIRO]`
   - B2C 공통 Use Case 중 미구현/부분구현 항목 식별 (가입/해지/변경/조회/결제/인증/고객센터/알림/계정)

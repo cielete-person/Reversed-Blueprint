@@ -23,6 +23,7 @@ inclusion: manual
 │   │       ├── extraction/      ← Phase 1: 소스코드 기초 분석 결과
 │   │       │   ├── 01-code-structure/
 │   │       │   │   └── _backup/ ← 이전 버전 백업 (자동 생성)
+│   │       │   ├── 01b-dead-code/
 │   │       │   ├── 02-screens/
 │   │       │   ├── 03-api-data/
 │   │       │   ├── 04-business-logic/

@@ -47,6 +47,7 @@
 3. KIRO 채팅에서 steering 문서를 순서대로 실행:
    - `#00-workspace-setup` → 환경 구성
    - `#01-code-structure-scan` ~ `#08-infra-and-integration` → Phase 1 추출
+     - Step 01 완료 후 `#01b-dead-code-analysis` → Dead Code/미사용 리소스 식별
    - `#09-architecture-views` → Phase 2 View 생성
    - `#10-gap-analysis` → Phase 3 Gap 분석
 4. 서비스별 완료 후 `docs-integrated/`에 통합

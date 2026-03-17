@@ -209,6 +209,7 @@ KIRO 채팅창에 아래 형식으로 입력한다:
 | 순서 | 채팅 입력 | 작업 내용 | 산출물 위치 |
 |---|---|---|---|
 | Step 01 | `#01-code-structure-scan 서비스: media-iptv-vod` | 기술 스택, 의존성, 플랫폼 분기 | `extraction/01-code-structure/` |
+| Step 1b | `#01b-dead-code-analysis 서비스: media-iptv-vod` | Dead Code, 미사용 DB/API/설정 | `extraction/01b-dead-code/` |
 | Step 02 | `#02-screen-inventory 서비스: media-iptv-vod` | 화면 목록, 크로스 플랫폼 동기화 | `extraction/02-screens/` |
 | Step 03 | `#03-api-and-data 서비스: media-iptv-vod` | API, DB 스키마, 쿼리 패턴 | `extraction/03-api-data/` |
 | Step 04 | `#04-business-logic 서비스: media-iptv-vod` | 비즈니스 규칙, 상태 전이, Use Case, NFR 체크포인트 | `extraction/04-business-logic/` |
@@ -413,6 +414,7 @@ git push origin main
 3. 폴더 생성 + 소스 clone: _template 복사 → git clone → 소스 확인
        ↓
 4. Phase 1 추출 (Step 01~08): KIRO 채팅에서 순서대로 실행
+   ※ Step 01 완료 후 반드시 Step 1b(Dead Code 분석)를 실행
    산출물 → services/{폴더명}/docs/extraction/
        ↓
 5. Phase 2 View 생성 (Step 09)

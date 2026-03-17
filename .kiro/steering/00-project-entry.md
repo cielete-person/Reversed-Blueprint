@@ -85,4 +85,5 @@ inclusion: auto
 - 산출물 덮어쓰기 전 자동 백업 (`backup-before-overwrite` hook 동작)
 - `services/*/docs/` 산출물 작업 완료 시 프롬프트 피드백 수집 (`collect-prompt-feedback` hook 동작)
 - ❌ 판정 전 최소 6회 검색 검증 필수 (2-Pass 스캔 전략)
+- Step 01 완료 후 반드시 Step 1b(Dead Code 분석)를 실행하여 미사용 코드/DB/API를 식별
 - 보안 steering 수정 시 CTO보안허브 정책 안내 필수 출력
