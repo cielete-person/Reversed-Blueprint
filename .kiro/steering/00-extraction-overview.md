@@ -6,6 +6,8 @@ inclusion: manual
 
 이 프로젝트는 소스코드를 분석하여 Stakeholder별 설계도를 역추적·추출하는 작업입니다.
 
+> 신규 작업자는 먼저 [작업자용 매뉴얼](../project/operator-manual.md)을 읽고 시작하세요.
+
 ## 워크스페이스 구조
 
 > 상세 폴더 구조 및 서비스별 작업 방법은 `00-workspace-setup` steering 참조

@@ -98,16 +98,45 @@ inclusion: manual
 - 폴더명 규칙: `{플랫폼약어}-{서비스영문명}` (예: `media-iptv-vod`, `auth-pass`)
 - 플랫폼 약어: `media`, `auth`, `msg`, `pay`, `adm`, `iot`, `loc`, `voip`
 
+## 서비스 폴더 생성 (_template 복사)
+
+새 서비스 작업을 시작할 때, `services/_template/` 폴더를 복사하여 서비스 폴더를 생성한다:
+
+```bash
+# Windows (PowerShell)
+Copy-Item -Recurse services/_template services/{폴더명}
+
+# macOS / Linux
+cp -r services/_template services/{폴더명}
+
+# 예시: SVC-001 IPTV VOD
+Copy-Item -Recurse services/_template services/media-iptv-vod
+```
+
+이렇게 하면 `docs/extraction/`, `docs/views/`, `docs/gap-analysis/` 폴더가 자동으로 생성된다.
+
 ## 서비스별 소스코드 준비
 
 각 서비스의 소스코드를 `services/{서비스명}/src/` 에 clone한다:
 
 ```bash
-# 예시: service-inventory.md의 Repo URL과 폴더명 참조
+# 단일 Repo 서비스
 git clone {Repo URL} services/media-iptv-vod/src
 git clone {Repo URL} services/auth-pass/src
 git clone {Repo URL} services/msg-sms/src
 ```
+
+### 멀티 Repo 서비스 (앱 + 서버가 별도 Repo인 경우)
+
+```bash
+# 앱/서버 별도 Repo인 경우 src/ 하위에 구분하여 clone
+git clone {Android Repo URL} services/media-iptv-vod/src/app-android
+git clone {iOS Repo URL} services/media-iptv-vod/src/app-ios
+git clone {STB Repo URL} services/media-iptv-vod/src/app-stb
+git clone {Server Repo URL} services/media-iptv-vod/src/server
+```
+
+`service-inventory.md`에 Repo URL이 여러 개인 경우, 비고 컬럼에 Repo 구분을 기재한다.
 
 ## KIRO 서비스별 작업 방법
 

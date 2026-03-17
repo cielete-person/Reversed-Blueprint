@@ -59,6 +59,7 @@
 
 ## 상세 문서
 
+- [작업자용 매뉴얼](project/operator-manual.md) — KIRO 설계도 추출 작업 실행 가이드 (신규 작업자 필독)
 - [Workplan Roadmap](project/workplan-roadmap.md)
 - [Extraction Checklist](project/extraction-checklist.md)
 - [Service Inventory](project/service-inventory.md) — 작업 관리용 (폴더명, Repo URL, 진행 현황)
