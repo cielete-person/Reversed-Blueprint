@@ -7,6 +7,11 @@ inclusion: manual
 > 참조: #[[file:project/extraction-checklist.md]] — 1-7. 보안 관련 추출
 > 참조: #[[file:project/security-layer-checklist.md]] — 보안기술팀 Security Layer 체크리스트 (217항목)
 
+## ⚡ 컨텍스트 복원 (새 세션 시작 시)
+
+> `services/{서비스명}/docs/extraction/_context-notes.md`를 먼저 읽어 이전 Step 인사이트를 복원하세요.
+> 이 Step 완료 후 `_context-notes.md`의 해당 섹션에 핵심 발견사항을 기록하세요.
+
 ## 목표
 
 > ⚠️ **이 steering을 수정·고도화하려는 경우 필수 확인:**
@@ -161,3 +166,16 @@ password, passwd, secret, api_key, token, credential 이 포함된 라인을 모
 - 개인정보 항목별 라이프사이클(수집→저장→처리→전송→파기)이 추적됨
 - 크리덴셜 위험도 등급이 부여됨
 - 취약 암호화 알고리즘 사용 영역이 식별됨
+
+## 🔄 역방향 피드백 체크 (이전 산출물 업데이트)
+
+이 Step에서 발견한 내용이 이전 Step 산출물에 영향을 주는지 확인하세요:
+
+- [ ] **Step 03 → api-inventory.md 업데이트 필요?**
+  - 보안 분석에서 발견한 인증/인가 미적용 API가 API 인벤토리의 보안 속성에 반영되어 있는지 확인
+- [ ] **Step 04 → business-rules.md 업데이트 필요?**
+  - 보안 규칙(접근 제어, 데이터 마스킹 등)이 비즈니스 규칙과 중복/충돌하는지 확인
+- [ ] **Step 01 → code-structure.md 업데이트 필요?**
+  - 보안 모듈(인증 필터, 암호화 유틸 등)이 코드 구조에 누락되어 있는지 확인
+
+> 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.

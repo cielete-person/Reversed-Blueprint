@@ -46,7 +46,7 @@ inclusion: manual
 | 6 | `06-quality-extraction` | 테스트 현황, 변경 빈도, 로깅, 의존성 건강도, 동시성, 정합성, 성능 | `services/{서비스명}/docs/extraction/06-quality/` |
 | 7 | `07-ux-extraction` | 인터랙션 패턴, 유효성 검증, 로딩 UX, 다국어/접근성, 딥링크, 피처 플래그 | `services/{서비스명}/docs/extraction/07-ux/` |
 | 8 | `08-infra-and-integration` | 외부 연동, 배포 토폴로지, STB 리소스, 비기능 현황 | `services/{서비스명}/docs/extraction/08-infra/` |
-| 9 | `09-architecture-views` | Phase 1 결과 기반 C4 다이어그램, Stakeholder별 View 문서, E2E Call Flow View, Function–External Stack View, Layer Stack View 생성 | `services/{서비스명}/docs/views/` |
+| 9 | `09-architecture-views` | Phase 1 결과 기반 C4 다이어그램, Stakeholder별 View 문서, E2E Call Flow View, Function–External Stack View, Layer Stack View, E2E 완전성 검증(2-4b), PM 의사결정 지원 다이어그램(2-14) 생성 | `services/{서비스명}/docs/views/` |
 | 10 | `10-gap-analysis` | 추적성 매핑, Gap 분석, 위험도 매트릭스, 용어 사전 확정 | `services/{서비스명}/docs/gap-analysis/` |
 | — | 통합 | 모든 서비스 완료 후, 서비스별 결과를 `docs-integrated/`에 통합 | `docs-integrated/` |
 
@@ -282,3 +282,69 @@ inclusion: manual
 - 보정은 **사실 관계 오류**(누락, 오판정, 상태 변경)에 한정하라
 - 표현 방식, 포맷, 구조 변경은 역동기화 대상이 아니다
 - 대량 보정(5건 이상)이 필요한 경우, 해당 Step을 재실행하는 것을 권장하라
+
+### ★ Steering 완전성 검증 규칙 (신규 KIRO 사용자 보호)
+
+> 이 워크스페이스를 다운로드하여 사용하는 다른 KIRO 사용자가 steering 누락으로 인해
+> 불완전한 설계도를 생성하는 리스크를 방지하기 위한 검증 규칙이다.
+
+#### Steering ↔ Extraction Checklist 커버리지 검증
+
+작업 시작 전 또는 steering 수정 시, 아래 매핑이 빠짐없이 유지되는지 검증하라:
+
+| Extraction Checklist 항목 | 대응 Steering 파일 | 커버 여부 |
+|---|---|---|
+| Phase 1: 1-1 코드 구조 | `01-code-structure-scan.md` | ✅ |
+| Phase 1: 1-1b Dead Code | `01b-dead-code-analysis.md` | ✅ |
+| Phase 1: 1-1c 공통 모듈 | `01c-common-module-grouping.md` | ✅ |
+| Phase 1: 1-2 화면 목록 | `02-screen-inventory.md` | ✅ |
+| Phase 1: 1-3 API/데이터 | `03-api-and-data.md` | ✅ |
+| Phase 1: 1-4, 1-4b 비즈니스 로직/Use Case | `04-business-logic.md` | ✅ |
+| Phase 1: 1-5 비기능 현황 | `08-infra-and-integration.md` | ✅ |
+| Phase 1: 1-6 품질 | `06-quality-extraction.md` | ✅ |
+| Phase 1: 1-7 보안 | `05-security-extraction.md` | ✅ |
+| Phase 1: 1-8 외부 연동/인프라 | `08-infra-and-integration.md` | ✅ |
+| Phase 1: 1-9 STB 하드웨어 | `08-infra-and-integration.md` | ✅ |
+| Phase 1: 1-10 UX | `07-ux-extraction.md` | ✅ |
+| Phase 1: 1-11 소스 없는 서버 | `08-infra-and-integration.md` | ✅ |
+| Phase 1: 1-12 AI/ML | `04-business-logic.md` + `09-architecture-views.md` (2-11) | ✅ |
+| Phase 2: 2-1 ~ 2-13 View 생성 | `09-architecture-views.md` | ✅ |
+| Phase 2: 2-4b E2E 완전성 검증 | `09-architecture-views.md` | ✅ |
+| Phase 2: 2-14 PM 의사결정 지원 | `09-architecture-views.md` | ✅ |
+| Phase 3: Gap 분석 전체 | `10-gap-analysis.md` | ✅ |
+
+#### Steering 누락 위험 체크포인트
+
+신규 KIRO 사용자가 작업 시작 전 아래 항목을 확인하라:
+
+1. **Steering 파일 존재 확인**: `.kiro/steering/` 하위에 아래 15개 파일이 모두 존재하는가?
+   - `00-project-entry.md`, `00-extraction-overview.md`, `00-workspace-setup.md`
+   - `01-code-structure-scan.md`, `01b-dead-code-analysis.md`, `01c-common-module-grouping.md`
+   - `02-screen-inventory.md`, `03-api-and-data.md`, `04-business-logic.md`
+   - `05-security-extraction.md`, `06-quality-extraction.md`, `07-ux-extraction.md`
+   - `08-infra-and-integration.md`, `09-architecture-views.md`, `10-gap-analysis.md`
+
+2. **참조 문서 존재 확인**: 아래 project/ 문서가 모두 존재하는가?
+   - `extraction-checklist.md`, `workplan-roadmap.md`, `cdr-design-checklist.md`
+   - `service-inventory.md`, `platform-service-inventory.md`
+   - `security-layer-checklist.md`, `manual-tasks.md`, `prompt-cookbook.md`
+   - `operator-manual.md`
+
+3. **Steering inclusion 모드 확인**: 모든 steering 파일의 front-matter에 `inclusion: manual`이 설정되어 있는가? (auto로 설정되면 모든 대화에 불필요하게 로딩됨)
+
+4. **CDR 매핑 완전성**: `cdr-design-checklist.md`의 CDR 12개 장이 extraction-checklist.md의 해당 항목에 `[CDR X.X.X]` 태그로 매핑되어 있는가?
+
+5. **Hook 설정 확인**: `.kiro/hooks/` 하위에 산출물 백업 hook, 프롬프트 피드백 수집 hook이 존재하는가?
+
+#### Steering 수정 시 정합성 유지 규칙
+
+steering 파일을 수정할 때는 반드시 아래를 함께 확인·수정하라:
+
+| 수정 대상 | 함께 확인·수정해야 하는 파일 |
+|---|---|
+| extraction-checklist.md에 항목 추가 | 대응 steering 파일에 작업 절차 추가, 산출물 목록 갱신 |
+| steering 파일에 작업 절차 추가 | extraction-checklist.md에 해당 항목 존재 확인 |
+| 09-architecture-views.md에 View 추가 | extraction-checklist.md Phase 2 섹션 + Phase 2 산출물 목록 갱신 |
+| 10-gap-analysis.md에 Gap 항목 추가 | extraction-checklist.md Phase 3 섹션 + Phase 3 산출물 목록 갱신 |
+| manual-tasks.md에 수작업 항목 추가 | 대응 steering 파일의 🔧 수작업 보충 항목 테이블 갱신 |
+| 00-extraction-overview.md 작업 순서 변경 | 각 steering 파일의 선행 조건 확인 |

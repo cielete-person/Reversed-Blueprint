@@ -7,6 +7,11 @@ inclusion: manual
 > 참조: #[[file:project/extraction-checklist.md]] — 1-1b. Dead Code 및 미사용 리소스 분석
 > 선행: Step 01 (코드 구조 분석) 완료 후 실행
 
+## ⚡ 컨텍스트 복원 (새 세션 시작 시)
+
+> `services/{서비스명}/docs/extraction/_context-notes.md`를 먼저 읽어 이전 Step 인사이트를 복원하세요.
+> 이 Step 완료 후 `_context-notes.md`의 해당 섹션에 핵심 발견사항을 기록하세요.
+
 ## 목표
 
 소스코드에서 더 이상 사용되지 않는 코드, DB 테이블/컬럼, API, 화면, 설정을 식별하여

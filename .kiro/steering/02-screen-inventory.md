@@ -11,6 +11,11 @@ inclusion: manual
 - **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 화면/Activity/Fragment/ViewController는 화면 목록에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
 - **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 UI 컴포넌트(Base Activity, 공통 Fragment 등)를 식별하여, 화면 목록에서 "공통 UI 컴포넌트" 섹션으로 별도 분류하라.
 
+## ⚡ 컨텍스트 복원 (새 세션 시작 시)
+
+> `services/{서비스명}/docs/extraction/_context-notes.md`를 먼저 읽어 이전 Step 인사이트를 복원하세요.
+> 이 Step 완료 후 `_context-notes.md`의 해당 섹션에 핵심 발견사항을 기록하세요.
+
 ## 목표
 
 프론트엔드 소스에서 전체 화면 목록을 추출하고, 화면 ID를 부여하며, 화면명을 정규화한다.
@@ -112,3 +117,17 @@ Modal, Dialog, Popup, BottomSheet, Alert, Toast, Snackbar 컴포넌트를 모두
 - 정규화 매핑 테이블이 완성됨
 - iOS/Android 양 플랫폼 화면이 동일 화면 ID로 매핑됨 (해당 서비스에 한함)
 - 플랫폼 전용 화면이 ⚠️ 표기와 함께 식별됨
+
+## 🔄 역방향 피드백 체크 (이전 산출물 업데이트)
+
+이 Step에서 발견한 내용이 이전 Step 산출물에 영향을 주는지 확인하세요:
+
+- [ ] **Step 01 → code-structure.md 업데이트 필요?**
+  - 화면 인벤토리에서 발견한 새로운 모듈/컴포넌트가 코드 구조에 누락되어 있는지 확인
+  - 화면 간 네비게이션에서 발견한 모듈 간 의존성이 코드 구조에 반영되어 있는지 확인
+- [ ] **Step 01b → dead-code 목록 업데이트 필요?**
+  - 화면에서 실제 사용되는 것으로 확인된 코드가 dead-code로 분류되어 있지 않은지 확인
+- [ ] **Step 01c → common-module 그룹핑 업데이트 필요?**
+  - 여러 화면에서 공통으로 사용하는 컴포넌트가 공통 모듈로 분류되어 있는지 확인
+
+> 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.

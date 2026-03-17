@@ -6,6 +6,13 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-1. 코드 구조 분석
 
+## ⚡ 컨텍스트 복원 (새 세션 시작 시)
+
+> 이전 세션에서 이 서비스의 다른 Step을 이미 진행했다면, 먼저 아래 파일을 읽어 컨텍스트를 복원하세요:
+> - `services/{서비스명}/docs/extraction/_context-notes.md` — 이전 Step에서 발견한 핵심 인사이트, 주의사항, 역방향 피드백 이력
+>
+> 이 Step 완료 후에는 반드시 `_context-notes.md`의 해당 Step 섹션에 핵심 발견사항을 기록하세요.
+
 ## 목표
 
 대상 서비스의 Repository를 스캔하여 기술 스택, 디렉토리 구조, 의존성을 파악한다.

@@ -6,6 +6,11 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — Phase 3 전체
 
+## ⚡ 컨텍스트 복원 (새 세션 시작 시)
+
+> `services/{서비스명}/docs/extraction/_context-notes.md`를 먼저 읽어 이전 Step 인사이트를 복원하세요.
+> 이 Step 완료 후 `_context-notes.md`에 Gap 분석 핵심 발견사항을 기록하세요.
+
 ## 목표
 
 Phase 1~2 산출물을 기반으로 요구사항 ↔ 설계 ↔ 코드 간 추적성을 확보하고, 누락·위험 영역을 식별한다.
@@ -125,6 +130,25 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 고비용 서비스를 식별하라: 코드 복잡도 높고 변경 빈도 높으나 비즈니스 가치 낮은 서비스
 - 통합/폐기/재작성 후보를 판단하라 → PM+PO+개발 리드 확정 (manual-tasks.md P3-5)
 
+### 8-6. E2E Call Flow 완전성 Gap 분석
+> 2-4b(E2E Call Flow 완전성 검증 보강 항목) 결과를 기반으로 Call Flow 단절·누락 Gap을 분석하라
+
+- 크로스 플랫폼 Journey 중 Call Flow가 단절되는 구간을 식별하라 (플랫폼 경계에서 연결 누락)
+- 서버 간 내부 API 계약 불일치 항목을 최종 정리하라 (타임아웃/리트라이 설정 불일치 포함)
+- 소스 없는 구간의 입출력 계약 추정 중 검증 불가 항목을 식별하라
+- 배치↔실시간 데이터 흐름에서 정합성 위험 구간을 식별하라
+- 서비스 간 통신 토폴로지에서 단일 경로(SPOF) 또는 과도한 hop 수(3-hop 이상) 경로를 식별하라
+- **Step 09 2-4b 결과 참조**: `views/event-flow/cross-platform-journey-*.md`, `batch-realtime-flow.md`, `service-topology.md` 결과를 기반으로 Gap을 교차 검증하라
+
+### 8-7. PM 의사결정 지원 다이어그램 Gap 분석
+> 2-14(PM 의사결정 지원 다이어그램) 결과를 기반으로 PM 관점의 추가 Gap을 분석하라
+
+- 데이터 오너십 충돌(복수 서비스가 동일 엔터티 변경) 미해소 항목을 식별하라
+- 배포 의존성 순서도에서 순환 배포 의존성을 식별하라
+- 서비스 성숙도 레이더 차트에서 성숙도 최하위 서비스/축을 개선 우선순위로 정리하라
+- 크리티컬 패스 상 병목 구간의 개선 방안 미수립 항목을 식별하라
+- 기술 부채 히트맵에서 🔴 Critical 등급 서비스의 개선 계획 미수립 항목을 식별하라
+
 ### 9. 용어 사전 최종 검증 및 확정
 - Phase 0 초안을 실제 코드/화면 분석 결과와 대조하여 보완하라
 - 화면명 정규화 결과 최종 검증: 모든 산출물에서 대표 명칭이 일관되게 사용되는지 크로스체크
@@ -150,6 +174,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - `ai-governance-gap.md` — AI 거버넌스 Gap 리포트 `[CDR 12장]`
 - `cross-service-inconsistency.md` — 서비스 간 교차 검증 리포트 (API 계약/이벤트 스키마/용어 불일치)
 - `service-rationalization.md` — 서비스 합리화 판단 리포트 (기능 중복/저사용/고비용 → 통합/폐기/재작성 후보)
+- `e2e-callflow-gap.md` — E2E Call Flow 완전성 Gap 리포트 (크로스 플랫폼 단절, API 계약 불일치, 소스 없는 구간, 배치↔실시간 정합성, 통신 토폴로지 SPOF)
+- `pm-decision-gap.md` — PM 의사결정 지원 Gap 리포트 (데이터 오너십 충돌, 배포 순환 의존성, 성숙도 최하위, 크리티컬 패스 병목, 기술 부채 Critical)
 - `glossary-final.md` — 용어 사전 확정본
 - `improvement-recommendations.md` — 개선 권고사항 종합
 
@@ -173,3 +199,17 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 위험도 등급이 산출되어 우선순위 판단이 가능함
 - 용어 사전이 모든 산출물과 일관성 있게 확정됨
 - 개선 권고사항이 Stakeholder별로 정리됨
+
+## 🔄 역방향 피드백 체크 (이전 산출물 업데이트)
+
+이 Step에서 발견한 내용이 이전 Step 산출물에 영향을 주는지 확인하세요:
+
+- [ ] **Step 01~09 전체 → 각 extraction/view 산출물 업데이트 필요?**
+  - Gap 분석에서 발견한 누락 항목이 원본 extraction 산출물에 반영되어야 하는지 확인
+  - 추적성 매트릭스에서 매핑 실패한 항목의 원인이 이전 Step 산출물 누락인지 확인
+- [ ] **Step 09 → architecture view 산출물 업데이트 필요?**
+  - Gap 분석 결과가 아키텍처 View의 수정을 요구하는지 확인 (예: 새로운 컴포넌트 발견)
+- [ ] **Step 05 → security 산출물 업데이트 필요?**
+  - 보안 Gap 항목이 원본 보안 추출 문서에 반영되어 있는지 확인
+
+> 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
