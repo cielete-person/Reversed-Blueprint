@@ -52,10 +52,99 @@ inclusion: manual
 - 순환 호출(Circular Dependency) 패턴을 식별하라 → ⚠️ 표기
 - **Use Case ID 연결 필수**: 각 호출 체인이 어떤 Use Case(UC-{서비스}-{순번})에 해당하는지 매핑하라. 하나의 UC가 여러 호출 체인을 포함할 수 있음
 - **E2E Call Flow 원시 데이터 추출**: 주요 Use Case(가입, 결제, 인증 등)에 대해 사용자 조작부터 최종 응답까지의 전체 흐름을 추출하라:
-  - 앱(프론트엔드) → API Gateway → 백엔드 서비스 → 외부 시스템 → DB → 응답 → 앱 UI 갱신
-  - 멀티 Repo 서비스: 앱 코드의 API 호출부와 서버 코드의 Controller를 교차 매핑하여 앱↔서버 간 단절 없이 연결
+  - 전체 구간: 앱(프론트엔드) → 공통모듈/SDK → API Gateway → 백엔드 서비스 → 외부 시스템 → DB → 응답 → 앱 UI 갱신
   - 각 구간의 프로토콜, 인증 방식, 에러 시 분기(fallback/retry/에러 화면)를 포함
   - 동기 호출과 비동기 이벤트가 혼합된 경우 양쪽 모두 표기 (예: API 응답 후 비동기 알림 발송)
+
+- **★ 멀티 Repo E2E 연결 절차 (앱/서버 Repo 분리 시 필수)**:
+  > 외주 개발사가 다른 경우 등 앱과 서버가 별도 Repo에 있는 서비스가 대부분이다.
+  > 이 경우 앱↔서버 간 Call Flow가 단절되기 쉬우므로, 아래 절차를 반드시 수행하라.
+
+  **Phase A: 앱 Repo에서 API 호출 인벤토리 추출 (앱 → 서버 방향)**
+  1. 앱 소스(`src/app-android/`, `src/app-ios/`, `src/app-cross/`)에서 HTTP 클라이언트 호출부를 전수 스캔하라:
+     - Android: `Retrofit` 인터페이스(@GET/@POST), `OkHttp` 직접 호출, `Volley`
+     - iOS: `Alamofire`, `URLSession`, `Moya`
+     - React Native: `fetch()`, `axios`, `apisauce`
+     - Flutter: `http`, `dio`, `chopper`
+  2. 각 API 호출부에서 추출할 정보:
+     - 호출 URL/경로 (Base URL + endpoint path)
+     - HTTP 메서드 (GET/POST/PUT/DELETE)
+     - 요청 파라미터/Body 구조
+     - 호출하는 화면/ViewModel/UseCase 클래스 (어떤 사용자 행위에서 호출되는지)
+     - 응답 처리 로직 (성공 시 화면 전이, 실패 시 에러 처리)
+     - 호출 전 경유하는 공통 모듈/SDK (인증 토큰 주입, 암호화, 로깅 등)
+  3. 결과를 "앱 API 호출 인벤토리" 테이블로 정리:
+     | 호출 위치 (앱 소스) | 화면 ID | 사용자 행위 | API 경로 | HTTP 메서드 | 경유 공통모듈/SDK | 응답 처리 |
+     |---|---|---|---|---|---|---|
+
+  **Phase B: 서버 Repo에서 엔드포인트 인벤토리 추출 (서버 → DB/외부 방향)**
+  1. 서버 소스(`src/server/`)에서 Controller/Router 엔드포인트를 전수 스캔하라 (Step 03 결과 활용)
+  2. 각 엔드포인트에서 내부 호출 체인을 추적하라:
+     - Controller → Service → Repository → DB
+     - Controller → Service → 외부 시스템 호출 (Feign/RestTemplate/gRPC)
+     - Controller → Service → MQ 발행 → Consumer → 후속 처리
+  3. 결과를 "서버 엔드포인트 호출 체인" 테이블로 정리:
+     | API 경로 | Controller 클래스 | Service 메서드 | 내부 호출 체인 | 외부 연동 | DB 접근 | 비동기 후속 처리 |
+     |---|---|---|---|---|---|---|
+
+  **Phase C: 앱↔서버 교차 매핑 (E2E 연결)**
+  1. Phase A의 "API 경로"와 Phase B의 "API 경로"를 매칭하라
+  2. 매칭 결과를 3가지로 분류:
+     - ✅ 매칭 성공: 앱 호출 URL = 서버 엔드포인트 → E2E 연결 완성
+     - ⚠️ 부분 매칭: URL 패턴은 유사하나 버전/경로 차이 → 확인 필요
+     - ❌ 매칭 실패: 앱에서 호출하는 API가 서버에 없음 (다른 서비스 호출 또는 외부 API) → 호출 대상 식별
+  3. 매칭 성공한 항목에 대해 E2E Call Flow를 조합하라:
+     ```
+     [앱 화면] → [앱 공통모듈/SDK] → [API 호출] → [서버 Controller] → [서버 Service] → [외부/DB] → [응답] → [앱 UI 갱신]
+     ```
+  4. 매칭 실패 항목은 "미연결 API 목록"으로 별도 정리하고 🔍 표기
+
+  **Phase D: 중간 계층(공통모듈/SDK/Library) 삽입**
+  1. Step 1c(`01c-common-modules/`) 결과에서 E2E 경로상에 개입하는 공통 모듈을 식별하라:
+     - 앱 측: 공통 네트워크 모듈(토큰 주입, 헤더 설정), 공통 에러 핸들러, 암호화 모듈
+     - 서버 측: Security Filter Chain, 공통 인터셉터, AOP 로깅
+  2. Binary SDK(`<<binary SDK>>`)가 E2E 경로에 개입하는 경우 식별하라:
+     - 결제 SDK, DRM SDK, 인증 SDK, 앱 쉴딩 SDK 등
+     - SDK 내부 로직은 추적 불가하므로 `<<binary SDK>>` 표기하고 입출력만 기록
+  3. E2E Call Flow에 중간 계층을 삽입하여 완성:
+     ```
+     [앱 화면] → [앱 공통 네트워크 모듈(토큰 주입)] → [결제 SDK <<binary>>] → [API Gateway] → [서버 Security Filter] → [Controller] → [Service] → [공통 암호화 모듈] → [외부 PG] → [DB] → [응답] → [앱 공통 에러 핸들러] → [앱 UI 갱신]
+     ```
+
+  **E2E Call Flow 산출물 포맷**:
+  주요 Use Case별로 아래 형식의 E2E Call Flow 문서를 작성하라:
+  ```markdown
+  ## UC-{서비스}-001: {Use Case명} E2E Call Flow
+
+  ### 전체 흐름 요약
+  앱 화면 → ... → 최종 응답 (1줄 요약)
+
+  ### 상세 Call Flow
+  | 순서 | 구간 | 소스 위치 (Repo/파일) | 호출 대상 | 프로토콜 | 비고 |
+  |---|---|---|---|---|---|
+  | 1 | 앱 화면 조작 | app-android/...Activity | ViewModel.doAction() | — | 사용자 버튼 클릭 |
+  | 2 | 앱 공통 모듈 | app-android/.../NetworkModule | 토큰 주입, 헤더 설정 | — | 공통 인터셉터 |
+  | 3 | SDK 호출 | app-android/.../PaymentSDK | <<binary SDK>> 결제 요청 | SDK API | 내부 추적 불가 |
+  | 4 | API 호출 | app-android/.../ApiService | POST /api/v1/payment | HTTPS | Retrofit |
+  | 5 | 서버 수신 | server/.../PaymentController | processPayment() | REST | Spring MVC |
+  | 6 | 서버 로직 | server/.../PaymentService | validate → process | — | @Transactional |
+  | 7 | 외부 연동 | server/.../PGClient | PG사 승인 API | HTTPS | Feign, timeout 5s |
+  | 8 | DB 저장 | server/.../PaymentRepository | INSERT payment_history | JDBC | JPA |
+  | 9 | 비동기 이벤트 | server/.../PaymentEventPublisher | Kafka: payment.completed | MQ | 알림 서비스로 전달 |
+  | 10 | 응답 반환 | server/.../PaymentController | 200 OK + PaymentResult | REST | — |
+  | 11 | 앱 응답 처리 | app-android/.../PaymentViewModel | 결제 완료 화면 전이 | — | LiveData 갱신 |
+
+  ### 에러/Fallback 분기
+  | 분기 지점 | 에러 조건 | 처리 | 사용자 피드백 |
+  |---|---|---|---|
+  | 순서 7 (PG 연동) | timeout 5s 초과 | 재시도 1회 → 실패 시 Circuit Breaker | "결제 처리 중 오류" 팝업 |
+  | 순서 4 (API 호출) | 401 Unauthorized | 토큰 갱신 → 재시도 | 자동 재시도 (사용자 무인지) |
+
+  ### 앱↔서버 매칭 근거
+  - 앱 호출: `POST /api/v1/payment` (app-android/.../PaymentApiService.kt:42)
+  - 서버 수신: `@PostMapping("/api/v1/payment")` (server/.../PaymentController.java:28)
+  - 요청 DTO 일치 여부: ✅ (PaymentRequest ↔ PaymentRequestDto 필드 매칭)
+  ```
 
 ### 5. 유저 시나리오(Use Case) 추출
 
