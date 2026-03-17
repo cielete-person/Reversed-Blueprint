@@ -2,7 +2,7 @@
 
 운영 중인 서비스의 소스코드로부터 Stakeholder 관점별 설계 문서(Architecture Views)를 역추적·생성하는 프로젝트입니다.
 
-## 경영진 요약 (Executive Summary)
+## Executive Summary
 
 ### 이 프로젝트가 해결하는 문제
 
