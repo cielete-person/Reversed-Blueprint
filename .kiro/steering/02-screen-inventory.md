@@ -31,6 +31,20 @@ inclusion: manual
 - 클러스터별 대표 명칭(Canonical Name) 후보를 제시하라
 - 정규화 매핑 테이블을 작성하라
 
+### 4. 크로스 플랫폼 화면 동기화 (iOS / Android / STB)
+- iOS와 Android 모바일 앱이 모두 존재하는 서비스의 경우, 양 플랫폼 화면을 동시에 추출하라
+- 동일 기능 화면 매핑:
+  - iOS ViewController/SwiftUI View ↔ Android Activity/Fragment/Compose Screen 매핑
+  - 화면 ID는 플랫폼 무관하게 하나로 통합 부여
+  - 소스 위치는 `소스 위치(iOS)`, `소스 위치(Android)` 컬럼으로 병기
+- 플랫폼 전용 화면 식별:
+  - iOS에만 있는 화면 / Android에만 있는 화면 → ⚠️ 표기하고 사유 기록
+  - STB(AOSP/Android TV) 앱과 모바일 앱 간 동일 기능 화면도 매핑
+- 화면 정의서 산출물 포맷에 `플랫폼` 컬럼 추가: iOS / Android / STB / Web / 공통
+- 정규화 시 플랫폼 간 용어 통일을 최우선으로 적용
+  - iOS 네이밍 vs Android 네이밍 중 대표 명칭 하나로 확정
+  - 용어 사전에 플랫폼별 원본 명칭 → 대표 명칭 매핑 등록
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
@@ -38,17 +52,20 @@ inclusion: manual
 ## 산출물
 
 `services/{서비스명}/docs/extraction/02-screens/` 에 아래 파일 생성:
-- `screen-inventory.md` — 화면 목록 (화면 ID, 화면명, 서비스, URL, 소스 위치)
+- `screen-inventory.md` — 화면 목록 (화면 ID, 화면명, 서비스, URL, 소스 위치, 플랫폼)
 - `screen-name-normalization.md` — 화면명 정규화 매핑 테이블 (원본 → 대표 명칭)
+- `cross-platform-screen-map.md` — 크로스 플랫폼 화면 매핑표 (iOS↔Android↔STB)
 
 ## 산출물 포맷
 
 ```markdown
-| 화면 ID | 화면명(정규화) | 원본 명칭 | 서비스 | URL 경로 | 화면 유형 | 소스 파일 | 확인 상태 |
-|---|---|---|---|---|---|---|---|
+| 화면 ID | 화면명(정규화) | 원본 명칭 | 서비스 | URL 경로 | 화면 유형 | 플랫폼 | 소스 파일(iOS) | 소스 파일(Android) | 확인 상태 |
+|---|---|---|---|---|---|---|---|---|---|
 ```
 
 ## 완료 기준
 - 모든 라우트/페이지가 식별되고 화면 ID가 부여됨
 - 서브 화면(팝업/모달 등)이 누락 없이 포함됨
 - 정규화 매핑 테이블이 완성됨
+- iOS/Android 양 플랫폼 화면이 동일 화면 ID로 매핑됨 (해당 서비스에 한함)
+- 플랫폼 전용 화면이 ⚠️ 표기와 함께 식별됨

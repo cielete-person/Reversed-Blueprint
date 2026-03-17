@@ -61,12 +61,13 @@ inclusion: manual
 │   │   ├── event-flow.md
 │   │   ├── data.md
 │   │   ├── ui-ux.md
+│   │   ├── cross-platform-screen-map.md
 │   │   ├── security.md
 │   │   ├── quality.md
 │   │   ├── stb-resources.md
 │   │   ├── resilience-dr.md
 │   │   └── ai-governance.md
-│   ├── gap-analysis/            ← Phase 3 통합본
+│   ├── gap-analysis/            ← Phase 3 통합본 (cross-platform-gap.md 포함)
 │   └── glossary/                ← 용어 사전 통합본
 │
 ├── project/                     ← 프로젝트 관리 문서

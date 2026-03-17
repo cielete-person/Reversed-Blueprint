@@ -37,6 +37,10 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 - 딥링크 진입 시 인증 체크 누락 경로를 식별하라
 - 다국어 미적용 / 접근성 미준수 영역 Gap 리포트를 작성하라
 - 피처 플래그 잔존 코드 (실험 종료 후 미정리)를 식별하라
+- 크로스 플랫폼 화면 불일치 Gap을 분석하라:
+  - iOS에만/Android에만 있는 화면 식별
+  - 동일 화면의 UX 흐름 차이 (네비게이션, 제스처, 레이아웃)
+  - 플랫폼 분기 코드 중 한쪽만 업데이트되고 다른 쪽은 미반영된 영역 식별
 
 ### 3. 품질 인프라 Gap 분석
 - 테스트 자동화 미적용 서비스/모듈 Gap 리포트를 작성하라
@@ -106,6 +110,7 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 - `dead-code-unused.md` — Dead Code / 미사용 API 리포트
 - `orphan-screens.md` — 미사용 화면 / Orphan Screen 리포트
 - `user-scenario-gap.md` — 유저 시나리오 완전성 Gap 리포트
+- `cross-platform-gap.md` — 크로스 플랫폼 화면/코드 불일치 Gap 리포트 (iOS↔Android↔STB)
 - `quality-infra-gap.md` — 품질 인프라 Gap 리포트
 - `security-gap.md` — 보안 Gap 리포트 (개인정보보호법, 입력 보안, API 보안, 암호화, 감사 로그, 하드닝, 앱 쉴딩)
 - `code-quality-risk-matrix.md` — 코드 품질 위험도 종합 매트릭스

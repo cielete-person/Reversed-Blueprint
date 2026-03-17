@@ -35,6 +35,24 @@ inclusion: manual
 - 환경별 활성화되는 Bean/모듈 차이를 식별하라 (@Profile, @ConditionalOnProperty 등)
 - 설정값 중 하드코딩 vs 환경변수 vs 외부 설정 서버(Config Server) 구분하라
 
+### 5. 디바이스/플랫폼 분기 코드 추출
+- **모바일 앱 (iOS / Android)**:
+  - 플랫폼별 네이티브 코드 분기를 식별하라 (Platform.OS, #if os(iOS), Build.VERSION 등)
+  - 공유 코드 vs 플랫폼 전용 코드 비율을 분석하라 (React Native: .ios.js/.android.js, Flutter: Platform.isIOS)
+  - 플랫폼별 네이티브 모듈/브릿지 목록을 추출하라 (카메라, 푸시, 생체인증, 결제 등)
+  - 플랫폼별 권한(Permission) 요청 차이를 식별하라 (iOS Info.plist vs Android Manifest)
+  - 플랫폼별 푸시 알림 처리 차이를 식별하라 (APNs vs FCM)
+- **STB 앱 (AOSP / Android TV)**:
+  - AOSP 기반 커스텀 론처(LGU+ 자체 론처) 관련 코드를 식별하라
+  - Android TV Leanback 라이브러리 사용 여부 및 커스텀 UI 범위를 확인하라
+  - STB 기종별 분기 코드를 식별하라 (저사양/고사양, 칩셋별, 미들웨어별)
+  - TV 입력 프레임워크(TIF) / CAS / DRM 연동 코드를 식별하라
+  - 리모컨 전용 네비게이션 로직을 추출하라 (D-pad 포커스, 키 이벤트)
+- **크로스 플랫폼 공통**:
+  - 디바이스 타입별 분기 로직을 식별하라 (phone/tablet/TV/STB)
+  - 화면 크기/해상도별 레이아웃 분기를 식별하라 (Responsive/Adaptive)
+  - OS 버전별 분기 코드를 식별하라 (minSdkVersion, iOS Deployment Target 등)
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
@@ -46,6 +64,7 @@ inclusion: manual
 - `directory-structure.md` — 디렉토리 구조 및 아키텍처 패턴
 - `dependencies.md` — 의존성 목록 (내부/외부 구분)
 - `config-profiles.md` — 설정 프로파일 비교표 (dev/staging/prod)
+- `platform-branching.md` — 디바이스/플랫폼 분기 코드 인벤토리 (iOS/Android/STB)
 
 ## 완료 기준
 - 대상 서비스의 기술 프로파일이 작성됨

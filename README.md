@@ -8,6 +8,13 @@
 - 요구사항 → 설계 → 구현 간 추적성(Traceability) 확보
 - Stakeholder별 맞춤 View 제공 (PO, PM, 개발자, UX센터, 품질센터, 보안센터)
 
+## 대상 플랫폼
+
+- 모바일 앱: iOS, Android (크로스 플랫폼 화면 동기화 — 화면 ID 통합, 용어 정규화)
+- STB 앱: AOSP / Android TV OS 기반, LGU+ 자체 론처
+- 서버: Spring Boot, Node.js 등 (Swagger 미정비 레거시 포함)
+- 디바이스 환경별 분기 코드(플랫폼 전용 코드, 네이티브 모듈, 기종별 분기)를 설계도에 포함
+
 ## 폴더 구조
 
 ```
