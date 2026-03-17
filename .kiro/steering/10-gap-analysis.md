@@ -95,6 +95,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - **Step 1c 공통 모듈 결과 참조**: `01c-common-modules/impact-analysis.md`의 변경 영향도 Top 10을 기반으로, 공통 모듈 변경 시 영향받는 서비스/모듈 체인을 역추적하라
 - 사내 공통 라이브러리 버전 불일치(`01c-common-modules/external-common-libraries.md`)로 인한 잠재적 호환성 위험을 식별하라
 - **Step 09 Layer Stack View 결과 참조**: `views/layer-stack/`의 Network Layer(OnPremise/Cloud/하이브리드 추정)와 Infra/Deploy Layer 결과를 기반으로, 인프라 의존성 Gap을 교차 검증하라. 특히 OnPrem↔Cloud 하이브리드 구성에서 네트워크 경계 간 숨겨진 의존성을 식별하라
+- **Step 09 E2E Call Flow View 결과 참조**: `views/event-flow/e2e-call-flow-*.md`의 에러 전파 경로와 멀티 Repo 교차 매핑 결과를 기반으로, Call Flow 상에서 드러나지 않는 암묵적 의존성(공유 세션, 공유 캐시 키, 비동기 이벤트 체인)을 식별하라
 
 ### 8-1. SPOF 미해소 Gap 분석 `[CDR 3.2.1]`
 - Phase 1에서 식별된 SPOF 중 완화 방안이 없는 항목을 식별하라

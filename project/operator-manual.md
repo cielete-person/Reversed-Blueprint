@@ -213,12 +213,12 @@ KIRO 채팅창에 아래 형식으로 입력한다:
 | Step 1c | `#01c-common-module-grouping 서비스: media-iptv-vod` | 공통 모듈 그룹핑, 사내 라이브러리, 영향 범위 | `extraction/01c-common-modules/` |
 | Step 02 | `#02-screen-inventory 서비스: media-iptv-vod` | 화면 목록, 크로스 플랫폼 동기화 | `extraction/02-screens/` |
 | Step 03 | `#03-api-and-data 서비스: media-iptv-vod` | API, DB 스키마, 쿼리 패턴 | `extraction/03-api-data/` |
-| Step 04 | `#04-business-logic 서비스: media-iptv-vod` | 비즈니스 규칙, 상태 전이, Use Case, NFR 체크포인트 | `extraction/04-business-logic/` |
+| Step 04 | `#04-business-logic 서비스: media-iptv-vod` | 비즈니스 규칙, 상태 전이, E2E Call Flow, Use Case, NFR 체크포인트 | `extraction/04-business-logic/` |
 | Step 05 | `#05-security-extraction 서비스: media-iptv-vod` | 크리덴셜, 개인정보, 보안 | `extraction/05-security/` |
 | Step 06 | `#06-quality-extraction 서비스: media-iptv-vod` | 테스트, 로깅, 의존성 건강도 | `extraction/06-quality/` |
 | Step 07 | `#07-ux-extraction 서비스: media-iptv-vod` | 인터랙션, 유효성 검증, 접근성 | `extraction/07-ux/` |
 | Step 08 | `#08-infra-and-integration 서비스: media-iptv-vod` | 외부 연동, 배포, STB 리소스 | `extraction/08-infra/` |
-| Step 09 | `#09-architecture-views 서비스: media-iptv-vod` | C4 다이어그램, Stakeholder View, Layer Stack View | `views/` |
+| Step 09 | `#09-architecture-views 서비스: media-iptv-vod` | C4 다이어그램, Stakeholder View, E2E Call Flow View, Layer Stack View | `views/` |
 | Step 10 | `#10-gap-analysis 서비스: media-iptv-vod` | 추적성 매핑, Gap 분석 | `gap-analysis/` |
 
 > 산출물 위치는 모두 `services/media-iptv-vod/docs/` 하위이다.

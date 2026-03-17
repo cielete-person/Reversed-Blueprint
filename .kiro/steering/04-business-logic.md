@@ -50,6 +50,12 @@ inclusion: manual
 - 비동기 호출 체인: Service A → MQ → Service B → DB 순서를 추적하라
 - 호출 체인별 메타정보: 호출 순서, 프로토콜(REST/gRPC/MQ), 타임아웃, 에러 전파 방식
 - 순환 호출(Circular Dependency) 패턴을 식별하라 → ⚠️ 표기
+- **Use Case ID 연결 필수**: 각 호출 체인이 어떤 Use Case(UC-{서비스}-{순번})에 해당하는지 매핑하라. 하나의 UC가 여러 호출 체인을 포함할 수 있음
+- **E2E Call Flow 원시 데이터 추출**: 주요 Use Case(가입, 결제, 인증 등)에 대해 사용자 조작부터 최종 응답까지의 전체 흐름을 추출하라:
+  - 앱(프론트엔드) → API Gateway → 백엔드 서비스 → 외부 시스템 → DB → 응답 → 앱 UI 갱신
+  - 멀티 Repo 서비스: 앱 코드의 API 호출부와 서버 코드의 Controller를 교차 매핑하여 앱↔서버 간 단절 없이 연결
+  - 각 구간의 프로토콜, 인증 방식, 에러 시 분기(fallback/retry/에러 화면)를 포함
+  - 동기 호출과 비동기 이벤트가 혼합된 경우 양쪽 모두 표기 (예: API 응답 후 비동기 알림 발송)
 
 ### 5. 유저 시나리오(Use Case) 추출
 
@@ -122,6 +128,7 @@ inclusion: manual
 - `event-flows.md` — 이벤트/메시지 토픽 목록 및 발행-구독 관계
 - `batch-scheduler-inventory.md` — 배치/스케줄러 작업 인벤토리
 - `call-flow-chains.md` — 서비스 간 Call Flow 호출 체인 원시 데이터
+- `e2e-call-flows.md` — 주요 Use Case별 E2E Call Flow 원시 데이터 (앱→Gateway→서비스→외부→DB→응답→앱, 멀티 Repo 교차 매핑 포함)
 - `use-case-tree.md` — Use Case Tree 계층 구조도 (EP→LC→FG→UC→Scenario, Mermaid mindmap)
 - `use-cases.md` — Use Case 카탈로그 (공통 + 서비스 특화, ID/구현여부/API/화면 매핑)
 - `use-case-scenarios.md` — 주요 Use Case 시나리오 상세 (정상/대안/예외, NFR 체크포인트 인라인 태그 포함)
@@ -150,6 +157,8 @@ XML 설정 기반 스케줄러도 포함해줘.
 - 비동기 메시지 흐름이 매핑됨
 - 배치/스케줄러 작업이 인벤토리로 정리됨 (작업명, 주기, 의존 관계)
 - 서비스 간 Call Flow 호출 체인이 동기/비동기 구분하여 추출됨
+- 주요 Use Case(가입, 결제, 인증 등)의 E2E Call Flow가 앱→서버→외부 전체 구간으로 추출됨
+- 멀티 Repo 서비스에서 앱↔서버 간 API 호출부-Controller 교차 매핑이 완료됨
 - B2C 공통 Use Case 9개 카테고리에 대한 구현 여부가 확인됨
 - 서비스 특화 Use Case가 식별되어 ID가 부여됨
 - 주요 Use Case의 정상/예외 시나리오가 작성됨

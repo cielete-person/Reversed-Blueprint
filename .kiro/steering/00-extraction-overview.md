@@ -41,12 +41,12 @@ inclusion: manual
 | 1c | `01c-common-module-grouping` | 공통 모듈 그룹핑, 사내 라이브러리 식별, 의존 방향·영향 범위 분석 | `services/{서비스명}/docs/extraction/01c-common-modules/` |
 | 2 | `02-screen-inventory` | 화면 목록 추출, 화면명 정규화, 화면 ID 부여 | `services/{서비스명}/docs/extraction/02-screens/` |
 | 3 | `03-api-and-data` | API 엔드포인트 추출, DB 스키마 역추적, ERD | `services/{서비스명}/docs/extraction/03-api-data/` |
-| 4 | `04-business-logic` | 비즈니스 규칙, 에러 처리, 상태 전이, 이벤트 흐름, Use Case Tree, NFR 체크포인트 | `services/{서비스명}/docs/extraction/04-business-logic/` |
+| 4 | `04-business-logic` | 비즈니스 규칙, 에러 처리, 상태 전이, 이벤트 흐름, E2E Call Flow, Use Case Tree, NFR 체크포인트 | `services/{서비스명}/docs/extraction/04-business-logic/` |
 | 5 | `05-security-extraction` | 크리덴셜, 개인정보, 세션/토큰, 입력 보안, API 보안, 감사 로그, 암호화, 하드닝 | `services/{서비스명}/docs/extraction/05-security/` |
 | 6 | `06-quality-extraction` | 테스트 현황, 변경 빈도, 로깅, 의존성 건강도, 동시성, 정합성, 성능 | `services/{서비스명}/docs/extraction/06-quality/` |
 | 7 | `07-ux-extraction` | 인터랙션 패턴, 유효성 검증, 로딩 UX, 다국어/접근성, 딥링크, 피처 플래그 | `services/{서비스명}/docs/extraction/07-ux/` |
 | 8 | `08-infra-and-integration` | 외부 연동, 배포 토폴로지, STB 리소스, 비기능 현황 | `services/{서비스명}/docs/extraction/08-infra/` |
-| 9 | `09-architecture-views` | Phase 1 결과 기반 C4 다이어그램, Stakeholder별 View 문서, Layer Stack View 생성 | `services/{서비스명}/docs/views/` |
+| 9 | `09-architecture-views` | Phase 1 결과 기반 C4 다이어그램, Stakeholder별 View 문서, E2E Call Flow View, Layer Stack View 생성 | `services/{서비스명}/docs/views/` |
 | 10 | `10-gap-analysis` | 추적성 매핑, Gap 분석, 위험도 매트릭스, 용어 사전 확정 | `services/{서비스명}/docs/gap-analysis/` |
 | — | 통합 | 모든 서비스 완료 후, 서비스별 결과를 `docs-integrated/`에 통합 | `docs-integrated/` |
 

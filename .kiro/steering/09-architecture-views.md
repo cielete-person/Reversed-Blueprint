@@ -74,14 +74,37 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
   - Use Case별 정상/대안/예외 시나리오 문서
 - → 대상: PM, 개발자, 품질센터, PO
 
-### 2-4. 이벤트/메시지 흐름 View
+### 2-4. 이벤트/메시지 흐름 & E2E Call Flow View
 - 서비스 간 비동기 메시지 발행-구독 관계 시각화
 - 이벤트 토픽/큐별 스키마, 처리 순서, 재처리 정책
 - 동기 API + 비동기 이벤트 통합 전체 흐름도
 - 이벤트 스토밍 결과물 (도메인 이벤트 → 커맨드 → 애그리거트)
 - **Dead Code 제외**: Step 1b에서 Dead 판정된 이벤트 핸들러/리스너는 흐름도에서 제외하라. 조건부 Dead(⚠️)는 점선으로 구분 표기
 - **코드 없는 구성 요소**: `<<no-source>>`, `<<console>>` 노드가 이벤트를 발행/구독하는 경우, 해당 연결선에 `[인터뷰]` 태그를 표기하라
-- → 대상: PM, 개발자
+
+#### 주요 Use Case별 E2E Call Flow View
+> Step 04(4-2)에서 추출한 E2E Call Flow 원시 데이터를 기반으로, 주요 Use Case의 전체 구간 시퀀스 다이어그램을 생성한다.
+
+- **대상 Use Case 선정**: 가입, 결제, 인증, 해지 등 핵심 B2C Use Case + 서비스 특화 주요 UC (최소 5개 이상)
+- **E2E 시퀀스 다이어그램 작성** (Mermaid sequenceDiagram):
+  - 전체 구간: 앱(프론트엔드) → API Gateway → 백엔드 서비스 → 외부 시스템 → DB → 응답 → 앱 UI 갱신
+  - 정상 흐름(Happy Path) + 에러/fallback 분기 경로를 하나의 다이어그램에 `alt/else` 블록으로 표현
+  - 동기 호출(실선 화살표)과 비동기 이벤트(점선 화살표)를 구분 표기
+  - 각 구간에 프로토콜(REST/gRPC/MQ/DB), 인증 방식, 타임아웃 설정을 주석으로 기재
+- **멀티 Repo 앱↔서버 교차 매핑**:
+  - 앱 코드의 API 호출부(Retrofit/Alamofire/fetch 등)와 서버 코드의 Controller 엔드포인트를 교차 매핑
+  - 앱 Repo와 서버 Repo가 분리된 경우, 양쪽 소스 위치를 병기하여 Call Flow 단절 없이 연결
+  - 앱→서버 호출 시 요청/응답 DTO 일치 여부 확인 (불일치 시 ⚠️ 표기)
+- **에러 전파 경로 시각화**:
+  - 외부 시스템 장애 → 서비스 fallback → 앱 에러 화면까지의 에러 전파 경로
+  - Circuit Breaker 발동 시 대체 흐름
+  - 타임아웃 발생 시 각 구간별 처리 방식
+- **Use Case ↔ Call Flow 교차 매핑 테이블**:
+  | Use Case ID | Use Case명 | 관련 Call Flow | 동기/비동기 | 주요 외부 연동 |
+  |---|---|---|---|---|
+  | UC-{서비스}-001 | 상품가입 | CF-001, CF-002 | 동기+비동기 | 과금, CRM |
+- 산출물: `services/{서비스명}/docs/views/event-flow/` 하위에 `e2e-call-flow-{UC-ID}.md` 파일로 생성
+- → 대상: PM, 개발자, 품질센터
 
 ### 2-5. 데이터 View
 - ERD (논리/물리)
@@ -223,7 +246,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - `system-context/` — C4 Level 1-2 다이어그램 및 설명
 - `component-code/` — C4 Level 3-4, 시퀀스, 상태 전이 다이어그램
 - `business-rules/` — 비즈니스 규칙 카탈로그, 에러 처리 패턴 맵, Use Case 카탈로그/시나리오
-- `event-flow/` — 이벤트 흐름도, 이벤트 스토밍 결과
+- `event-flow/` — 이벤트 흐름도, 이벤트 스토밍 결과, E2E Call Flow 시퀀스 다이어그램 (Use Case별)
 - `data/` — ERD, DFD
 - `ui-ux/` — 화면 카탈로그, 화면 흐름도, 인터랙션 맵, 검증 규칙, 접근성
 - `security/` — 보안 View 전체 (인증, PII, 암호화, API 보안, 감사 로그, 하드닝 등)
@@ -249,4 +272,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 코드 없는 구성 요소가 스테레오타입(`<<binary SDK>>`, `<<no-source>>`, `<<console>>`, `<<external-db>>`, `<<external>>`)으로 표기됨
 - Dead Code(Step 1b 판정)가 다이어그램에서 제외 또는 구분 표기됨
 - 공통 모듈(Step 1c 결과)이 2-2 컴포넌트 View에 반영됨
+- 주요 Use Case(최소 5개)의 E2E Call Flow 시퀀스 다이어그램이 앱→서버→외부 전체 구간으로 작성됨
+- E2E Call Flow에 정상 흐름 + 에러/fallback 분기 경로가 포함됨
+- 멀티 Repo 서비스에서 앱↔서버 간 Call Flow 교차 매핑이 완료됨
+- Use Case ↔ Call Flow 교차 매핑 테이블이 작성됨
 - Layer Stack View(2-12)에 7개 Layer가 모두 식별되고, 각 항목에 추정 근거와 확인 상태가 표기됨
