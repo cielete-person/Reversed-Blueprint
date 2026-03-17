@@ -6,6 +6,11 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-6. 품질 관련 추출
 
+## 선행 산출물 참조
+
+- **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 코드의 테스트는 품질 분석에서 제외하라. Dead Code를 테스트하는 테스트 코드 자체도 Dead로 분류하라.
+- **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 모듈의 테스트 커버리지를 별도 집계하라. 공통 모듈은 영향 범위가 넓으므로(🔴 High) 테스트 미비 시 고위험으로 분류하라.
+
 ## 목표
 
 품질센터가 참조할 수 있는 품질 설계도를 소스코드에서 역추적한다.

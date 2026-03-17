@@ -6,6 +6,11 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-4. 비즈니스 로직
 
+## 선행 산출물 참조
+
+- **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 비즈니스 로직, 이벤트 핸들러, 배치 작업은 본 Step에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
+- **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 예외 처리(GlobalExceptionHandler 등), 공통 이벤트 발행/구독 모듈을 식별하여, 비즈니스 로직 분석 시 공통 모듈 기반 처리와 서비스 고유 처리를 구분하라.
+
 ## 목표
 
 코드에서 비즈니스 규칙, 에러/예외 처리 패턴, 상태 전이 조건, 이벤트/메시지 흐름을 추출한다.

@@ -6,6 +6,11 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-5, 1-8, 1-9
 
+## 선행 산출물 참조
+
+- **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 외부 연동 코드(미사용 API 클라이언트, 미사용 MQ Producer/Consumer)는 인프라 분석에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
+- **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 외부 연동 모듈(공통 HTTP Client, 공통 MQ 설정 등)을 식별하여, 외부 연동 인벤토리에 공통 모듈 경유 여부를 표기하라.
+
 ## 목표
 
 외부 연동 시스템, 배포 토폴로지, STB 하드웨어 리소스, 비기능 현황을 추출한다.

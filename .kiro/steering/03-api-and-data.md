@@ -6,6 +6,11 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-3. API 및 데이터
 
+## 선행 산출물 참조
+
+- **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 API 엔드포인트, 미사용 DB 테이블/컬럼은 본 Step 산출물에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
+- **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 데이터 접근 모듈(공통 Repository, 공통 DAO)과 공통 API 클라이언트를 식별하여, API/DB 분석 시 공통 모듈 경유 여부를 표기하라.
+
 ## 목표
 
 REST API 엔드포인트를 자동 추출하고, DB 스키마를 역추적하여 ERD 초안을 생성한다.

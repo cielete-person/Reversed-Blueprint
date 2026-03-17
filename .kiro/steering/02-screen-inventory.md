@@ -6,6 +6,11 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-2. 화면 목록 및 정규화
 
+## 선행 산출물 참조
+
+- **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 화면/Activity/Fragment/ViewController는 화면 목록에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
+- **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 UI 컴포넌트(Base Activity, 공통 Fragment 등)를 식별하여, 화면 목록에서 "공통 UI 컴포넌트" 섹션으로 별도 분류하라.
+
 ## 목표
 
 프론트엔드 소스에서 전체 화면 목록을 추출하고, 화면 ID를 부여하며, 화면명을 정규화한다.

@@ -6,6 +6,11 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-10. UX 관련 추출
 
+## 선행 산출물 참조
+
+- **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 화면/인터랙션 핸들러는 UX 분석에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
+- **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 UI 컴포넌트(공통 로딩, 공통 에러 화면, 공통 다이얼로그 등)를 식별하여, UX 패턴 분석 시 "공통 UX 패턴" 섹션으로 별도 정리하라.
+
 ## 목표
 
 PO/UX센터가 기획 시 참조할 수 있는 UX 설계도를 소스코드에서 역추적한다.
