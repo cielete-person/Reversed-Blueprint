@@ -23,7 +23,8 @@ inclusion: manual
 │   ├── platform-service-inventory.md
 │   ├── security-layer-checklist.md
 │   ├── cdr-design-checklist.md
-│   └── manual-tasks.md
+│   ├── manual-tasks.md
+│   └── prompt-cookbook.md
 ├── docs-integrated/              ← 전체 서비스 통합 설계도 (복붙 문서화용)
 ```
 

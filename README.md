@@ -26,7 +26,8 @@
 │   ├── platform-service-inventory.md  플랫폼 서비스 인벤토리 (참조용)
 │   ├── security-layer-checklist.md    보안 체크리스트 (217항목)
 │   ├── cdr-design-checklist.md        CDR 설계 체크리스트 (CTO품질PMO팀 가이드 매핑)
-│   └── manual-tasks.md                수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증)
+│   ├── manual-tasks.md                수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증)
+│   └── prompt-cookbook.md             프롬프트 쿡북 (효과적인 추가 프롬프트 패턴 축적소)
 ├── services/              ← 서비스별 소스코드 + 설계도
 │   ├── {서비스명}/src/          Bitbucket clone 소스코드
 │   ├── {서비스명}/docs/         KIRO 추출 설계도
@@ -66,4 +67,5 @@
 - [Security Layer Checklist](project/security-layer-checklist.md) — 보안기술팀 설계/구현 체크리스트 (217항목)
 - [CDR Design Checklist](project/cdr-design-checklist.md) — CTO품질PMO팀 CDR 가이드 설계 반영 매핑
 - [Manual Tasks](project/manual-tasks.md) — 작업자 수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증 등)
+- [Prompt Cookbook](project/prompt-cookbook.md) — 효과적인 추가 프롬프트 패턴 축적소
 - [Glossary](glossary.md)

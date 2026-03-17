@@ -78,7 +78,8 @@ inclusion: manual
 │   ├── platform-service-inventory.md
 │   ├── security-layer-checklist.md
 │   ├── cdr-design-checklist.md
-│   └── manual-tasks.md              ← 수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증)
+│   ├── manual-tasks.md              ← 수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증)
+│   └── prompt-cookbook.md            ← 프롬프트 쿡북 (효과적인 추가 프롬프트 패턴 축적소)
 ├── glossary.md                  ← 용어 사전 초안
 ```
 
