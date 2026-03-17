@@ -97,6 +97,19 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 - 프롬프트 인젝션 방어 미적용 영역을 식별하라
 - AI Drift 모니터링 미설정 영역을 식별하라
 
+### 8-4. 서비스 간 교차 검증
+- 서비스 A가 호출하는 API와 서비스 B가 제공하는 API 계약 일치 여부를 검증하라
+- 이벤트 Producer 스키마와 Consumer 스키마 일치 여부를 검증하라
+- 서비스 간 공유 용어(도메인 객체명, 상태값, 에러코드) 일관성을 검증하라
+- 불일치 항목은 `cross-service-inconsistency.md`에 기록하라
+- 최종 판단은 PM/개발 리드가 확정 → manual-tasks.md P3-1
+
+### 8-5. 서비스 합리화 판단
+- 기능 중복 서비스를 식별하라: 동일/유사 기능을 2개 이상 서비스가 구현하는 경우
+- 저사용 서비스를 식별하라: 런타임 트래픽 데이터(P1-1) 기반 호출 빈도 극저 서비스
+- 고비용 서비스를 식별하라: 코드 복잡도 높고 변경 빈도 높으나 비즈니스 가치 낮은 서비스
+- 통합/폐기/재작성 후보를 판단하라 → PM+PO+개발 리드 확정 (manual-tasks.md P3-5)
+
 ### 9. 용어 사전 최종 검증 및 확정
 - Phase 0 초안을 실제 코드/화면 분석 결과와 대조하여 보완하라
 - 화면명 정규화 결과 최종 검증: 모든 산출물에서 대표 명칭이 일관되게 사용되는지 크로스체크
@@ -120,6 +133,8 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 - `spof-gap.md` — SPOF 미해소 Gap 리포트 `[CDR 3.2.1]`
 - `message-stability-gap.md` — 메시지 안정성 Gap 리포트 (멱등성/DLQ/순서) `[CDR 4.3]`
 - `ai-governance-gap.md` — AI 거버넌스 Gap 리포트 `[CDR 12장]`
+- `cross-service-inconsistency.md` — 서비스 간 교차 검증 리포트 (API 계약/이벤트 스키마/용어 불일치)
+- `service-rationalization.md` — 서비스 합리화 판단 리포트 (기능 중복/저사용/고비용 → 통합/폐기/재작성 후보)
 - `glossary-final.md` — 용어 사전 확정본
 - `improvement-recommendations.md` — 개선 권고사항 종합
 

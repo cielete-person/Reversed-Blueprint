@@ -59,6 +59,12 @@ REST API 엔드포인트를 자동 추출하고, DB 스키마를 역추적하여
 - N+1 쿼리 위험 패턴 식별 (Lazy Loading + 루프 내 조회)
 - 복잡 조인/서브쿼리 목록 (성능 병목 후보)
 
+### 2-2. DB 마이그레이션 이력 추출
+- Flyway(V*.sql), Liquibase(changelog), Django migrations 등 마이그레이션 스크립트를 식별하라
+- 스키마 변경 이력을 정리하라: 변경일(파일명/타임스탬프), 변경 내용(ADD/ALTER/DROP), 대상 테이블
+- 주요 스키마 변경점을 요약하라 (컬럼 추가/삭제, 인덱스 변경, 테이블 분리/통합)
+- 마이그레이션 스크립트가 소스 Repo에 없는 경우 → `🔍 인터뷰필요` (manual-tasks.md P1-6)
+
 ### 3. 서비스 간 통신 매트릭스
 - 서비스 A → 서비스 B 호출 관계를 매트릭스로 정리하라
 - 동기(API) / 비동기(MQ) 구분하라
@@ -75,6 +81,7 @@ REST API 엔드포인트를 자동 추출하고, DB 스키마를 역추적하여
 - `api-versioning.md` — API 버전 관리 현황 (버전 방식, Deprecated, 무버전)
 - `internal-api-contracts.md` — 서비스 간 내부 API 계약 (Feign/RestTemplate/gRPC)
 - `db-query-patterns.md` — DB 쿼리 패턴 상세 (MyBatis XML, Native Query, SP)
+- `db-migration-history.md` — DB 마이그레이션 이력 (Flyway/Liquibase 스키마 변경 이력)
 - `erd.md` — ERD 초안 (Mermaid erDiagram 사용)
 - `service-communication-matrix.md` — 서비스 간 통신 매트릭스
 
@@ -84,5 +91,6 @@ REST API 엔드포인트를 자동 추출하고, DB 스키마를 역추적하여
 - API 버전 관리 전략이 식별되고 무버전/Deprecated API가 표기됨
 - 서비스 간 내부 API 계약(Feign/RestTemplate/gRPC)이 호출 체인으로 정리됨
 - DB 쿼리 패턴(MyBatis XML, Native Query, SP)이 수집됨
+- DB 마이그레이션 이력(Flyway/Liquibase)이 수집됨 (스크립트 없는 경우 🔍 표기)
 - ERD 초안이 Mermaid 다이어그램으로 작성됨
 - 서비스 간 호출 관계가 매트릭스로 정리됨

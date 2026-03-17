@@ -22,7 +22,8 @@ inclusion: manual
 │   ├── service-inventory.md
 │   ├── platform-service-inventory.md
 │   ├── security-layer-checklist.md
-│   └── cdr-design-checklist.md
+│   ├── cdr-design-checklist.md
+│   └── manual-tasks.md
 ├── docs-integrated/              ← 전체 서비스 통합 설계도 (복붙 문서화용)
 ```
 
@@ -45,6 +46,8 @@ inclusion: manual
 | 9 | `09-architecture-views` | Phase 1 결과 기반 C4 다이어그램, Stakeholder별 View 문서 생성 | `services/{서비스명}/docs/views/` |
 | 10 | `10-gap-analysis` | 추적성 매핑, Gap 분석, 위험도 매트릭스, 용어 사전 확정 | `services/{서비스명}/docs/gap-analysis/` |
 | — | 통합 | 모든 서비스 완료 후, 서비스별 결과를 `docs-integrated/`에 통합 | `docs-integrated/` |
+
+> 📌 각 Step 실행 중 `[인터뷰]` 태그 항목이 나오면, [수작업 항목 목록](../project/manual-tasks.md)을 참조하여 해당 수작업을 병행하라.
 
 ## 공통 규칙
 
@@ -69,6 +72,8 @@ inclusion: manual
    - 앱/단말/서버 등 플랫폼 관점 상세 정보가 필요하면 `project/platform-service-inventory.md`도 함께 참조하라
 
 1. **서비스 단위 작업**: 한 번에 하나의 서비스를 대상으로 작업. 소스는 `services/{서비스명}/src/`, 산출물은 `services/{서비스명}/docs/`
+
+1-1. **Baseline Commit 확정**: 분석 시작 전 대상 서비스의 분석 기준 브랜치/커밋을 확정하라. 권장: `main` 또는 `master` 브랜치의 최신 태그 또는 특정 커밋. 분석 중 코드 변경이 발생해도 Baseline 기준으로 분석 완료. 분석 완료 후 Baseline 이후 변경분은 증분 분석으로 처리. (manual-tasks.md P0-4 참조)
 
 2. **확인 상태 표기**: 모든 항목에 아래 상태를 반드시 표기
    - ✅ 확인완료 — 코드/설정에서 확인됨

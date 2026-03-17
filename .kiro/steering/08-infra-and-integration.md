@@ -31,6 +31,14 @@ inclusion: manual
 - 코드에서 확인 가능한 항목: Timeout, 커넥션 풀, 캐시 TTL, Rate Limit 설정
 - 코드에서 확인 불가(🔍): 실제 TPS, 응답시간, SLA/SLO
 
+### 5. 런타임 데이터 수집 안내 (수작업)
+- 이 항목은 KIRO 자동 추출 불가, 작업자가 수작업으로 수집해야 한다
+- APM/모니터링에서 API별 TPS, 응답시간, 에러율 수집 → manual-tasks.md P1-1
+- DB 슬로우 쿼리 / 실행 계획 수집 → manual-tasks.md P1-2
+- 분산 추적 데이터(Zipkin/Jaeger) 수집 → manual-tasks.md P1-3
+- 수집 결과를 `services/{서비스명}/docs/extraction/runtime-data.md`에 기록
+- KIRO가 코드에서 추출한 Call Flow / 성능 병목 후보와 런타임 데이터를 비교 검증하는 데 활용
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
@@ -42,6 +50,7 @@ inclusion: manual
 - `deployment-topology.md` — 배포 토폴로지
 - `stb-resources.md` — STB 리소스 관리 현황
 - `nfr-baseline.md` — 비기능 현황 베이스라인
+- `runtime-data.md` — 런타임 트래픽/성능 데이터 (수작업 수집, manual-tasks.md P1-1~P1-3)
 
 ## 완료 기준
 - 외부 연동 시스템이 연동 방식과 함께 목록화됨

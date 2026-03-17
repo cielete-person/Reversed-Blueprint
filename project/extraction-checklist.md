@@ -67,6 +67,26 @@
     - 네트워크 환경별 분기 (Wi-Fi/LTE/5G, 오프라인 모드)
   - 산출물: 플랫폼 분기 코드 인벤토리 (분기 위치, 분기 조건, 영향 범위)
 
+- [ ] 기술 부채 마커 추출 (Tech Debt Marker Extraction) `[KIRO]`
+  - 소스코드 내 TODO, FIXME, HACK, WORKAROUND, XXX, DEPRECATED 주석 전수 스캔
+  - 마커별 메타정보: 파일 위치, 라인 번호, 작성자(git blame), 작성일, 내용
+  - 마커 밀집도 분석: 파일/모듈별 기술 부채 마커 수 집계
+  - ADR(Architecture Decision Record), CHANGELOG, README 내 설계 의도 기술 수집
+  - 심각도 분류는 개발 리드가 수작업으로 확정 → `[KIRO+확정]` (manual-tasks.md P1-4)
+
+- [ ] IaC(Infrastructure as Code) 분석 `[KIRO]`
+  - Terraform, Helm Chart, Ansible, CloudFormation, Kustomize 파일 식별
+  - IaC에서 인프라 아키텍처 역추적: VPC/서브넷, 보안 그룹, 로드밸런서, 오토스케일링
+  - k8s NetworkPolicy, 서비스 메시(Istio/Linkerd) 설정 식별
+  - IaC 파일이 소스 Repo에 없는 경우 → `🔍 인터뷰필요` (manual-tasks.md P1-7)
+
+- [ ] CI/CD 파이프라인 상세 분석 `[KIRO]`
+  - Jenkinsfile, .gitlab-ci.yml, bitbucket-pipelines.yml, GitHub Actions 등 파이프라인 파일 스캔
+  - 빌드 스테이지 구성: lint → test → build → deploy 순서 및 게이트 조건
+  - 배포 전략 식별: 블루그린/카나리/롤링 `[CDR 8.1.1]`
+  - 자동 롤백 트리거 조건 식별
+  - 환경별 배포 파이프라인 차이 (dev/staging/prod)
+
 ### 1-2. 화면 목록 및 정규화
 
 - [ ] 화면 목록(Screen Inventory) 추출 `[KIRO]`
@@ -144,6 +164,11 @@
   - Stored Procedure / Function 호출 목록
   - N+1 쿼리 위험 패턴 식별 (Lazy Loading + 루프 내 조회)
   - 복잡 조인/서브쿼리 목록 (성능 병목 후보)
+- [ ] DB 마이그레이션 이력 추출 `[KIRO+도구]`
+  - Flyway(V*.sql), Liquibase(changelog), Django migrations 등 마이그레이션 스크립트 식별
+  - 스키마 변경 이력 정리: 변경일(파일명/타임스탬프), 변경 내용(ADD/ALTER/DROP), 대상 테이블
+  - 주요 스키마 변경점 요약 (컬럼 추가/삭제, 인덱스 변경, 테이블 분리/통합)
+  - 마이그레이션 스크립트가 소스 Repo에 없는 경우 → `🔍 인터뷰필요` (manual-tasks.md P1-6)
 
 ### 1-4. 비즈니스 로직
 
@@ -235,6 +260,12 @@
 
 ### 1-5. 비기능 현황
 
+- [ ] 런타임 데이터 수집 안내 `[인터뷰]`
+  - 이 항목은 KIRO 자동 추출 불가, 작업자가 수작업으로 수집해야 한다
+  - APM/모니터링에서 API별 TPS, 응답시간, 에러율 수집 → manual-tasks.md P1-1
+  - DB 슬로우 쿼리 / 실행 계획 수집 → manual-tasks.md P1-2
+  - 분산 추적 데이터(Zipkin/Jaeger) 수집 → manual-tasks.md P1-3
+  - 수집 결과를 `services/{서비스명}/docs/extraction/runtime-data.md`에 기록
 - [ ] 비기능 현황 수집 (NFR Baseline Collection)
   - 코드에서 확인 가능: Timeout 설정, 커넥션 풀 크기, 캐시 TTL, Rate Limit 설정 `[KIRO]`
   - 코드에서 확인 불가(🔍): 실제 TPS, 응답시간, SLA/SLO → 모니터링 시스템 또는 담당자 확인 필요 `[인터뷰]`
@@ -512,6 +543,11 @@
 - SPOF 후보 목록 및 Failure Mode 분류표 `[CDR 3.2.1]`
 - 메시지 전달 보장/순서/멱등성 현황표 `[CDR 4.3]`
 - AI/ML 활용 현황 리포트 (사용 여부, 역할, 모델 출처, Fail-safe) `[CDR 12장]`
+- 기술 부채 마커 목록 (TODO/FIXME/HACK 전수 스캔, 파일별 밀집도)
+- IaC 인벤토리 (Terraform/Helm/Ansible/CloudFormation 파일 기반 인프라 역추적)
+- CI/CD 파이프라인 분석서 (빌드 스테이지, 배포 전략, 롤백 조건)
+- DB 마이그레이션 이력 (Flyway/Liquibase 스키마 변경 이력)
+- 런타임 트래픽 데이터 (수작업 수집 — manual-tasks.md P1-1~P1-3 참조)
 
 ---
 
@@ -800,6 +836,17 @@
   - AI 모델 변경 관리 미적용 영역
   - 프롬프트 인젝션 방어 미적용 영역
   - AI Drift 모니터링 미설정 영역
+- [ ] 서비스 간 교차 검증 `[KIRO+확정]`
+  - 서비스 A가 호출하는 API와 서비스 B가 제공하는 API 계약 일치 여부 검증
+  - 이벤트 Producer 스키마와 Consumer 스키마 일치 여부 검증
+  - 서비스 간 공유 용어(도메인 객체명, 상태값, 에러코드) 일관성 검증
+  - 불일치 항목은 `cross-service-inconsistency.md`에 기록
+  - 최종 판단은 PM/개발 리드가 확정 → manual-tasks.md P3-1
+- [ ] 서비스 합리화 판단 `[KIRO+확정]`
+  - 기능 중복 서비스 식별: 동일/유사 기능을 2개 이상 서비스가 구현하는 경우
+  - 저사용 서비스 식별: 런타임 트래픽 데이터(P1-1) 기반 호출 빈도 극저 서비스
+  - 고비용 서비스 식별: 코드 복잡도 높고 변경 빈도 높으나 비즈니스 가치 낮은 서비스
+  - 통합/폐기/재작성 후보 판단 → PM+PO+개발 리드 확정 (manual-tasks.md P3-5)
 - [ ] 용어 사전 최종 검증 및 확정 `[KIRO+확정]`
   - Phase 0 초안을 실제 코드/화면 분석 결과와 대조하여 보완
   - 화면명 정규화 결과 최종 검증: 모든 산출물에서 대표 명칭이 일관되게 사용되는지 크로스체크
@@ -822,6 +869,8 @@
 - SPOF 미해소 Gap 리포트 `[CDR 3.2.1]`
 - 메시지 안정성 Gap 리포트 (멱등성/DLQ/순서 보장) `[CDR 4.3]`
 - AI 거버넌스 Gap 리포트 `[CDR 12장]`
+- 서비스 간 교차 검증 리포트 (API 계약/이벤트 스키마/용어 불일치)
+- 서비스 합리화 판단 리포트 (기능 중복/저사용/고비용 서비스 → 통합/폐기/재작성 후보)
 - Gap 분석 리포트
 - 용어 사전 (Glossary) 확정본
 - 개선 권고사항

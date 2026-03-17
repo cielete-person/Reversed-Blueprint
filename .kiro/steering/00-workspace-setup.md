@@ -29,7 +29,8 @@ inclusion: manual
 │   │       │   ├── 05-security/
 │   │       │   ├── 06-quality/
 │   │       │   ├── 07-ux/
-│   │       │   └── 08-infra/
+│   │       │   ├── 08-infra/
+│   │       │   └── runtime-data.md  ← 런타임 트래픽/성능 데이터 (수작업 수집)
 │   │       ├── views/           ← Phase 2: 아키텍처 View 문서
 │   │       └── gap-analysis/    ← Phase 3: Gap 분석
 │   │
@@ -76,7 +77,8 @@ inclusion: manual
 │   ├── service-inventory.md
 │   ├── platform-service-inventory.md
 │   ├── security-layer-checklist.md
-│   └── cdr-design-checklist.md
+│   ├── cdr-design-checklist.md
+│   └── manual-tasks.md              ← 수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증)
 ├── glossary.md                  ← 용어 사전 초안
 └── scripts/
 ```
@@ -117,7 +119,14 @@ Copy-Item -Recurse services/_template services/media-iptv-vod
 
 ## 서비스별 소스코드 준비
 
-각 서비스의 소스코드를 `services/{서비스명}/src/` 에 clone한다:
+각 서비스의 소스코드를 `services/{서비스명}/src/` 에 clone한다.
+
+### Baseline Commit 확정
+
+clone 후, 분석 대상 브랜치와 커밋을 확정한다 (manual-tasks.md P0-4 참조):
+- 권장: `main` 또는 `master` 브랜치의 최신 태그 또는 특정 커밋
+- 분석 중 코드 변경이 발생해도 Baseline 기준으로 분석 완료
+- 분석 완료 후 Baseline 이후 변경분은 증분 분석으로 처리
 
 ```bash
 # 단일 Repo 서비스

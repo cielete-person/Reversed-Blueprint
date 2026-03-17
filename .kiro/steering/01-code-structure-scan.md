@@ -53,6 +53,26 @@ inclusion: manual
   - 화면 크기/해상도별 레이아웃 분기를 식별하라 (Responsive/Adaptive)
   - OS 버전별 분기 코드를 식별하라 (minSdkVersion, iOS Deployment Target 등)
 
+### 6. 기술 부채 마커 추출 (Tech Debt Marker Extraction)
+- 소스코드 내 TODO, FIXME, HACK, WORKAROUND, XXX, DEPRECATED 주석을 전수 스캔하라
+- 마커별 메타정보를 추출하라: 파일 위치, 라인 번호, 작성자(git blame), 작성일, 내용
+- 마커 밀집도를 분석하라: 파일/모듈별 기술 부채 마커 수 집계
+- ADR(Architecture Decision Record), CHANGELOG, README 내 설계 의도 기술을 수집하라
+- 심각도 분류는 개발 리드가 수작업으로 확정 → `[KIRO+확정]` (manual-tasks.md P1-4)
+
+### 7. IaC(Infrastructure as Code) 분석
+- Terraform(.tf), Helm Chart(Chart.yaml, values.yaml), Ansible(playbook.yml), CloudFormation(.yaml/.json), Kustomize(kustomization.yaml) 파일을 식별하라
+- IaC에서 인프라 아키텍처를 역추적하라: VPC/서브넷, 보안 그룹, 로드밸런서, 오토스케일링
+- k8s NetworkPolicy, 서비스 메시(Istio/Linkerd) 설정을 식별하라
+- IaC 파일이 소스 Repo에 없는 경우 → `🔍 인터뷰필요` (manual-tasks.md P1-7)
+
+### 8. CI/CD 파이프라인 상세 분석
+- Jenkinsfile, .gitlab-ci.yml, bitbucket-pipelines.yml, GitHub Actions(.github/workflows/) 등 파이프라인 파일을 스캔하라
+- 빌드 스테이지 구성을 정리하라: lint → test → build → deploy 순서 및 게이트 조건
+- 배포 전략을 식별하라: 블루그린/카나리/롤링 `[CDR 8.1.1]`
+- 자동 롤백 트리거 조건을 식별하라
+- 환경별 배포 파이프라인 차이를 정리하라 (dev/staging/prod)
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
@@ -65,6 +85,9 @@ inclusion: manual
 - `dependencies.md` — 의존성 목록 (내부/외부 구분)
 - `config-profiles.md` — 설정 프로파일 비교표 (dev/staging/prod)
 - `platform-branching.md` — 디바이스/플랫폼 분기 코드 인벤토리 (iOS/Android/STB)
+- `tech-debt-markers.md` — 기술 부채 마커 목록 (TODO/FIXME/HACK, 밀집도 분석)
+- `iac-inventory.md` — IaC 인벤토리 (Terraform/Helm/Ansible/CloudFormation → 인프라 역추적)
+- `cicd-pipeline.md` — CI/CD 파이프라인 분석서 (빌드 스테이지, 배포 전략, 롤백 조건)
 
 ## 완료 기준
 - 대상 서비스의 기술 프로파일이 작성됨

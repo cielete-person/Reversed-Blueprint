@@ -187,6 +187,8 @@ KIRO 채팅창에 아래 형식으로 입력한다:
 - [ ] 🔍(인터뷰필요) 항목이 있다면 별도 메모해 두었는가
 - [ ] 산출물 내용이 합리적인가 (Supervised 모드에서 검토)
 
+> 📌 `[인터뷰]` 또는 `🔍` 태그 항목이 나오면, `project/manual-tasks.md`의 해당 수작업 항목을 참조하여 병행 수집하라. 특히 런타임 데이터(P1-1~P1-3), IaC 파일 수집(P1-7), 외부 연동 SLA(P1-8) 등은 KIRO 추출과 동시에 진행해야 Phase 2/3에서 활용할 수 있다.
+
 ### 3-5. 소스 없는 서비스 처리
 
 `service-inventory.md`에서 소스 유무가 `❌`인 서비스는:
@@ -361,5 +363,6 @@ git push origin main
 | 보안 체크리스트 | `project/security-layer-checklist.md` | 보안센터 217항목 |
 | CDR 설계 체크리스트 | `project/cdr-design-checklist.md` | CTO품질PMO팀 CDR 가이드 매핑 |
 | 워크플랜 로드맵 | `project/workplan-roadmap.md` | Phase 0~4 일정 계획 |
+| 수작업 항목 목록 | `project/manual-tasks.md` | KIRO 자동 추출 불가 항목 (런타임 데이터, 인터뷰, 교차 검증 등) |
 | 용어 사전 | `glossary.md` | 프로젝트 공통 용어 정의 |
 | Steering 문서 (12개) | `.kiro/steering/` | KIRO 실행 가이드 (Step 00~10) |
