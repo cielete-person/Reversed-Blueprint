@@ -49,6 +49,18 @@ inclusion: manual
 ### 5. 유저 시나리오(Use Case) 추출
 
 > B2C 상품의 공통 Use Case와 서비스 특화 Use Case를 체계적으로 식별한다.
+> Use Case는 사용자 여정(User Journey) 기반 Tree 구조로 계층화하여 관리한다.
+
+#### 5-0. Use Case Tree 계층 구조 구축
+- 사용자 여정 기반으로 Use Case를 5단계 Tree 구조로 계층화하라:
+  1. **진입점(EP) 식별**: 앱 최초 실행(미로그인), 로그인 후 메인화면, 외부 진입(딥링크/푸시)
+  2. **라이프사이클(LC) 매핑**: 온보딩(LC-1), 인증(LC-2), 메인 활동(LC-3), 이탈(LC-4)
+  3. **기능 그룹(FG) 분류**: LC-3 하위에 상품/서비스(FG-1), 결제/과금(FG-2), 콘텐츠(FG-3), 고객센터(FG-4), 알림(FG-5), 계정관리(FG-6), 서비스 특화(FG-7)
+  4. **개별 UC 배치**: 5-1(공통) + 5-2(특화) 결과를 해당 FG에 배치, Tree 경로 표기 (예: `LC-3 > FG-1 > UC-{서비스}-001`)
+  5. **시나리오 연결**: 각 UC 하위에 정상(Happy)/대안(Alternative)/예외(Exception) 시나리오 배치 (5-3 결과)
+- 각 Level 간 전이 조건을 명시하라 (인증 상태, 권한, 가입 상태 등)
+- 화면 흐름도(Screen Flow)와 교차 매핑: Tree의 각 UC가 어떤 화면 ID를 거치는지 연결
+- Mermaid mindmap 또는 들여쓰기 목록으로 Tree 구조를 시각화하라
 
 #### 5-1. B2C 공통 Use Case 매핑
 - 아래 9개 공통 카테고리를 기준으로 코드 내 구현 여부를 확인하라:
@@ -70,6 +82,15 @@ inclusion: manual
 - 사전 조건(Precondition)과 사후 조건(Postcondition)을 명시하라
 - 코드에서 추출한 근거(메서드명, 조건문, 에러코드)를 기재하라
 
+#### 5-4. Use Case 시나리오별 비기능(NFR) 체크포인트 연계
+- 각 시나리오의 단계별로 아래 비기능 점검 항목을 교차 매핑하라:
+  - `[보안]` 인증/인가 확인, 개인정보 처리, 입력값 검증, 감사 로그, 세션 만료 처리
+  - `[품질]` 에러 처리/사용자 피드백, 로딩/타임아웃 UX, 데이터 정합성, 동시성 충돌, 테스트 존재 여부
+  - `[성능]` 응답시간 민감 단계, 대용량 처리, 외부 연동 fallback
+  - `[플랫폼]` iOS/Android/STB 동작 차이, 플랫폼별 제약사항
+- 시나리오 문서 내 각 단계에 `[보안]` `[품질]` `[성능]` 태그로 인라인 표기
+- 미충족 NFR 항목은 Phase 3 Gap 분석(10-gap-analysis)의 입력으로 연계
+
 ## 소스코드 위치
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
@@ -83,8 +104,9 @@ inclusion: manual
 - `event-flows.md` — 이벤트/메시지 토픽 목록 및 발행-구독 관계
 - `batch-scheduler-inventory.md` — 배치/스케줄러 작업 인벤토리
 - `call-flow-chains.md` — 서비스 간 Call Flow 호출 체인 원시 데이터
+- `use-case-tree.md` — Use Case Tree 계층 구조도 (EP→LC→FG→UC→Scenario, Mermaid mindmap)
 - `use-cases.md` — Use Case 카탈로그 (공통 + 서비스 특화, ID/구현여부/API/화면 매핑)
-- `use-case-scenarios.md` — 주요 Use Case 시나리오 상세 (정상/대안/예외)
+- `use-case-scenarios.md` — 주요 Use Case 시나리오 상세 (정상/대안/예외, NFR 체크포인트 인라인 태그 포함)
 
 ## 완료 기준
 - 주요 비즈니스 규칙이 ID와 함께 목록화됨
@@ -96,3 +118,5 @@ inclusion: manual
 - B2C 공통 Use Case 9개 카테고리에 대한 구현 여부가 확인됨
 - 서비스 특화 Use Case가 식별되어 ID가 부여됨
 - 주요 Use Case의 정상/예외 시나리오가 작성됨
+- Use Case Tree가 EP→LC→FG→UC→Scenario 5단계로 계층화됨
+- Use Case 시나리오에 보안/품질/성능 NFR 체크포인트가 단계별로 매핑됨

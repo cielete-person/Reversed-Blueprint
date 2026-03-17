@@ -41,6 +41,11 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
   - iOS에만/Android에만 있는 화면 식별
   - 동일 화면의 UX 흐름 차이 (네비게이션, 제스처, 레이아웃)
   - 플랫폼 분기 코드 중 한쪽만 업데이트되고 다른 쪽은 미반영된 영역 식별
+- **시나리오별 NFR 체크포인트 미충족 Gap을 분석하라** (Phase 1 `use-case-scenarios.md`의 NFR 태그 기반):
+  - 보안 미충족: 인증 없이 접근 가능한 UC 단계, 개인정보 암호화/마스킹 미적용 단계, 감사 로그 미기록 민감 행위
+  - 품질 미충족: 예외 시나리오에 에러 처리 미구현, 로딩/타임아웃 UX 미적용 API 호출, 테스트 미존재 시나리오
+  - 성능 미충족: 응답시간 민감 단계에 캐시/최적화 미적용, 외부 연동 fallback 미구현
+  - 정합성 미충족: 상태 변경 단계에 트랜잭션 미적용, 동시성 충돌 미처리
 
 ### 3. 품질 인프라 Gap 분석
 - 테스트 자동화 미적용 서비스/모듈 Gap 리포트를 작성하라
@@ -122,7 +127,7 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 - `screen-api-impact.md` — 화면-API 영향도 매트릭스 (화면 ID 기준)
 - `dead-code-unused.md` — Dead Code / 미사용 API 리포트
 - `orphan-screens.md` — 미사용 화면 / Orphan Screen 리포트
-- `user-scenario-gap.md` — 유저 시나리오 완전성 Gap 리포트
+- `user-scenario-gap.md` — 유저 시나리오 완전성 Gap 리포트 (NFR 체크포인트 미충족 포함)
 - `cross-platform-gap.md` — 크로스 플랫폼 화면/코드 불일치 Gap 리포트 (iOS↔Android↔STB)
 - `quality-infra-gap.md` — 품질 인프라 Gap 리포트
 - `security-gap.md` — 보안 Gap 리포트 (개인정보보호법, 입력 보안, API 보안, 암호화, 감사 로그, 하드닝, 앱 쉴딩)

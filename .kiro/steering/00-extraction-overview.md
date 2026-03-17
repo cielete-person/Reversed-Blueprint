@@ -38,7 +38,7 @@ inclusion: manual
 | 1 | `01-code-structure-scan` | Repository 스캔, 기술 스택 식별, 의존성 추출 | `services/{서비스명}/docs/extraction/01-code-structure/` |
 | 2 | `02-screen-inventory` | 화면 목록 추출, 화면명 정규화, 화면 ID 부여 | `services/{서비스명}/docs/extraction/02-screens/` |
 | 3 | `03-api-and-data` | API 엔드포인트 추출, DB 스키마 역추적, ERD | `services/{서비스명}/docs/extraction/03-api-data/` |
-| 4 | `04-business-logic` | 비즈니스 규칙, 에러 처리, 상태 전이, 이벤트 흐름 | `services/{서비스명}/docs/extraction/04-business-logic/` |
+| 4 | `04-business-logic` | 비즈니스 규칙, 에러 처리, 상태 전이, 이벤트 흐름, Use Case Tree, NFR 체크포인트 | `services/{서비스명}/docs/extraction/04-business-logic/` |
 | 5 | `05-security-extraction` | 크리덴셜, 개인정보, 세션/토큰, 입력 보안, API 보안, 감사 로그, 암호화, 하드닝 | `services/{서비스명}/docs/extraction/05-security/` |
 | 6 | `06-quality-extraction` | 테스트 현황, 변경 빈도, 로깅, 의존성 건강도, 동시성, 정합성, 성능 | `services/{서비스명}/docs/extraction/06-quality/` |
 | 7 | `07-ux-extraction` | 인터랙션 패턴, 유효성 검증, 로딩 UX, 다국어/접근성, 딥링크, 피처 플래그 | `services/{서비스명}/docs/extraction/07-ux/` |
