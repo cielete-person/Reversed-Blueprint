@@ -866,6 +866,17 @@
 - [ ] AI 의사결정 흐름도 (자동 실행/승인 필요/참고용 분류) `[KIRO+확정]`
 - → 대상: PM, 개발자, 보안센터
 
+### 2-12. Layer Stack View (기술 계층 구조)
+- [ ] Client Layer 식별: UI Framework, 상태 관리, 디자인 시스템, 렌더링 방식 `[KIRO]`
+- [ ] Middleware/SDK Layer 식별: 사내 공통 라이브러리, 외부 SDK, 프레임워크 미들웨어 `[KIRO]`
+- [ ] OS/Platform Layer 식별: 타겟 OS, 최소 버전, OS 레벨 API 의존 `[KIRO]`
+- [ ] Firmware/Hardware Layer 식별 (STB/IoT 전용): 보안칩, CAS, 기종별 분기 `[KIRO]`
+- [ ] Network Layer 추정: 프로토콜, OnPremise/Cloud/하이브리드 판정, VPN/mTLS/CDN `[KIRO]`
+- [ ] Server Layer 식별: SW 아키텍처 패턴, 프레임워크, API Gateway, 캐시, MQ `[KIRO]`
+- [ ] Infra/Deploy Layer 추정: 배포 환경, CI/CD, IaC, OnPrem vs Cloud 최종 판정 `[KIRO]`
+- [ ] Layer Stack 다이어그램 작성 (Mermaid block-beta 또는 flowchart) `[KIRO]`
+- → 대상: PM, 개발자, 인프라팀
+
 ### Phase 2 산출물
 
 - C4 Model 기반 아키텍처 문서 세트
@@ -921,6 +932,7 @@
 - AI 활용 서비스 맵 및 모델 인벤토리 `[CDR 12장]`
 - AI Fail-safe 아키텍처 리포트 `[CDR 12장]`
 - AI 의사결정 흐름도 `[CDR 12장]`
+- Layer Stack View (Client/Middleware/OS/Firmware/Network/Server/Infra 계층 다이어그램)
 
 ---
 

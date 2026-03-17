@@ -157,6 +157,66 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - AI 의사결정 흐름도 (자동 실행/승인 필요/참고용 분류)
 - → 대상: PM, 개발자, 보안센터
 
+### 2-12. Layer Stack View (기술 계층 구조)
+- 서비스별 전체 기술 계층(Layer)을 단일 다이어그램으로 시각화
+- Phase 1 전체 결과(Step 01~08)를 종합하여 아래 Layer를 추정·식별:
+
+#### Client Layer (앱/프론트엔드)
+- 앱 유형별 UI Framework 식별: Jetpack Compose, SwiftUI, XML Layout, React, Vue 등
+- 상태 관리 패턴: MVVM, MVI, Redux, MobX 등
+- 디자인 시스템: Material, Cupertino, 사내 공통 UI SDK
+- 렌더링 방식: CSR, SSR, Hybrid, WebView
+- → Step 01(기술 스택), Step 07(UX) 결과 참조
+
+#### Middleware / SDK Layer
+- 사내 공통 라이브러리 (Step 1c 결과 참조)
+- 외부 SDK: DRM, 푸시, 결제, 분석, 광고, 앱 쉴딩 등
+- 프레임워크 미들웨어: Spring Security Filter Chain, Express middleware 등
+- → Step 01c(공통 모듈), Step 05(보안) 결과 참조
+
+#### OS / Platform Layer
+- 타겟 OS 및 최소 버전: Android 12+, iOS 15+, AOSP(Android TV) 등
+- OS 레벨 API 의존: Keystore/Keychain, 생체인증, 카메라, 위치 등
+- → Step 01(빌드 파일 minSdk/deploymentTarget) 결과 참조
+
+#### Firmware / Hardware Layer (STB/IoT 전용)
+- 보안칩, CAS 모듈, HDMI-CEC, 튜너 등 하드웨어 의존
+- 기종별 분기 조건 (저사양/고사양)
+- → Step 08(STB 리소스) 결과 참조. 해당 없는 서비스는 "N/A" 표기
+
+#### Network Layer
+- 통신 프로토콜: HTTPS, gRPC, WebSocket, MQTT 등
+- 네트워크 환경 추정:
+  - 사설 IP(10.x, 172.x, 192.168.x) / 내부 도메인(.internal, .corp) → OnPremise 폐쇄망 추정
+  - AWS/GCP/Azure SDK, S3/CloudFront URL → Cloud 추정
+  - 양쪽 모두 존재 → 하이브리드 추정
+  - 환경변수 주입(`${API_HOST}`) → 🔍 인터뷰필요
+- VPN/프록시, mTLS, 인증서 pinning 설정
+- CDN 사용 여부 및 제공자
+- → Step 03(API), Step 05(보안), Step 08(인프라) 결과 참조
+
+#### Server Layer
+- SW 아키텍처 패턴: Layered, Hexagonal, Event-Driven, MSA 등
+- 서버 프레임워크: Spring Boot, Express, NestJS, Django 등
+- API Gateway 유무 및 종류
+- 캐시 레이어: Redis, Memcached, Ehcache 등
+- 메시지 브로커: Kafka, RabbitMQ 등 (내부 브로커 vs 관리형 서비스 구분)
+- → Step 01(코드 구조), Step 03(API/데이터), Step 04(비즈니스 로직) 결과 참조
+
+#### Infra / Deploy Layer
+- 배포 환경 추정: k8s manifest → 컨테이너, Dockerfile → Docker, EC2/VM → 전통 배포
+- CI/CD 파이프라인: Jenkins(OnPrem 추정) vs GitHub Actions/CodePipeline(Cloud 추정)
+- IaC 도구: Terraform, Helm, Ansible 등
+- OnPremise vs Cloud vs 하이브리드 최종 판정 (복수 단서 종합)
+- → Step 01(CI/CD, IaC), Step 08(배포 토폴로지) 결과 참조
+
+#### Layer Stack 산출물 규칙
+- 각 Layer 항목에 추정 근거(소스 파일/설정 파일 경로)와 확인 상태(✅/⚠️/🔍) 표기
+- 코드에서 확인 불가한 항목은 🔍 인터뷰필요로 표기하고 추정 근거를 명시
+- 하이브리드(OnPrem+Cloud) 구성이 추정되면 ⚠️로 표기하고 양쪽 단서를 모두 기재
+- Mermaid block-beta 또는 flowchart로 Layer 다이어그램 작성
+- → 대상: PM, 개발자, 인프라팀
+
 ## 산출물
 
 `services/{서비스명}/docs/views/` 에 아래 구조로 생성:
@@ -171,6 +231,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - `stb-resources/` — STB 리소스 관리 View
 - `resilience-dr/` — 장애 복원력 및 DR View (장애 유형, SPOF, 격리, DR 아키텍처) `[CDR 11장]`
 - `ai-governance/` — AI 거버넌스 View (활용 맵, 모델 인벤토리, Fail-safe, 의사결정 흐름) `[CDR 12장]`
+- `layer-stack/` — Layer Stack View (Client/Middleware/OS/Firmware/Network/Server/Infra 계층 다이어그램)
 - `stakeholder-summary/` — Stakeholder별 맞춤 요약 문서
 
 ## 다이어그램 작성 규칙
@@ -181,10 +242,11 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 기타 흐름도: Mermaid `flowchart` 사용
 
 ## 완료 기준
-- 11개 View 섹션(2-1 ~ 2-11) 모두 문서화됨
+- 12개 View 섹션(2-1 ~ 2-12) 모두 문서화됨
 - 각 View에 대상 Stakeholder가 명시됨
 - 모든 다이어그램이 Mermaid 또는 Structurizr로 렌더링 가능
 - Phase 1 추출 결과의 확인 상태(✅/⚠️/❌/🔍)가 View에 반영됨
 - 코드 없는 구성 요소가 스테레오타입(`<<binary SDK>>`, `<<no-source>>`, `<<console>>`, `<<external-db>>`, `<<external>>`)으로 표기됨
 - Dead Code(Step 1b 판정)가 다이어그램에서 제외 또는 구분 표기됨
 - 공통 모듈(Step 1c 결과)이 2-2 컴포넌트 View에 반영됨
+- Layer Stack View(2-12)에 7개 Layer가 모두 식별되고, 각 항목에 추정 근거와 확인 상태가 표기됨
