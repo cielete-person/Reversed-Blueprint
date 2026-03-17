@@ -55,6 +55,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 로깅/모니터링 미적용 영역 → 장애 시 원인 추적 불가 영역을 식별하라
 - 분산 추적 미적용 서비스 간 호출 경로를 식별하라
 - 헬스체크 미구현 서비스 목록을 작성하라
+- **Step 09 Layer Stack View 결과 참조**: `views/layer-stack/`의 Server Layer(캐시, MQ, API Gateway)와 Infra/Deploy Layer(CI/CD, IaC) 결과를 기반으로, 인프라 계층별 품질 Gap을 교차 검증하라
 
 ### 4. 보안 Gap 분석
 - 개인정보보호법 의무사항 대비 미충족 영역을 식별하라
@@ -70,6 +71,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 크리덴셜 평문 저장 영역을 식별하라 (🔴 Critical)
 - 서드파티 스크립트 SRI 미적용 / 개인정보 유출 위험 영역을 식별하라
 - 모바일 앱 쉴딩 미적용/미흡 영역을 식별하라 (난독화 미적용, 루팅/탈옥 탐지 없음, 위변조 탐지 없음, 쉴딩 솔루션 미적용, Security Layer 169~181번 미준수)
+- **Step 09 Layer Stack View 결과 참조**: `views/layer-stack/`의 Network Layer(VPN/mTLS/인증서 pinning)와 Middleware/SDK Layer(앱 쉴딩, 보안 SDK) 결과를 기반으로, 계층별 보안 Gap을 교차 검증하라
 
 ### 5. 코드 품질 위험도 종합 매트릭스
 - 변경 빈도 × 테스트 커버리지 × 코드 복잡도 × 동시성 위험 교차 분석
@@ -85,12 +87,14 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 기종별 리소스 한도 대비 실제 사용량 Gap을 분석하라
 - 저사양 STB에서 성능 병목 예상 지점을 식별하라
 - 기능 추가 시 STB 리소스 영향도 판단 기준을 수립하라
+- **Step 09 Layer Stack View 결과 참조**: `views/layer-stack/`의 Firmware/Hardware Layer 및 OS/Platform Layer 결과를 기반으로, 기종별 하드웨어 제약과 소프트웨어 계층 간 Gap을 교차 검증하라
 
 ### 8. 서비스 간 숨겨진 의존성 발굴
 - 코드에서 명시적으로 드러나지 않는 런타임 의존성을 식별하라
 - 공유 DB, 공유 캐시, 공유 메시지 큐를 통한 암묵적 결합을 찾아라
 - **Step 1c 공통 모듈 결과 참조**: `01c-common-modules/impact-analysis.md`의 변경 영향도 Top 10을 기반으로, 공통 모듈 변경 시 영향받는 서비스/모듈 체인을 역추적하라
 - 사내 공통 라이브러리 버전 불일치(`01c-common-modules/external-common-libraries.md`)로 인한 잠재적 호환성 위험을 식별하라
+- **Step 09 Layer Stack View 결과 참조**: `views/layer-stack/`의 Network Layer(OnPremise/Cloud/하이브리드 추정)와 Infra/Deploy Layer 결과를 기반으로, 인프라 의존성 Gap을 교차 검증하라. 특히 OnPrem↔Cloud 하이브리드 구성에서 네트워크 경계 간 숨겨진 의존성을 식별하라
 
 ### 8-1. SPOF 미해소 Gap 분석 `[CDR 3.2.1]`
 - Phase 1에서 식별된 SPOF 중 완화 방안이 없는 항목을 식별하라
