@@ -38,6 +38,12 @@
   - 언어/프레임워크 식별 (package.json, pom.xml, build.gradle 등)
   - 디렉토리 구조 패턴 분류 (MVC, Hexagonal, Monolith, MSA 등)
   - 의존성 목록 추출 (내부 라이브러리, 외부 패키지)
+- [ ] 설정 프로파일별 차이 분석 (Configuration Profile Analysis) `[KIRO]`
+  - 환경별 설정 파일 식별: application-{profile}.yml, .env.{환경}, config/{환경}/ 등
+  - dev/staging/prod 간 주요 차이점 추출: DB 접속 정보, 외부 연동 URL, 기능 플래그, 로그 레벨
+  - 환경별 활성화되는 Bean/모듈 차이 (@Profile, @ConditionalOnProperty 등)
+  - 설정값 중 하드코딩 vs 환경변수 vs 외부 설정 서버(Config Server) 구분
+  - prod 전용 설정 중 보안 민감 항목 식별 (암호화 키, 인증 정보 등 → 1-7 연계)
 
 ### 1-2. 화면 목록 및 정규화
 
@@ -65,10 +71,41 @@
 - [ ] API 엔드포인트 자동 추출 `[KIRO]`
   - REST Controller/Router 스캔 → OpenAPI Spec 초안 생성
   - 서비스 간 호출 관계 식별 (Feign, RestTemplate, gRPC 등)
+- [ ] API 요청/응답 스키마 상세 추출 (DTO/VO 필드 레벨) `[KIRO]`
+  - Swagger/OpenAPI 미정비 레거시 대응: Controller 파라미터 + DTO/VO 클래스에서 직접 추출
+  - 요청 DTO: 필드명, 타입, 필수/선택, validation 어노테이션, 기본값
+  - 응답 DTO: 필드명, 타입, 중첩 구조(Wrapper/Page 등), 에러 응답 포맷
+  - 공통 응답 래퍼 패턴 식별 (ApiResponse, CommonResult 등)
+  - Swagger 어노테이션 존재 시 설명 텍스트도 수집
+- [ ] API 버전 관리 전략 추출 `[KIRO]`
+  - 버전 관리 방식 식별: URL 경로(/v1/, /v2/), 헤더(Accept-Version), 쿼리 파라미터
+  - 버전 미적용 API 식별 (레거시 무버전 API → ⚠️ 표기)
+  - 동일 기능의 복수 버전 공존 여부 (v1과 v2가 동시 운영되는 경우)
+  - Deprecated API 식별 (@Deprecated, 주석, 미사용 추정)
+- [ ] 서비스 간 내부 API 계약 추출 (Internal API Contract) `[KIRO]`
+  - Feign Client 인터페이스에서 호출 대상 서비스, URL, 요청/응답 타입 추출
+  - RestTemplate/WebClient 호출부에서 URL 패턴, 요청 빌더, 응답 파싱 로직 추출
+  - gRPC proto 파일 존재 시 서비스/메서드 정의 수집
+  - 내부 API 호출 체인 시각화 (A→B→C 순차 호출, 병렬 호출 구분)
+  - 호출 시 타임아웃/리트라이/서킷브레이커 설정 수집
+- [ ] REST API 멱등성 설계 추출 `[KIRO]`
+  - PUT/DELETE 멱등성 보장 여부 확인 (동일 요청 반복 시 동일 결과)
+  - POST 요청의 멱등키(Idempotency-Key) 사용 여부
+  - 중복 요청 방지 로직 (DB 유니크 제약, Redis 중복 체크 등)
+- [ ] API 페이지네이션/필터링 패턴 추출 `[KIRO]`
+  - 페이지네이션 방식: offset/limit, cursor-based, keyset
+  - 정렬/필터링 파라미터 패턴 (sort, filter, search 등)
+  - 대용량 조회 API의 최대 페이지 크기 제한 설정
 - [ ] DB 스키마 역추적 `[KIRO]`
   - ORM Entity/Mapper 분석 → ERD 초안 생성
   - 직접 DDL이 있는 경우 수집
   - 도메인 경계별 데이터 소유권 식별 (어떤 서비스가 어떤 엔터티를 소유/변경하는지) `[CDR 5.1.1]`
+- [ ] DB 쿼리 패턴 상세 추출 `[KIRO]`
+  - MyBatis XML Mapper: SQL 문 전수 수집, 동적 SQL(if/choose/foreach) 패턴 식별
+  - JPA Native Query / @Query 어노테이션 수집
+  - Stored Procedure / Function 호출 목록
+  - N+1 쿼리 위험 패턴 식별 (Lazy Loading + 루프 내 조회)
+  - 복잡 조인/서브쿼리 목록 (성능 병목 후보)
 
 ### 1-4. 비즈니스 로직
 
@@ -98,6 +135,17 @@
   - 서비스별 SPOF 후보 식별 (단일 DB, 단일 캐시, 단일 외부 연동 등)
   - 의존 컴포넌트별 Failure Mode 분류 (응답지연/오류/부분장애)
   - Degraded Mode(최소 기능 모드) 코드 패턴 식별 (fallback, 기능 축소 분기) `[CDR 3.2.4]`
+- [ ] 배치/스케줄러 작업 인벤토리 추출 (Batch & Scheduler Inventory) `[KIRO]`
+  - @Scheduled, Quartz, Spring Batch, Cron 표현식 전수 스캔
+  - 배치 작업별 메타정보: 작업명, 실행 주기, 대상 데이터, 처리 로직 요약, 소스 위치
+  - 배치 실패 시 재처리/알림 정책 식별
+  - 배치 간 의존 관계 (선행 배치 완료 후 후행 배치 실행 등)
+  - 배치 실행 환경: 별도 배치 서버 / 동일 서버 / k8s CronJob 등
+- [ ] 서비스 간 Call Flow 호출 체인 원시 데이터 추출 `[KIRO]`
+  - 동기 호출 체인: API Gateway → Service A → Service B → DB 순서 추적
+  - 비동기 호출 체인: Service A → MQ → Service B → DB 순서 추적
+  - 호출 체인별 메타정보: 호출 순서, 프로토콜(REST/gRPC/MQ), 타임아웃, 에러 전파 방식
+  - 순환 호출(Circular Dependency) 패턴 식별 → ⚠️ 표기
 
 ### 1-4b. 유저 시나리오(Use Case) 추출
 
@@ -152,6 +200,14 @@
 - [ ] 비기능 현황 수집 (NFR Baseline Collection)
   - 코드에서 확인 가능: Timeout 설정, 커넥션 풀 크기, 캐시 TTL, Rate Limit 설정 `[KIRO]`
   - 코드에서 확인 불가(🔍): 실제 TPS, 응답시간, SLA/SLO → 모니터링 시스템 또는 담당자 확인 필요 `[인터뷰]`
+- [ ] 미들웨어/캐시 레이어 인벤토리 추출 (Middleware & Cache Inventory) `[KIRO]`
+  - Redis/Memcached/Ehcache 등 캐시 솔루션 식별
+  - 캐시 키 네이밍 규칙 추출 (prefix, 구분자, 파라미터 조합 패턴)
+  - 캐시 TTL 설정 수집 (키/용도별 만료 시간)
+  - 캐시 전략 식별: Cache Aside, Write Through, Write Behind, Read Through
+  - 캐시 무효화(Eviction) 정책: 수동 삭제, 이벤트 기반, TTL 만료
+  - 세션 스토어로 사용되는 경우 세션 관련 키 패턴 별도 식별
+  - 메시지 브로커(Kafka, RabbitMQ) 외 미들웨어: Elasticsearch, MongoDB 등 보조 저장소 식별
 
 ### 1-6. 품질 관련 추출
 
@@ -366,17 +422,25 @@
 ### Phase 1 산출물
 
 - 서비스별 기술 프로파일 시트 (각 항목에 확인 상태 표기)
+- 설정 프로파일 비교표 (dev/staging/prod 환경별 차이)
 - 화면 목록 (Screen Inventory): 화면 ID, 화면명(정규화 완료), 서비스, URL, 소스 위치
 - 화면명 정규화 매핑 테이블 (원본 명칭 → 대표 명칭, 출처별)
 - API 엔드포인트 목록 (초안)
+- API 요청/응답 스키마 상세 (DTO/VO 필드 레벨, Swagger 미정비 레거시 포함)
+- API 버전 관리 현황표 (버전 방식, Deprecated API, 무버전 API)
+- 서비스 간 내부 API 계약서 (Feign/RestTemplate/gRPC 호출 체인)
 - 비즈니스 규칙 목록 (초안, 확인 상태 포함)
 - 에러 코드/예외 처리 패턴 목록
 - 상태값 목록 및 전이 조건 (초안)
 - 이벤트/메시지 토픽 목록 및 발행-구독 관계
+- 배치/스케줄러 작업 인벤토리 (작업명, 주기, 의존 관계)
+- 서비스 간 Call Flow 호출 체인 원시 데이터
 - B2C 공통 Use Case 카탈로그 (가입/해지/변경/조회/결제/인증/고객센터/알림/계정)
 - 서비스 특화 Use Case 목록 (플랫폼별 고유 비즈니스 로직)
 - Use Case 시나리오 상세 (정상/대안/예외 경로, 사전·사후 조건)
 - 비기능 현황 베이스라인 (확인 가능 항목 + 미확인 항목 구분)
+- 미들웨어/캐시 레이어 인벤토리 (Redis 키 패턴, TTL, 캐시 전략)
+- DB 쿼리 패턴 상세 (MyBatis XML, Native Query, Stored Procedure)
 - 테스트 자동화 현황 인벤토리
 - 테스트-기능 추적 매핑 (초안, Test Gap 포함)
 - 코드 변경 빈도 리포트 (고위험 영역 식별 포함)

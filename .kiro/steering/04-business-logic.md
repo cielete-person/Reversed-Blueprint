@@ -34,6 +34,18 @@ inclusion: manual
 - 이벤트 토픽/큐 목록, 이벤트 스키마(페이로드 구조)를 정리하라
 - 발행-구독 관계를 매핑하라
 
+### 4-1. 배치/스케줄러 작업 인벤토리 추출
+- @Scheduled, Quartz, Spring Batch, Cron 표현식을 전수 스캔하라
+- 배치 작업별 메타정보를 정리하라: 작업명, 실행 주기, 대상 데이터, 처리 로직 요약, 소스 위치
+- 배치 실패 시 재처리/알림 정책을 식별하라
+- 배치 간 의존 관계를 매핑하라 (선행 배치 완료 후 후행 배치 실행 등)
+
+### 4-2. 서비스 간 Call Flow 호출 체인 원시 데이터 추출
+- 동기 호출 체인: API Gateway → Service A → Service B → DB 순서를 추적하라
+- 비동기 호출 체인: Service A → MQ → Service B → DB 순서를 추적하라
+- 호출 체인별 메타정보: 호출 순서, 프로토콜(REST/gRPC/MQ), 타임아웃, 에러 전파 방식
+- 순환 호출(Circular Dependency) 패턴을 식별하라 → ⚠️ 표기
+
 ### 5. 유저 시나리오(Use Case) 추출
 
 > B2C 상품의 공통 Use Case와 서비스 특화 Use Case를 체계적으로 식별한다.
@@ -69,6 +81,8 @@ inclusion: manual
 - `error-handling.md` — 에러 코드/예외 처리 패턴 목록
 - `state-machines.md` — 상태 전이 다이어그램 (Mermaid stateDiagram)
 - `event-flows.md` — 이벤트/메시지 토픽 목록 및 발행-구독 관계
+- `batch-scheduler-inventory.md` — 배치/스케줄러 작업 인벤토리
+- `call-flow-chains.md` — 서비스 간 Call Flow 호출 체인 원시 데이터
 - `use-cases.md` — Use Case 카탈로그 (공통 + 서비스 특화, ID/구현여부/API/화면 매핑)
 - `use-case-scenarios.md` — 주요 Use Case 시나리오 상세 (정상/대안/예외)
 
@@ -77,6 +91,8 @@ inclusion: manual
 - 에러 코드 체계가 서비스별로 정리됨
 - 핵심 도메인 객체의 상태 전이도가 작성됨
 - 비동기 메시지 흐름이 매핑됨
+- 배치/스케줄러 작업이 인벤토리로 정리됨 (작업명, 주기, 의존 관계)
+- 서비스 간 Call Flow 호출 체인이 동기/비동기 구분하여 추출됨
 - B2C 공통 Use Case 9개 카테고리에 대한 구현 여부가 확인됨
 - 서비스 특화 Use Case가 식별되어 ID가 부여됨
 - 주요 Use Case의 정상/예외 시나리오가 작성됨
