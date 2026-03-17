@@ -105,6 +105,22 @@ Step 01~08의 산출물이 `services/{서비스명}/docs/extraction/` 하위에 
 - 펌웨어/소프트웨어 업데이트 프로세스 (OTA, 롤백)
 - → 대상: PM, 개발자, 품질센터
 
+### 2-10. 장애 복원력 및 DR View `[CDR 11장]`
+- 장애 유형 분류 (App/DB/네트워크/외부/데이터손상) 및 Failure Mode Catalog
+- SPOF 식별 결과 및 완화 방안 `[CDR 3.2.1]`
+- 장애 격리 아키텍처 (벌크헤드/큐 분리/리소스 분리) `[CDR 4.2.4]`
+- DR 아키텍처 현황 (Active-Active/Standby/Backup)
+- 데이터 복제/정합성 리스크 분석
+- → 대상: PM, 개발자, 품질센터
+
+### 2-11. AI 거버넌스 View `[CDR 12장]`
+- AI 활용 서비스 맵 (AI 사용/미사용 선언, 역할별 분류)
+- AI 모델/엔진 인벤토리 (출처, 버전, 변경 관리 방식)
+- AI 입출력 통제 현황 (개인정보, 프롬프트 보안)
+- AI Fail-safe 아키텍처 (Kill-switch, 수동 전환, Drift 감지)
+- AI 의사결정 흐름도 (자동 실행/승인 필요/참고용 분류)
+- → 대상: PM, 개발자, 보안센터
+
 ## 산출물
 
 `services/{서비스명}/docs/views/` 에 아래 구조로 생성:
@@ -117,6 +133,8 @@ Step 01~08의 산출물이 `services/{서비스명}/docs/extraction/` 하위에 
 - `security/` — 보안 View 전체 (인증, PII, 암호화, API 보안, 감사 로그, 하드닝 등)
 - `quality/` — 품질 View 전체 (테스트, 변경 빈도, 의존성, 동시성, 정합성, 성능 등)
 - `stb-resources/` — STB 리소스 관리 View
+- `resilience-dr/` — 장애 복원력 및 DR View (장애 유형, SPOF, 격리, DR 아키텍처) `[CDR 11장]`
+- `ai-governance/` — AI 거버넌스 View (활용 맵, 모델 인벤토리, Fail-safe, 의사결정 흐름) `[CDR 12장]`
 - `stakeholder-summary/` — Stakeholder별 맞춤 요약 문서
 
 ## 다이어그램 작성 규칙
@@ -127,7 +145,7 @@ Step 01~08의 산출물이 `services/{서비스명}/docs/extraction/` 하위에 
 - 기타 흐름도: Mermaid `flowchart` 사용
 
 ## 완료 기준
-- 9개 View 섹션(2-1 ~ 2-9) 모두 문서화됨
+- 11개 View 섹션(2-1 ~ 2-11) 모두 문서화됨
 - 각 View에 대상 Stakeholder가 명시됨
 - 모든 다이어그램이 Mermaid 또는 Structurizr로 렌더링 가능
 - Phase 1 추출 결과의 확인 상태(✅/⚠️/❌/🔍)가 View에 반영됨

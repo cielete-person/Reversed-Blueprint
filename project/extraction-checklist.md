@@ -2,6 +2,7 @@
 
 > 이 문서는 소스코드 분석을 통해 설계도를 역추적할 때 확인해야 하는 모든 항목을 정의합니다.
 > 프로젝트 로드맵은 [workplan-roadmap.md](workplan-roadmap.md) 참조
+> CDR 설계 체크리스트 매핑은 [cdr-design-checklist.md](cdr-design-checklist.md) 참조 (CTO품질PMO팀 CDR 가이드 기반)
 
 ---
 
@@ -67,6 +68,7 @@
 - [ ] DB 스키마 역추적 `[KIRO]`
   - ORM Entity/Mapper 분석 → ERD 초안 생성
   - 직접 DDL이 있는 경우 수집
+  - 도메인 경계별 데이터 소유권 식별 (어떤 서비스가 어떤 엔터티를 소유/변경하는지) `[CDR 5.1.1]`
 
 ### 1-4. 비즈니스 로직
 
@@ -88,6 +90,14 @@
   - Kafka, RabbitMQ, Redis Pub/Sub 등 비동기 메시지 Producer/Consumer 식별
   - 이벤트 토픽/큐 목록, 이벤트 스키마(페이로드 구조)
   - 발행-구독 관계 매핑
+  - 전달 보장 수준 식별: At-least-once / At-most-once / Exactly-once 설정 확인 `[CDR 4.3.2]`
+  - 메시지 순서 보장 정책: 파티셔닝 키 전략, Ordering 설정 확인 `[CDR 4.3.3]`
+  - 멱등성(Idempotency) 설계: 멱등키 사용 여부, 중복 처리 방지 로직 `[CDR 4.3.4]`
+  - DLQ(Dead Letter Queue) / Poison 메시지 처리 정책 `[CDR 4.3.4]`
+- [ ] SPOF(단일 장애점) 및 Failure Mode 식별 `[KIRO]` `[CDR 3.2.1]`
+  - 서비스별 SPOF 후보 식별 (단일 DB, 단일 캐시, 단일 외부 연동 등)
+  - 의존 컴포넌트별 Failure Mode 분류 (응답지연/오류/부분장애)
+  - Degraded Mode(최소 기능 모드) 코드 패턴 식별 (fallback, 기능 축소 분기) `[CDR 3.2.4]`
 
 ### 1-4b. 유저 시나리오(Use Case) 추출
 
@@ -160,9 +170,14 @@
   - 커밋 빈도, 변경 라인 수 추이, 기여자 수 분석
 - [ ] 로깅/모니터링 현황 추출 (Logging & Observability Extraction) `[KIRO]`
   - 서비스별 로깅 프레임워크, 로그 레벨 설정, 로그 포맷 현황
+  - 구조화 로그 필수 필드 확인: trace_id, user/session, error_code, timestamp 포함 여부 `[CDR 6.1.1]`
+  - 개인정보/민감정보 마스킹 규칙 적용 여부 `[CDR 6.1.1]`
   - 분산 추적(Distributed Tracing) 적용 여부 (Zipkin, Jaeger, OpenTelemetry 등)
+  - 트레이싱 샘플링 정책 확인 (전수/비율/조건부) `[CDR 6.1.3]`
   - 헬스체크 엔드포인트 존재 여부 (/health, /readiness, /liveness)
   - 메트릭 수집 현황 (Prometheus, Micrometer, Grafana 연동 등)
+  - RED/USE 메트릭 세트 정의 여부 확인 `[CDR 6.1.2]`
+  - 알람/Alert 설정 파일 및 임계치 수집 `[CDR 6.1.4]`
 - [ ] 의존성 버전 및 취약점 스캔 (Dependency Health Scan) `[KIRO+도구]`
   - 외부 라이브러리 버전 현황 및 최신 버전 대비 Gap
   - EOL(End of Life) 도달 라이브러리 식별
@@ -328,6 +343,26 @@
   - 배포 설정(Dockerfile, k8s manifest, CI/CD 파이프라인) 기반 추정
   - 네트워크 구성도/방화벽 정책에서 통신 관계 파악
 
+### 1-12. AI/ML 활용 현황 추출 `[CDR 12장]`
+
+- [ ] AI 사용 여부 식별 (AI Usage Declaration) `[KIRO]`
+  - 서비스별 AI/ML 모듈 존재 여부 스캔 (TensorFlow, PyTorch, scikit-learn, OpenAI SDK, LangChain 등)
+  - AI 적용 범위와 역할 식별: 추천, 분류, 요약, 자동결정, 이상탐지, 자동응답 등
+  - AI 출력이 서비스 의사결정에 미치는 영향 분류: 자동 실행 / 승인 필요 / 참고용
+  - Human-in-the-loop / on-the-loop / out-of-the-loop 수준 식별
+- [ ] AI 모델/엔진 출처 및 버전 관리 현황 `[KIRO]`
+  - 내부 모델 / 외부 SaaS(OpenAI, Claude 등) 구분
+  - 모델 버전 고정 여부, 모델 레지스트리 사용 여부
+  - 프롬프트/시스템 지시문 변경 관리 여부 (코드 내 하드코딩 vs 설정 관리)
+- [ ] AI 입출력 통제 현황 `[KIRO]`
+  - 학습/추론 데이터에 개인정보 포함 여부
+  - 프롬프트 인젝션/데이터 유출 방어 로직 존재 여부 `[CDR 12.2.2]`
+  - 입력값 검증/필터링 로직
+- [ ] AI Fail-safe 현황 `[KIRO]`
+  - AI 기능 비활성화 Feature Flag(Kill-switch) 존재 여부 `[CDR 12.2.1]`
+  - AI 실패 시 수동 처리 전환 로직 존재 여부
+  - AI 성능 저하 감지(Drift) 모니터링 설정 여부 `[CDR 12.2.3]`
+
 ### Phase 1 산출물
 
 - 서비스별 기술 프로파일 시트 (각 항목에 확인 상태 표기)
@@ -370,6 +405,9 @@
 - 딥링크/푸시 알림 진입 경로 목록
 - A/B 테스트 및 피처 플래그 목록
 - 서비스 간 통신 관계 매트릭스
+- SPOF 후보 목록 및 Failure Mode 분류표 `[CDR 3.2.1]`
+- 메시지 전달 보장/순서/멱등성 현황표 `[CDR 4.3]`
+- AI/ML 활용 현황 리포트 (사용 여부, 역할, 모델 출처, Fail-safe) `[CDR 12장]`
 
 ---
 
@@ -518,6 +556,23 @@
 - [ ] STB 펌웨어/소프트웨어 업데이트 프로세스 (OTA, 롤백) `[인터뷰]`
 - → 대상: PM, 개발자, 품질센터
 
+### 2-10. 장애 복원력 및 DR View `[CDR 11장]`
+- [ ] 장애 유형 분류 (App/DB/네트워크/외부/데이터손상) 및 Failure Mode Catalog `[KIRO]`
+- [ ] SPOF 식별 결과 및 완화 방안 `[KIRO]`
+- [ ] 장애 격리 아키텍처 (벌크헤드/큐 분리/리소스 분리) `[KIRO]` `[CDR 4.2.4]`
+- [ ] DR 아키텍처 현황 (Active-Active/Standby/Backup) `[KIRO]`
+- [ ] 데이터 복제/정합성 리스크 분석 `[KIRO]`
+- [ ] RTO/RPO 현황 (코드/설정에서 추출 가능한 범위) `[KIRO]`
+- → 대상: PM, 개발자, 품질센터
+
+### 2-11. AI 거버넌스 View `[CDR 12장]`
+- [ ] AI 활용 서비스 맵 (AI 사용/미사용 선언, 역할별 분류) `[KIRO]`
+- [ ] AI 모델/엔진 인벤토리 (출처, 버전, 변경 관리 방식) `[KIRO]`
+- [ ] AI 입출력 통제 현황 (개인정보, 프롬프트 보안) `[KIRO]`
+- [ ] AI Fail-safe 아키텍처 (Kill-switch, 수동 전환, Drift 감지) `[KIRO]`
+- [ ] AI 의사결정 흐름도 (자동 실행/승인 필요/참고용 분류) `[KIRO+확정]`
+- → 대상: PM, 개발자, 보안센터
+
 ### Phase 2 산출물
 
 - C4 Model 기반 아키텍처 문서 세트
@@ -563,6 +618,13 @@
 - 비기능 요구사항 베이스라인 문서
 - 외부 연동 시스템 아키텍처
 - Stakeholder별 맞춤 View 문서
+- 장애 유형 분류 및 Failure Mode Catalog `[CDR 11장]`
+- SPOF 식별 및 완화 방안 리포트 `[CDR 3.2.1]`
+- 장애 격리 아키텍처 (벌크헤드/큐 분리) `[CDR 4.2.4]`
+- DR 아키텍처 현황 리포트 `[CDR 11장]`
+- AI 활용 서비스 맵 및 모델 인벤토리 `[CDR 12장]`
+- AI Fail-safe 아키텍처 리포트 `[CDR 12장]`
+- AI 의사결정 흐름도 `[CDR 12장]`
 
 ---
 
@@ -619,6 +681,18 @@
   - 저사양 STB에서 성능 병목 예상 지점 식별
   - 기능 추가 시 STB 리소스 영향도 판단 기준 수립
 - [ ] 서비스 간 숨겨진 의존성(Hidden Dependency) 발굴 `[KIRO]`
+- [ ] SPOF 미해소 Gap 분석 `[KIRO]` `[CDR 3.2.1]`
+  - Phase 1에서 식별된 SPOF 중 완화 방안이 없는 항목
+  - Failure Mode별 대응 미설계 영역
+- [ ] 메시지 안정성 Gap 분석 `[KIRO]` `[CDR 4.3]`
+  - 멱등성 미적용 비동기 처리 영역
+  - DLQ 미설정 메시지 큐
+  - 순서 보장 필요하나 미적용 영역
+- [ ] AI 거버넌스 Gap 분석 `[KIRO]` `[CDR 12장]`
+  - AI Kill-switch(Feature Flag) 미구현 서비스
+  - AI 모델 변경 관리 미적용 영역
+  - 프롬프트 인젝션 방어 미적용 영역
+  - AI Drift 모니터링 미설정 영역
 - [ ] 용어 사전 최종 검증 및 확정 `[KIRO+확정]`
   - Phase 0 초안을 실제 코드/화면 분석 결과와 대조하여 보완
   - 화면명 정규화 결과 최종 검증: 모든 산출물에서 대표 명칭이 일관되게 사용되는지 크로스체크
@@ -637,6 +711,9 @@
 - 데이터 정합성 위험 시나리오 리포트
 - STB 리소스 Gap 분석 리포트
 - 서비스 간 숨겨진 의존성 리포트
+- SPOF 미해소 Gap 리포트 `[CDR 3.2.1]`
+- 메시지 안정성 Gap 리포트 (멱등성/DLQ/순서 보장) `[CDR 4.3]`
+- AI 거버넌스 Gap 리포트 `[CDR 12장]`
 - Gap 분석 리포트
 - 용어 사전 (Glossary) 확정본
 - 개선 권고사항

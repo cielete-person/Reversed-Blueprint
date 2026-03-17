@@ -17,7 +17,8 @@
 │   ├── extraction-checklist.md        추출 항목 체크리스트
 │   ├── service-inventory.md           서비스 인벤토리 (작업 관리용)
 │   ├── platform-service-inventory.md  플랫폼 서비스 인벤토리 (참조용)
-│   └── security-layer-checklist.md    보안 체크리스트 (217항목)
+│   ├── security-layer-checklist.md    보안 체크리스트 (217항목)
+│   └── cdr-design-checklist.md        CDR 설계 체크리스트 (CTO품질PMO팀 가이드 매핑)
 ├── services/              ← 서비스별 소스코드 + 설계도
 │   ├── {서비스명}/src/          Bitbucket clone 소스코드
 │   ├── {서비스명}/docs/         KIRO 추출 설계도
@@ -45,7 +46,7 @@
 |---|---|---|
 | Phase 0 | 2주 | 준비 (인벤토리, 용어 사전, 문서 인프라 결정) |
 | Phase 1 | 4주 | 소스코드 기초 분석 (10개 카테고리) |
-| Phase 2 | 6주 | 아키텍처 View 생성 (9개 View) |
+| Phase 2 | 6주 | 아키텍처 View 생성 (11개 View) |
 | Phase 3 | 4주 | 추적성 매핑 및 Gap 분석 |
 | Phase 4 | 2주 | 문서 체계화 및 파이프라인 구축 |
 
@@ -56,4 +57,5 @@
 - [Service Inventory](project/service-inventory.md) — 작업 관리용 (폴더명, Repo URL, 진행 현황)
 - [Platform Service Inventory](project/platform-service-inventory.md) — 플랫폼 관점 참조용 (앱/단말/서버)
 - [Security Layer Checklist](project/security-layer-checklist.md) — 보안기술팀 설계/구현 체크리스트 (217항목)
+- [CDR Design Checklist](project/cdr-design-checklist.md) — CTO품질PMO팀 CDR 가이드 설계 반영 매핑
 - [Glossary](glossary.md)

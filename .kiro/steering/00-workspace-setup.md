@@ -63,7 +63,9 @@ inclusion: manual
 │   │   ├── ui-ux.md
 │   │   ├── security.md
 │   │   ├── quality.md
-│   │   └── stb-resources.md
+│   │   ├── stb-resources.md
+│   │   ├── resilience-dr.md
+│   │   └── ai-governance.md
 │   ├── gap-analysis/            ← Phase 3 통합본
 │   └── glossary/                ← 용어 사전 통합본
 │
@@ -72,7 +74,8 @@ inclusion: manual
 │   ├── extraction-checklist.md
 │   ├── service-inventory.md
 │   ├── platform-service-inventory.md
-│   └── security-layer-checklist.md
+│   ├── security-layer-checklist.md
+│   └── cdr-design-checklist.md
 ├── glossary.md                  ← 용어 사전 초안
 └── scripts/
 ```

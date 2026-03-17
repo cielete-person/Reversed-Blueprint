@@ -78,6 +78,21 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 - 코드에서 명시적으로 드러나지 않는 런타임 의존성을 식별하라
 - 공유 DB, 공유 캐시, 공유 메시지 큐를 통한 암묵적 결합을 찾아라
 
+### 8-1. SPOF 미해소 Gap 분석 `[CDR 3.2.1]`
+- Phase 1에서 식별된 SPOF 중 완화 방안이 없는 항목을 식별하라
+- Failure Mode별 대응 미설계 영역을 식별하라
+
+### 8-2. 메시지 안정성 Gap 분석 `[CDR 4.3]`
+- 멱등성 미적용 비동기 처리 영역을 식별하라
+- DLQ 미설정 메시지 큐를 식별하라
+- 순서 보장 필요하나 미적용 영역을 식별하라
+
+### 8-3. AI 거버넌스 Gap 분석 `[CDR 12장]`
+- AI Kill-switch(Feature Flag) 미구현 서비스를 식별하라
+- AI 모델 변경 관리 미적용 영역을 식별하라
+- 프롬프트 인젝션 방어 미적용 영역을 식별하라
+- AI Drift 모니터링 미설정 영역을 식별하라
+
 ### 9. 용어 사전 최종 검증 및 확정
 - Phase 0 초안을 실제 코드/화면 분석 결과와 대조하여 보완하라
 - 화면명 정규화 결과 최종 검증: 모든 산출물에서 대표 명칭이 일관되게 사용되는지 크로스체크
@@ -97,6 +112,9 @@ Step 01~09의 산출물이 `services/{서비스명}/docs/extraction/` 및 `servi
 - `data-integrity-risk.md` — 데이터 정합성 위험 시나리오 리포트
 - `stb-resource-gap.md` — STB 리소스 Gap 분석
 - `hidden-dependencies.md` — 숨겨진 의존성 리포트
+- `spof-gap.md` — SPOF 미해소 Gap 리포트 `[CDR 3.2.1]`
+- `message-stability-gap.md` — 메시지 안정성 Gap 리포트 (멱등성/DLQ/순서) `[CDR 4.3]`
+- `ai-governance-gap.md` — AI 거버넌스 Gap 리포트 `[CDR 12장]`
 - `glossary-final.md` — 용어 사전 확정본
 - `improvement-recommendations.md` — 개선 권고사항 종합
 
