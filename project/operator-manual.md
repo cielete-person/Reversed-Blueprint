@@ -218,7 +218,7 @@ KIRO 채팅창에 아래 형식으로 입력한다:
 | Step 06 | `#06-quality-extraction 서비스: media-iptv-vod` | 테스트, 로깅, 의존성 건강도 | `extraction/06-quality/` |
 | Step 07 | `#07-ux-extraction 서비스: media-iptv-vod` | 인터랙션, 유효성 검증, 접근성 | `extraction/07-ux/` |
 | Step 08 | `#08-infra-and-integration 서비스: media-iptv-vod` | 외부 연동, 배포, STB 리소스 | `extraction/08-infra/` |
-| Step 09 | `#09-architecture-views 서비스: media-iptv-vod` | C4 다이어그램, Stakeholder View, E2E Call Flow View, Function–External Stack View, Layer Stack View | `views/` |
+| Step 09 | `#09-architecture-views 서비스: media-iptv-vod` | C4 다이어그램, Stakeholder View, E2E Call Flow View, Function–External Stack View, Layer Stack View, E2E 완전성 검증(2-4b), PM 의사결정 지원(2-14) | `views/` |
 | Step 10 | `#10-gap-analysis 서비스: media-iptv-vod` | 추적성 매핑, Gap 분석 | `gap-analysis/` |
 
 > 산출물 위치는 모두 `services/media-iptv-vod/docs/` 하위이다.
@@ -380,7 +380,7 @@ KIRO 채팅에서:
 ```
 docs-integrated/
 ├── extraction/              ← Phase 1 통합본 (서비스별 섹션 구분)
-├── views/                   ← Phase 2 통합본 (13개 View + 크로스 플랫폼)
+├── views/                   ← Phase 2 통합본 (15개 View + 크로스 플랫폼)
 ├── gap-analysis/            ← Phase 3 통합본
 └── glossary/                ← 용어 사전 통합본
 ```

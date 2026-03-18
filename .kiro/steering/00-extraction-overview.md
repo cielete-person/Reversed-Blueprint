@@ -308,7 +308,7 @@ inclusion: manual
 | Phase 1: 1-10 UX | `07-ux-extraction.md` | ✅ |
 | Phase 1: 1-11 소스 없는 서버 | `08-infra-and-integration.md` | ✅ |
 | Phase 1: 1-12 AI/ML | `04-business-logic.md` + `09-architecture-views.md` (2-11) | ✅ |
-| Phase 2: 2-1 ~ 2-13 View 생성 | `09-architecture-views.md` | ✅ |
+| Phase 2: 2-1 ~ 2-14 View 생성 | `09-architecture-views.md` | ✅ |
 | Phase 2: 2-4b E2E 완전성 검증 | `09-architecture-views.md` | ✅ |
 | Phase 2: 2-14 PM 의사결정 지원 | `09-architecture-views.md` | ✅ |
 | Phase 3: Gap 분석 전체 | `10-gap-analysis.md` | ✅ |
@@ -317,8 +317,8 @@ inclusion: manual
 
 신규 KIRO 사용자가 작업 시작 전 아래 항목을 확인하라:
 
-1. **Steering 파일 존재 확인**: `.kiro/steering/` 하위에 아래 15개 파일이 모두 존재하는가?
-   - `00-project-entry.md`, `00-extraction-overview.md`, `00-workspace-setup.md`
+1. **Steering 파일 존재 확인**: `.kiro/steering/` 하위에 아래 16개 파일이 모두 존재하는가?
+   - `00-project-entry.md`, `00-extraction-overview.md`, `00-workspace-setup.md`, `00-verification-checklist.md`
    - `01-code-structure-scan.md`, `01b-dead-code-analysis.md`, `01c-common-module-grouping.md`
    - `02-screen-inventory.md`, `03-api-and-data.md`, `04-business-logic.md`
    - `05-security-extraction.md`, `06-quality-extraction.md`, `07-ux-extraction.md`

@@ -443,11 +443,77 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - `stakeholder-summary/` — Stakeholder별 맞춤 요약 문서, PM 의사결정 지원 다이어그램 (데이터 오너십, 배포 의존성, 환경별 구성, 성숙도, 크리티컬 패스, 기술 부채 히트맵, 온콜 흐름도)
 
 ## 다이어그램 작성 규칙
-- C4 다이어그램: Structurizr DSL 또는 Mermaid C4 확장 사용
-- 시퀀스 다이어그램: Mermaid `sequenceDiagram` 사용
-- 상태 전이: Mermaid `stateDiagram-v2` 사용
-- ERD: Mermaid `erDiagram` 사용
-- 기타 흐름도: Mermaid `flowchart` 사용
+
+### 기본 원칙
+- 기본 다이어그램 포맷: **Mermaid** (GitHub 렌더링 우선)
+- PlantUML 병기 대상: C4 다이어그램(2-1, 2-2)과 복잡한 시퀀스 다이어그램(참여자 6개 이상 또는 alt/loop 3단계 이상 중첩)에 한해 Mermaid 아래에 PlantUML 코드 블록을 병기
+- PlantUML 병기 시 Mermaid 다이어그램이 항상 먼저 오고, 그 아래에 `<details>` 접기로 PlantUML을 배치
+
+### Mermaid 코드 블록 작성 규칙
+
+#### 메타 정보 주석 (필수)
+모든 Mermaid 코드 블록 첫 줄에 아래 형식의 주석을 포함하라:
+```
+%% title: {다이어그램 제목}
+%% author: KIRO
+%% date: {작성일 yyyy-MM-dd}
+%% source: Step {번호} — {산출물 파일명}
+```
+
+#### GitHub 렌더링 호환성 규칙
+- 노드 ID에 특수문자 금지: 영문, 숫자, 하이픈(`-`), 언더스코어(`_`)만 사용
+  - ❌ `node.name`, `node/name`, `node:name`
+  - ✅ `node_name`, `node-name`
+- 노드 라벨에 특수문자 사용 시 큰따옴표로 감싸기: `nodeId["라벨 (설명)"]`
+- 한글 라벨은 반드시 큰따옴표로 감싸기: `svc001["IPTV VOD 서비스"]`
+- 서브그래프 라벨도 큰따옴표 사용: `subgraph sg1["인증 플랫폼"]`
+- 화살표 라벨에 파이프 사용: `A -->|"REST /api/v1/auth"| B`
+- Mermaid 코드 블록 내 빈 줄 금지 (GitHub에서 파싱 오류 발생)
+- `flowchart` 사용 시 방향 명시: `flowchart LR` 또는 `flowchart TD`
+- `classDef`로 스타일 정의 시 세미콜론 누락 주의
+
+#### 다이어그램 유형별 사용 규칙
+| 다이어그램 유형 | Mermaid 문법 | PlantUML 병기 |
+|---|---|---|
+| C4 시스템 컨텍스트 (2-1) | `C4Context` 또는 `flowchart` | ✅ 병기 (`@startuml` + C4-PlantUML) |
+| C4 컨테이너/컴포넌트 (2-2) | `C4Container` 또는 `flowchart` | ✅ 병기 |
+| 시퀀스 다이어그램 | `sequenceDiagram` | 참여자 6개+ 또는 중첩 3단계+일 때만 병기 |
+| 상태 전이 | `stateDiagram-v2` | ❌ Mermaid만 |
+| ERD | `erDiagram` | ❌ Mermaid만 |
+| 흐름도 | `flowchart LR/TD` | ❌ Mermaid만 |
+| Layer Stack | `block-beta` 또는 `flowchart` | ❌ Mermaid만 |
+| 마인드맵 (Use Case Tree) | `mindmap` | ❌ Mermaid만 |
+
+### PlantUML 병기 형식
+
+PlantUML 병기 시 아래 형식을 사용하라:
+
+````markdown
+```mermaid
+%% title: 시스템 컨텍스트 다이어그램
+%% ...
+C4Context
+  ...
+```
+
+<details>
+<summary>📐 PlantUML 버전 (C4-PlantUML)</summary>
+
+```plantuml
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+title 시스템 컨텍스트 다이어그램
+...
+@enduml
+```
+</details>
+````
+
+### PlantUML 작성 규칙 (병기 대상에 한해)
+- C4 다이어그램: `C4-PlantUML` 라이브러리 `!include` 사용
+- 시퀀스 다이어그램: `@startuml` / `@enduml` 블록, `participant`, `activate/deactivate` 사용
+- 한글 라벨 사용 가능 (PlantUML은 UTF-8 지원)
+- 색상/스타일은 Mermaid 다이어그램과 동일한 의미를 유지하라
 
 ## 🔧 작업자 수작업 보충 항목
 
@@ -465,7 +531,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 ## 완료 기준
 - 15개 View 섹션(2-1 ~ 2-14, 2-4b 포함) 모두 문서화됨
 - 각 View에 대상 Stakeholder가 명시됨
-- 모든 다이어그램이 Mermaid 또는 Structurizr로 렌더링 가능
+- 모든 다이어그램이 Mermaid로 렌더링 가능 (C4/복잡 시퀀스는 PlantUML 병기)
 - Phase 1 추출 결과의 확인 상태(✅/⚠️/❌/🔍)가 View에 반영됨
 - 코드 없는 구성 요소가 스테레오타입(`<<binary SDK>>`, `<<no-source>>`, `<<console>>`, `<<external-db>>`, `<<external>>`)으로 표기됨
 - Dead Code(Step 1b 판정)가 다이어그램에서 제외 또는 구분 표기됨
