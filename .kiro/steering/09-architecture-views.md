@@ -84,7 +84,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
   - 주요 Use Case별 시퀀스 다이어그램 (Mermaid sequenceDiagram)
   - Use Case ↔ API ↔ 화면 ↔ 비즈니스 규칙 교차 매핑 테이블
   - Use Case별 정상/대안/예외 시나리오 문서
-- → 대상: PM, 개발자, 품질센터, PO
+- → 대상: PM, 개발자, 품질센터, PO, 보안센터, UX센터
 
 ### 2-4. 이벤트/메시지 흐름 & E2E Call Flow View
 > 📂 참조 산출물: `04-business-logic/event-flows.md`, `04-business-logic/call-flow-chains.md`, `04-business-logic/e2e-call-flows.md`, `04-business-logic/batch-scheduler-inventory.md`, `03-api-data/internal-api-contracts.md`, `01b-dead-code/dead-code-report.md`
@@ -118,7 +118,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
   |---|---|---|---|---|
   | UC-{서비스}-001 | 상품가입 | CF-001, CF-002 | 동기+비동기 | 과금, CRM |
 - 산출물: `services/{서비스명}/docs/views/event-flow/` 하위에 `e2e-call-flow-{UC-ID}.md` 파일로 생성
-- → 대상: PM, 개발자, 품질센터
+- → 대상: PM, 개발자, 품질센터, 보안센터
 
 ### 2-5. 데이터 View
 > 📂 참조 산출물: `03-api-data/erd.md`, `03-api-data/db-query-patterns.md`, `03-api-data/db-migration-history.md`, `05-security/pii-privacy-map.md`
@@ -126,7 +126,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - ERD (논리/물리)
 - 데이터 흐름도 (DFD) — 개인정보 포함 데이터 식별
 - **외부 DBMS 표기**: DB Link, 직접 접근 등으로 연동되는 외부 DBMS는 ERD/DFD에 `<<external-db>>` 스테레오타입으로 표기하라. 스키마 접근 불가 시 `[인터뷰]` 태그 병기
-- → 대상: 개발자, 보안센터
+- → 대상: 개발자, 보안센터, PO(DFD 한정 — 개인정보 수집 항목/동의 관리 확인)
 
 ### 2-6. UI/UX View
 > 📂 참조 산출물: `02-screens/screen-inventory.md`, `02-screens/cross-platform-screen-map.md`, `07-ux/interaction-patterns.md`, `07-ux/validation-rules.md`, `07-ux/loading-ux-patterns.md`, `07-ux/entry-points.md`, `07-ux/i18n-accessibility.md`, `07-ux/feature-flags.md`
@@ -160,7 +160,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 서드파티 스크립트 보안 현황 (인벤토리, SRI, 개인정보 유출 위험)
 - 모바일 앱 쉴딩 현황 아키텍처 (난독화, 위변조 탐지, 루팅/탈옥, 디버깅 방지, 쉴딩 솔루션, 169~181번 대비)
 - 정적분석 취약점 리포트
-- → 대상: 보안센터
+- → 대상: 보안센터, 개발자, 법무/개인정보보호 담당자(PII 맵 한정)
 
 ### 2-8. 품질 View
 > 📂 참조 산출물: `06-quality/test-automation-inventory.md`, `06-quality/test-feature-traceability.md`, `06-quality/change-frequency.md`, `06-quality/logging-observability.md`, `06-quality/dependency-health.md`, `06-quality/concurrency-patterns.md`, `06-quality/data-integrity.md`, `06-quality/performance-hotspots.md`
@@ -176,7 +176,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 성능 병목 후보 영역 맵 (위험도 등급별)
 - 기술 부채 식별 목록
 - 테스트 코드 커버리지 현황
-- → 대상: 품질센터
+- → 대상: 품질센터, 개발자
 
 ### 2-9. STB 하드웨어 리소스 관리 View (IPTV/홈 사업 전용)
 > 📂 참조 산출물: `08-infra/stb-resources.md`, `01-code-structure/platform-branching.md`
@@ -196,7 +196,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 장애 격리 아키텍처 (벌크헤드/큐 분리/리소스 분리) `[CDR 4.2.4]`
 - DR 아키텍처 현황 (Active-Active/Standby/Backup)
 - 데이터 복제/정합성 리스크 분석
-- → 대상: PM, 개발자, 품질센터
+- → 대상: PM, 개발자, 품질센터, 인프라팀
 
 ### 2-11. AI 거버넌스 View `[CDR 12장]`
 > 📂 참조 산출물: `01-code-structure/tech-profile.md`, `01-code-structure/dependencies.md`, `04-business-logic/business-rules.md`, `05-security/pii-privacy-map.md`
@@ -403,7 +403,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 플랫폼 경계(미디어/인증/결제/IoT 등)를 색상 또는 영역으로 구분하라
 - 외부 시스템(BSS/OSS, PG, CRM 등)과의 연결도 포함
 - 산출물: `services/{서비스명}/docs/views/event-flow/` 하위에 `cross-platform-journey-*.md`, `batch-realtime-flow.md`, `service-topology.md` 파일로 생성
-- → 대상: PM, 개발자, 품질센터
+- → 대상: PM, 개발자, 품질센터, 보안센터, PO(핵심 Journey 한정)
 
 ### 2-14. PM 의사결정 지원 다이어그램
 > 📂 참조 산출물: `03-api-data/erd.md`, `03-api-data/service-communication-matrix.md`, `01-code-structure/cicd-pipeline.md`, `01-code-structure/config-profiles.md`, `01-code-structure/tech-debt-markers.md`, `01b-dead-code/dead-code-report.md`, `04-business-logic/call-flow-chains.md`, `05-security/security-layer-compliance.md`, `06-quality/test-automation-inventory.md`, `06-quality/dependency-health.md`, `06-quality/logging-observability.md`, `08-infra/deployment-topology.md`
@@ -471,7 +471,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 산출물 위치: `services/{서비스명}/docs/views/stakeholder-summary/` 하위에 `pm-decision-*.md` 파일로 생성
 - 통합 산출물(30개 서비스 전체 대상)은 `docs-integrated/views/` 하위에 생성
 - 모든 다이어그램에 데이터 출처(어떤 Step의 어떤 산출물 기반인지)를 명시하라
-- → 대상: PM, 개발 리드
+- → 대상: PM, 개발 리드, 인프라팀(배포 의존성/환경별 구성 한정)
 
 ## 🔀 분할 실행 가이드
 
