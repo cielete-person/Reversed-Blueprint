@@ -79,7 +79,11 @@
 │   ├── security-layer-checklist.md    보안 체크리스트 (217항목)
 │   ├── cdr-design-checklist.md        CDR 설계 체크리스트 (CTO품질PMO팀 가이드 매핑)
 │   ├── manual-tasks.md                수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증)
-│   └── prompt-cookbook.md             프롬프트 쿡북 (효과적인 추가 프롬프트 패턴 축적소)
+│   ├── prompt-cookbook.md             프롬프트 쿡북 (효과적인 추가 프롬프트 패턴 축적소)
+│   └── ownership/                     코드 소유권 및 조직 매핑
+│       ├── code-ownership-map.md          코드 영역 → 담당 조직 매핑 (215개 시스템)
+│       ├── org-contact-directory.md       조직 → 현재 담당자/외주사 (갱신용)
+│       └── glossary-business-tech.md      기획 용어 → 코드 구현체 매핑 사전
 ├── services/              ← 서비스별 소스코드 + 설계도
 │   ├── {서비스명}/src/          Bitbucket clone 소스코드
 │   ├── {서비스명}/docs/         KIRO 추출 설계도
@@ -127,4 +131,7 @@
 - [CDR Design Checklist](project/cdr-design-checklist.md) — CTO품질PMO팀 CDR 가이드 설계 반영 매핑
 - [Manual Tasks](project/manual-tasks.md) — 작업자 수작업 항목 목록 (런타임 데이터, 인터뷰, 교차 검증 등)
 - [Prompt Cookbook](project/prompt-cookbook.md) — 효과적인 추가 프롬프트 패턴 축적소
+- [Code Ownership Map](project/ownership/code-ownership-map.md) — 코드 영역 → 담당 조직 매핑 (215개 시스템, 8개 팀)
+- [Org Contact Directory](project/ownership/org-contact-directory.md) — 조직 → 현재 담당자/외주사 연락처 (조직재편 시 갱신)
+- [Business–Tech Glossary](project/ownership/glossary-business-tech.md) — 기획 용어 → 코드 구현체 매핑 사전
 - [Glossary](glossary.md)

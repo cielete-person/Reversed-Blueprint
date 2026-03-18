@@ -329,6 +329,7 @@ inclusion: manual
    - `service-inventory.md`, `platform-service-inventory.md`
    - `security-layer-checklist.md`, `manual-tasks.md`, `prompt-cookbook.md`
    - `operator-manual.md`
+   - `ownership/code-ownership-map.md`, `ownership/org-contact-directory.md`, `ownership/glossary-business-tech.md`
 
 3. **Steering inclusion 모드 확인**: 모든 steering 파일의 front-matter에 `inclusion: manual`이 설정되어 있는가? (auto로 설정되면 모든 대화에 불필요하게 로딩됨)
 

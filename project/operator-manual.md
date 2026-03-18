@@ -550,4 +550,7 @@ git push origin main
 | 수작업 항목 목록 | `project/manual-tasks.md` | KIRO 자동 추출 불가 항목 (런타임 데이터, 인터뷰, 교차 검증 등) |
 | 프롬프트 쿡북 | `project/prompt-cookbook.md` | 효과적인 추가 프롬프트 패턴 축적소 |
 | 용어 사전 | `glossary.md` | 프로젝트 공통 용어 정의 |
+| 코드 소유권 맵 | `project/ownership/code-ownership-map.md` | 코드 영역 → 담당 조직 매핑 (215개 시스템) |
+| 조직 연락처 디렉토리 | `project/ownership/org-contact-directory.md` | 조직 → 현재 담당자/외주사 (조직재편 시 갱신) |
+| 기획↔코드 매핑 사전 | `project/ownership/glossary-business-tech.md` | 기획 용어 → 코드 구현체 매핑 |
 | Steering 문서 (15개) | `.kiro/steering/` | KIRO 실행 가이드 (Step 00~10, 1b, 1c 포함) |

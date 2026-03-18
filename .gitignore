@@ -13,5 +13,8 @@ services/*/src/
 # _template의 src/README.md는 가이드 문서이므로 추적
 !services/_template/src/README.md
 
+# 원본 CSV 데이터 (외부 파일, ownership 문서로 가공 후 불필요)
+service-system-inventory.csv
+
 # 백업 파일 (선택: Git에 포함하지 않으려면 주석 해제)
 # **/_backup/
