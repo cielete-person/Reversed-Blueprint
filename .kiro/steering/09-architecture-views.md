@@ -446,6 +446,27 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 코드에서 추출 가능: 헬스체크, 알람 설정, Circuit Breaker 발동 조건
 - 코드에서 추출 불가: 온콜 로테이션, 에스컬레이션 정책 → 🔍 인터뷰필요
 
+#### 앱/서버 PM 분리 관리 View
+> 앱 외주개발과 서버 외주개발을 관리하는 PM이 다른 경우, 각 PM이 자기 담당 영역만 빠르게 파악할 수 있도록 분리 View를 생성한다.
+
+- 산출물: `services/{서비스명}/docs/views/stakeholder-summary/pm-app-server-split.md`
+- **앱 PM 섹션**:
+  - 화면 목록 (Step 02 결과 요약)
+  - 앱→서버 API 호출 목록 (앱 코드에서 호출하는 엔드포인트만 추출)
+  - 앱 쪽 보안/품질 Gap (Step 05/06 결과 중 앱 관련만 필터)
+  - 앱 외주사 인터페이스 계약 요약 (API 요청/응답 DTO, 에러 코드)
+- **서버 PM 섹션**:
+  - API 엔드포인트 목록 (Step 03 결과 요약)
+  - 서버→외부 연동 목록 (Step 08 결과 중 서버 관련만 필터)
+  - 서버 쪽 보안/품질 Gap (Step 05/06 결과 중 서버 관련만 필터)
+  - 서버 외주사 인터페이스 계약 요약 (내부 API 계약, DB 스키마)
+- **공통 섹션**:
+  - 앱↔서버 간 API 계약 일치/불일치 현황 (Step 03 internal-api-contracts.md + 2-4 E2E Call Flow 결과)
+  - E2E Call Flow에서 앱/서버 경계 표기 (어디까지가 앱 PM 책임, 어디부터 서버 PM 책임)
+- 이 View는 멀티 Repo 서비스(앱 Repo + 서버 Repo 분리)에서 특히 유용하다
+- 단일 Repo 서비스에서도 앱/서버 코드 영역이 구분되면 생성 가능
+- → 대상: 앱 PM, 서버 PM
+
 #### PM 의사결정 지원 다이어그램 산출물 규칙
 - 산출물 위치: `services/{서비스명}/docs/views/stakeholder-summary/` 하위에 `pm-decision-*.md` 파일로 생성
 - 통합 산출물(30개 서비스 전체 대상)은 `docs-integrated/views/` 하위에 생성
@@ -502,7 +523,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - `ai-governance/` — AI 거버넌스 View (활용 맵, 모델 인벤토리, Fail-safe, 의사결정 흐름) `[CDR 12장]`
 - `layer-stack/` — Layer Stack View (Client/Middleware/OS/Firmware/Network/Server/Infra 계층 다이어그램)
 - `function-stack-callflow/` — Function–External Stack Call Flow View (관점 A~E: 공통 모듈, SDK/Library, 서버 간, OS API 호출 맵 및 통합 매트릭스)
-- `stakeholder-summary/` — Stakeholder별 맞춤 요약 문서, PM 의사결정 지원 다이어그램 (데이터 오너십, 배포 의존성, 환경별 구성, 성숙도, 크리티컬 패스, 기술 부채 히트맵, 온콜 흐름도)
+- `stakeholder-summary/` — Stakeholder별 맞춤 요약 문서, PM 의사결정 지원 다이어그램 (데이터 오너십, 배포 의존성, 환경별 구성, 성숙도, 크리티컬 패스, 기술 부채 히트맵, 온콜 흐름도), 앱/서버 PM 분리 관리 View (`pm-app-server-split.md`)
 
 ## 다이어그램 작성 규칙
 
@@ -611,6 +632,7 @@ title 시스템 컨텍스트 다이어그램
 - 배치↔실시간 데이터 흐름 연결도(2-4b)가 작성됨
 - 서비스 간 통신 토폴로지(2-4b)가 30개 서비스 전체를 포함하여 작성됨
 - PM 의사결정 지원 다이어그램(2-14) 7개 항목이 모두 작성됨
+- 앱/서버 PM 분리 관리 View가 멀티 Repo 서비스에 대해 작성됨 (앱 PM 섹션, 서버 PM 섹션, 공통 API 계약 현황 포함)
 
 ## 🔄 역방향 피드백 체크 (이전 산출물 업데이트)
 
