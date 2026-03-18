@@ -5,9 +5,11 @@ inclusion: manual
 # Step 8: 인프라, 외부 연동, STB, 비기능 설계도 추출
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-5, 1-8, 1-9
+> 📖 기술 용어: [용어 사전](../../glossary.md) — IaC, Helm, Terraform, Kustomize, gRPC, MQTT, CDN, MSA, API Gateway, Circuit Breaker 등
 
 ## 선행 산출물 참조
 
+- **Step 04(비즈니스 로직)**: `04-business-logic/call-flow-chains.md`에서 서비스 간 호출 체인을, `04-business-logic/batch-scheduler-inventory.md`에서 배치 작업 목록을 참조하라. 외부 연동 인벤토리(1번) 작성 시 Call Flow에서 식별된 외부 시스템 호출과 교차 확인하고, 배치 작업의 외부 연동 의존성을 포함하라.
 - **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 외부 연동 코드(미사용 API 클라이언트, 미사용 MQ Producer/Consumer)는 인프라 분석에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
 - **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 외부 연동 모듈(공통 HTTP Client, 공통 MQ 설정 등)을 식별하여, 외부 연동 인벤토리에 공통 모듈 경유 여부를 표기하라.
 
@@ -125,12 +127,22 @@ ops/, deploy/, k8s/, helm/ 폴더도 확인해줘.
 - [ ] **Step 03 → api-inventory.md 업데이트 필요?**
   - 인프라 분석에서 발견한 외부 연동 시스템의 API가 API 인벤토리에 반영되어 있는지 확인
   - 배치 Job이 호출하는 API가 누락되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `08-infra/external-systems.md`에서 외부 시스템명과 API URL을 검색하고, `03-api-data/api-endpoints.md`에서 해당 외부 연동 API가 등재되어 있는지 확인. 또한 `04-business-logic/batch-scheduler-inventory.md`에서 배치 Job이 호출하는 API를 추출하여 `api-endpoints.md`와 대조. 누락된 API는 추가
 - [ ] **Step 04 → business-rules.md 업데이트 필요?**
   - 배치/스케줄러에서 실행되는 비즈니스 로직이 비즈니스 규칙 문서에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `08-infra/nfr-baseline.md`에서 배치 관련 설정(`batch|scheduler|cron|job`)을 검색하고, `04-business-logic/batch-scheduler-inventory.md`의 배치 목록과 `04-business-logic/business-rules.md`를 대조하여, 배치에서 실행되는 비즈니스 로직(정산, 집계, 파기 등)이 규칙으로 명시되어 있는지 확인
 - [ ] **Step 01 → code-structure.md 업데이트 필요?**
   - 인프라 설정 파일에서 발견한 모듈 구성이 코드 구조에 반영되어 있는지 확인
   - 배치 모듈이 코드 구조에 누락되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `08-infra/deployment-topology.md`에서 서비스/모듈명을 검색하고, `01-code-structure/directory-structure.md`에서 해당 모듈이 등재되어 있는지 확인. k8s manifest나 docker-compose에서 발견된 서비스가 코드 구조에 누락되어 있으면 추가
 - [ ] **Step 05 → security 산출물 업데이트 필요?**
   - 인프라 레벨 보안 설정(방화벽, TLS, 네트워크 정책)이 보안 문서에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `08-infra/deployment-topology.md`에서 `TLS|SSL|firewall|NetworkPolicy|mTLS|ingress`를 검색하고, `05-security/security-hardening.md`와 `05-security/encryption-inventory.md`에 해당 인프라 보안 설정이 반영되어 있는지 확인. 누락 시 보안 산출물에 인프라 레벨 보안 항목 추가
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 09 — 아키텍처 View 생성 (Phase 2)](09-architecture-views.md)
+- 이전: [Step 07 — UX 관련 설계도 추출](07-ux-extraction.md)

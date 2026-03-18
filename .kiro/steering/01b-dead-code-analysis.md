@@ -6,6 +6,7 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-1b. Dead Code 및 미사용 리소스 분석
 > 선행: Step 01 (코드 구조 분석) 완료 후 실행
+> 📖 기술 용어: [용어 사전](../../glossary.md)
 
 ## ⚡ 컨텍스트 복원 (새 세션 시작 시)
 
@@ -201,3 +202,9 @@ git log로 각 파일의 마지막 커밋 날짜를 확인하고,
 - 각 항목에 판정 근거(참조 검색 결과, git log 날짜)가 기재됨
 - 🔴 Dead 판정 항목에 `[KIRO+확정]` 태그가 표기됨 (개발 리드 확인 필요)
 - 이후 Step(02~08)에서 Dead Code를 제외하고 분석할 수 있는 참조 목록이 제공됨
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 1c — 공통 모듈 그룹핑 분석](01c-common-module-grouping.md)
+- 이전: [Step 01 — Repository 스캔 및 코드 구조 분석](01-code-structure-scan.md)

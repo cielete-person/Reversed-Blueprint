@@ -6,6 +6,7 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-1c. 공통 모듈 그룹핑 분석
 > 선행: Step 01(코드 구조 스캔) 완료 필수. Step 1b(Dead Code) 완료 권장.
+> 📖 기술 용어: [용어 사전](../../glossary.md)
 
 ## ⚡ 컨텍스트 복원 (새 세션 시작 시)
 
@@ -184,3 +185,9 @@ import하는 코드가 있는지 확인해줘. 있으면 아키텍처 위반 후
 - 공통 모듈 간 의존 방향 다이어그램이 작성됨
 - 역의존(아키텍처 위반 후보)이 식별되어 ⚠️ 표기됨
 - 변경 영향도 Top 10이 산출됨
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 02 — 화면 목록 추출 및 화면명 정규화](02-screen-inventory.md)
+- 이전: [Step 1b — Dead Code 및 미사용 리소스 분석](01b-dead-code-analysis.md)

@@ -5,6 +5,7 @@ inclusion: manual
 # Step 1: Repository 스캔 및 코드 구조 분석
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-1. 코드 구조 분석
+> 📖 기술 용어: [용어 사전](../../glossary.md) — ORM, CI/CD, IaC, MSA 등
 
 ## ⚡ 컨텍스트 복원 (새 세션 시작 시)
 
@@ -153,3 +154,9 @@ Dockerfile, *.tf, Chart.yaml, values.yaml, kustomization.yaml 을 찾아줘.
 ## 완료 기준
 - 대상 서비스의 기술 프로파일이 작성됨
 - 각 항목에 확인 상태(✅/⚠️/❌/🔍)가 표기됨
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 1b — Dead Code 및 미사용 리소스 분석](01b-dead-code-analysis.md)
+- 이전: 없음 (첫 번째 Step)

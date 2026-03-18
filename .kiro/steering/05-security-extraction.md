@@ -6,6 +6,7 @@ inclusion: manual
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-7. 보안 관련 추출
 > 참조: #[[file:project/security-layer-checklist.md]] — 보안기술팀 Security Layer 체크리스트 (217항목)
+> 📖 기술 용어: [용어 사전](../../glossary.md) — XSS, CSRF, JWT, OAuth, SSO, mTLS, CORS, SRI, ProGuard, R8, APNs, FCM, CVE 등
 
 ## ⚡ 컨텍스트 복원 (새 세션 시작 시)
 
@@ -25,6 +26,7 @@ inclusion: manual
 
 ## 선행 산출물 참조
 
+- **Step 04(비즈니스 로직)**: `04-business-logic/error-handling.md`에서 에러/예외 처리 패턴을, `04-business-logic/event-flows.md`에서 이벤트 흐름을 참조하라. 보안 분석 시 에러 응답에 내부 정보가 노출되는지, 이벤트 페이로드에 개인정보가 포함되는지 교차 확인에 활용.
 - **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 코드는 보안 분석 대상에서 제외하라. 단, Dead Code 내 하드코딩된 크리덴셜/시크릿은 여전히 보안 위험이므로 별도 "Dead Code 내 잔존 크리덴셜" 섹션에 기록하라.
 - **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 인증/보안 모듈(Security Filter, 암호화 유틸 등)을 식별하여, 보안 분석 시 공통 보안 모듈의 적용 범위와 미적용 영역을 구분하라.
 
@@ -179,9 +181,18 @@ password, passwd, secret, api_key, token, credential 이 포함된 라인을 모
 
 - [ ] **Step 03 → api-inventory.md 업데이트 필요?**
   - 보안 분석에서 발견한 인증/인가 미적용 API가 API 인벤토리의 보안 속성에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `03-api-data/api-endpoints.md`에서 `인증 없음|None|미적용`을 검색하여, 이 Step에서 발견한 인증 미적용 API 목록과 대조. 누락된 API가 있으면 `api-endpoints.md`의 보안 속성 컬럼을 업데이트
 - [ ] **Step 04 → business-rules.md 업데이트 필요?**
   - 보안 규칙(접근 제어, 데이터 마스킹 등)이 비즈니스 규칙과 중복/충돌하는지 확인
+  - 검증 방법: `grepSearch`로 `04-business-logic/business-rules.md`에서 `접근 제어|마스킹|권한|인가`를 검색하여, 이 Step의 `api-security-posture.md`와 `pii-privacy-map.md`의 보안 규칙과 대조. 충돌하는 규칙이 있으면 양쪽 문서에 교차 참조 추가
 - [ ] **Step 01 → code-structure.md 업데이트 필요?**
   - 보안 모듈(인증 필터, 암호화 유틸 등)이 코드 구조에 누락되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `01-code-structure/directory-structure.md`에서 `security|auth|filter|crypto|encrypt`를 검색하여, 이 Step에서 식별한 보안 모듈(SecurityConfig, AuthFilter, CryptoUtil 등)이 코드 구조에 등재되어 있는지 확인. 누락 시 해당 모듈을 `directory-structure.md`에 추가
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 06 — 품질 관련 설계도 추출](06-quality-extraction.md)
+- 이전: [Step 04 — 비즈니스 로직 추출](04-business-logic.md)

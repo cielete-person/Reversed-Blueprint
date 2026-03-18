@@ -5,6 +5,7 @@ inclusion: manual
 # Step 2: 화면 목록 추출 및 화면명 정규화
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-2. 화면 목록 및 정규화
+> 📖 기술 용어: [용어 사전](../../glossary.md)
 
 ## 선행 산출물 참조
 
@@ -131,9 +132,18 @@ Modal, Dialog, Popup, BottomSheet, Alert, Toast, Snackbar 컴포넌트를 모두
 - [ ] **Step 01 → code-structure.md 업데이트 필요?**
   - 화면 인벤토리에서 발견한 새로운 모듈/컴포넌트가 코드 구조에 누락되어 있는지 확인
   - 화면 간 네비게이션에서 발견한 모듈 간 의존성이 코드 구조에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 새로 발견한 모듈명을 `01-code-structure/directory-structure.md`에서 검색. 없으면 추가 필요
 - [ ] **Step 01b → dead-code 목록 업데이트 필요?**
   - 화면에서 실제 사용되는 것으로 확인된 코드가 dead-code로 분류되어 있지 않은지 확인
+  - 검증 방법: 이번 Step에서 식별한 화면 클래스명을 `01b-dead-code/dead-code-report.md`에서 검색. 🔴 Dead로 분류된 항목이 있으면 판정 재검토
 - [ ] **Step 01c → common-module 그룹핑 업데이트 필요?**
   - 여러 화면에서 공통으로 사용하는 컴포넌트가 공통 모듈로 분류되어 있는지 확인
+  - 검증 방법: 3개 이상 화면에서 import하는 컴포넌트를 `01c-common-modules/internal-common-modules.md`에서 검색. 없으면 공통 UI 그룹에 추가
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 03 — API 엔드포인트 추출 및 DB 스키마 역추적](03-api-and-data.md)
+- 이전: [Step 1c — 공통 모듈 그룹핑 분석](01c-common-module-grouping.md)

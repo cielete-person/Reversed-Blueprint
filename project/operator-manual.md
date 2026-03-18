@@ -194,6 +194,59 @@ git clone {Repo URL} services/{폴더명}/src
 서비스 선택 → Step 01~08 (Phase 1) → Step 09 (Phase 2) → Step 10 (Phase 3) → 다음 서비스
 ```
 
+#### Step 간 의존성 다이어그램
+
+아래 다이어그램은 각 Step 간 선행 의존성을 보여준다. 화살표 방향은 "선행 → 후행"을 의미한다.
+
+```mermaid
+%% title: Step 간 의존성 다이어그램
+%% author: KIRO
+%% date: 2026-03-18
+%% source: operator-manual.md — 3-1. 작업 흐름 개요
+flowchart TD
+    subgraph phase1["Phase 1: 설계도 추출 (Step 01~08)"]
+        S01["Step 01\n코드 구조 스캔"]
+        S1b["Step 1b\nDead Code 분석"]
+        S1c["Step 1c\n공통 모듈 그룹핑"]
+        S02["Step 02\n화면 인벤토리"]
+        S03["Step 03\nAPI & 데이터"]
+        S04["Step 04\n비즈니스 로직"]
+        S05["Step 05\n보안"]
+        S06["Step 06\n품질"]
+        S07["Step 07\nUX"]
+        S08["Step 08\n인프라"]
+        S01 --> S1b
+        S1b --> S1c
+        S1c --> S02
+        S1c --> S03
+        S02 --> S04
+        S03 --> S04
+        S04 --> S05
+        S04 --> S06
+        S04 --> S07
+        S04 --> S08
+    end
+    subgraph phase2["Phase 2: 아키텍처 View (Step 09)"]
+        S09["Step 09\n아키텍처 View 생성\n(4그룹 분할 실행)"]
+    end
+    subgraph phase3["Phase 3: Gap 분석 (Step 10)"]
+        S10["Step 10\n추적성 매핑 & Gap 분석"]
+    end
+    S05 --> S09
+    S06 --> S09
+    S07 --> S09
+    S08 --> S09
+    S09 --> S10
+    style phase1 fill:#e8f5e9,stroke:#4caf50
+    style phase2 fill:#e3f2fd,stroke:#2196f3
+    style phase3 fill:#fff3e0,stroke:#ff9800
+```
+
+> 📌 Step 01 → 1b → 1c는 반드시 순서대로 실행해야 한다.
+> Step 02~08은 Step 1c 이후 독립 실행 가능하나, Step 04가 02/03 결과를 참조하므로 순서대로 권장한다.
+> Step 05~08은 Step 04 결과를 참조하므로 Step 04 이후에 실행한다.
+> Step 09는 Phase 1 전체 완료 후, Step 10은 Step 09 완료 후 실행한다.
+
 모든 steering 문서는 KIRO 채팅에서 `#` + 문서명으로 호출한다.
 
 ### 3-2. Step별 실행 방법

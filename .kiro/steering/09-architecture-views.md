@@ -5,6 +5,7 @@ inclusion: manual
 # Step 9: 아키텍처 View 생성 (Phase 2)
 
 > 참조: #[[file:project/extraction-checklist.md]] — Phase 2 전체 (2-1 ~ 2-9)
+> 📖 기술 용어: [용어 사전](../../glossary.md) — C4 Model, ERD, DFD, SPOF, DLQ, Circuit Breaker, Bulkhead, Fallback, Idempotency, MSA, Feign, gRPC, mTLS, DRM, CAS 등
 
 ## ⚡ 컨텍스트 복원 (새 세션 시작 시)
 
@@ -23,6 +24,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 ## 작업 절차
 
 ### 2-1. 시스템 컨텍스트 & 컨테이너 View (C4 Level 1-2)
+> 📂 참조 산출물: `01-code-structure/tech-profile.md`, `01-code-structure/dependencies.md`, `03-api-data/service-communication-matrix.md`, `08-infra/external-systems.md`, `08-infra/deployment-topology.md`
+
 - 전체 시스템 컨텍스트 다이어그램 작성 (외부 연동 시스템 인벤토리 기반)
 - 서비스별 컨테이너 다이어그램 (앱, API, DB, 메시지큐 등)
 - 외부 연동 인터페이스별 시퀀스 다이어그램
@@ -57,6 +60,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
   ```
 
 ### 2-2. 컴포넌트 & 코드 View (C4 Level 3-4)
+> 📂 참조 산출물: `01-code-structure/directory-structure.md`, `01c-common-modules/dependency-direction.md`, `01c-common-modules/internal-common-modules.md`, `04-business-logic/state-machines.md`
+
 - 주요 서비스의 컴포넌트 다이어그램
 - 모듈 의존성 그래프 (내부 패키지 간)
   - **Step 1c 공통 모듈 결과 반영 필수**: `01c-common-modules/dependency-direction.md`의 의존 방향 다이어그램을 기반으로 작성
@@ -68,6 +73,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자
 
 ### 2-3. 비즈니스 규칙 & 에러 처리 & Use Case View
+> 📂 참조 산출물: `04-business-logic/business-rules.md`, `04-business-logic/error-handling.md`, `04-business-logic/use-cases.md`, `04-business-logic/use-case-scenarios.md`, `04-business-logic/use-case-tree.md`, `02-screens/screen-inventory.md`, `03-api-data/api-endpoints.md`
+
 - 비즈니스 규칙 카탈로그 완성 (규칙 ID, 규칙명, 설명, 적용 서비스, 소스 위치, 확인 상태)
 - 규칙 간 의존 관계 매핑
 - 에러/예외 처리 패턴 맵 완성 (에러 코드 체계, 예외 처리 흐름도, fallback 시나리오)
@@ -80,6 +87,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자, 품질센터, PO
 
 ### 2-4. 이벤트/메시지 흐름 & E2E Call Flow View
+> 📂 참조 산출물: `04-business-logic/event-flows.md`, `04-business-logic/call-flow-chains.md`, `04-business-logic/e2e-call-flows.md`, `04-business-logic/batch-scheduler-inventory.md`, `03-api-data/internal-api-contracts.md`, `01b-dead-code/dead-code-report.md`
+
 - 서비스 간 비동기 메시지 발행-구독 관계 시각화
 - 이벤트 토픽/큐별 스키마, 처리 순서, 재처리 정책
 - 동기 API + 비동기 이벤트 통합 전체 흐름도
@@ -112,12 +121,16 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자, 품질센터
 
 ### 2-5. 데이터 View
+> 📂 참조 산출물: `03-api-data/erd.md`, `03-api-data/db-query-patterns.md`, `03-api-data/db-migration-history.md`, `05-security/pii-privacy-map.md`
+
 - ERD (논리/물리)
 - 데이터 흐름도 (DFD) — 개인정보 포함 데이터 식별
 - **외부 DBMS 표기**: DB Link, 직접 접근 등으로 연동되는 외부 DBMS는 ERD/DFD에 `<<external-db>>` 스테레오타입으로 표기하라. 스키마 접근 불가 시 `[인터뷰]` 태그 병기
 - → 대상: 개발자, 보안센터
 
 ### 2-6. UI/UX View
+> 📂 참조 산출물: `02-screens/screen-inventory.md`, `02-screens/cross-platform-screen-map.md`, `07-ux/interaction-patterns.md`, `07-ux/validation-rules.md`, `07-ux/loading-ux-patterns.md`, `07-ux/entry-points.md`, `07-ux/i18n-accessibility.md`, `07-ux/feature-flags.md`
+
 - 화면 카탈로그 완성 (화면 ID, 화면명, 캡처, 영역 구분)
 - 크로스 플랫폼 화면 매핑표 (iOS↔Android↔STB 동일 화면 매핑, 플랫폼 전용 화면 ⚠️ 표기)
 - 화면 흐름도 (Screen Flow) — 딥링크/푸시 외부 진입 경로 포함, 플랫폼별 차이 표기
@@ -133,6 +146,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: UX센터, PO
 
 ### 2-7. 보안 View
+> 📂 참조 산출물: `05-security/credential-management.md`, `05-security/pii-privacy-map.md`, `05-security/session-token-management.md`, `05-security/input-security-validation.md`, `05-security/api-security-posture.md`, `05-security/audit-log-status.md`, `05-security/encryption-inventory.md`, `05-security/security-hardening.md`, `05-security/third-party-scripts.md`, `05-security/app-shielding.md`, `05-security/security-layer-compliance.md`
+
 - 인증/인가 아키텍처 (OAuth, SSO, 토큰 흐름)
 - 세션/토큰 관리 아키텍처 (생성/만료/갱신, JWT 라이프사이클, 동시 로그인 제어)
 - 개인정보 처리 현황 맵 (라이프사이클, 법적 요구사항 대비, 암호화, 동의 관리, 접근 권한)
@@ -148,6 +163,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: 보안센터
 
 ### 2-8. 품질 View
+> 📂 참조 산출물: `06-quality/test-automation-inventory.md`, `06-quality/test-feature-traceability.md`, `06-quality/change-frequency.md`, `06-quality/logging-observability.md`, `06-quality/dependency-health.md`, `06-quality/concurrency-patterns.md`, `06-quality/data-integrity.md`, `06-quality/performance-hotspots.md`
+
 - 테스트 자동화 현황 맵 (테스트 피라미드 시각화)
 - 테스트-기능 추적 매트릭스 (Test Gap 시각화)
 - 코드 변경 빈도 및 결함 밀집도 맵 (Churn Rate 히트맵)
@@ -162,6 +179,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: 품질센터
 
 ### 2-9. STB 하드웨어 리소스 관리 View (IPTV/홈 사업 전용)
+> 📂 참조 산출물: `08-infra/stb-resources.md`, `01-code-structure/platform-branching.md`
+
 - STB 기종별 하드웨어 스펙 프로파일
 - 프로세스/메모리 관리 아키텍처 (부팅 시퀀스, 상주 프로세스, OOM 정책)
 - 리소스 모니터링 포인트 (임계치, 메모리 릭 패턴)
@@ -170,6 +189,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자, 품질센터
 
 ### 2-10. 장애 복원력 및 DR View `[CDR 11장]`
+> 📂 참조 산출물: `08-infra/external-systems.md`, `08-infra/deployment-topology.md`, `08-infra/nfr-baseline.md`, `04-business-logic/call-flow-chains.md`, `06-quality/concurrency-patterns.md`
+
 - 장애 유형 분류 (App/DB/네트워크/외부/데이터손상) 및 Failure Mode Catalog
 - SPOF 식별 결과 및 완화 방안 `[CDR 3.2.1]`
 - 장애 격리 아키텍처 (벌크헤드/큐 분리/리소스 분리) `[CDR 4.2.4]`
@@ -178,6 +199,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자, 품질센터
 
 ### 2-11. AI 거버넌스 View `[CDR 12장]`
+> 📂 참조 산출물: `01-code-structure/tech-profile.md`, `01-code-structure/dependencies.md`, `04-business-logic/business-rules.md`, `05-security/pii-privacy-map.md`
+
 - AI 활용 서비스 맵 (AI 사용/미사용 선언, 역할별 분류)
 - AI 모델/엔진 인벤토리 (출처, 버전, 변경 관리 방식)
 - AI 입출력 통제 현황 (개인정보, 프롬프트 보안)
@@ -186,6 +209,8 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자, 보안센터
 
 ### 2-12. Layer Stack View (기술 계층 구조)
+> 📂 참조 산출물: `01-code-structure/tech-profile.md`, `01-code-structure/config-profiles.md`, `01-code-structure/platform-branching.md`, `01-code-structure/iac-inventory.md`, `01-code-structure/cicd-pipeline.md`, `01c-common-modules/external-common-libraries.md`, `03-api-data/api-endpoints.md`, `05-security/session-token-management.md`, `05-security/app-shielding.md`, `07-ux/interaction-patterns.md`, `08-infra/deployment-topology.md`, `08-infra/stb-resources.md`
+
 - 서비스별 전체 기술 계층(Layer)을 단일 다이어그램으로 시각화
 - Phase 1 전체 결과(Step 01~08)를 종합하여 아래 Layer를 추정·식별:
 
@@ -246,6 +271,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자, 인프라팀
 
 ### 2-13. Function–External Stack Call Flow View (기능-외부 스택 호출 관계)
+> 📂 참조 산출물: `01c-common-modules/internal-common-modules.md`, `01c-common-modules/external-common-libraries.md`, `01c-common-modules/impact-analysis.md`, `01-code-structure/dependencies.md`, `01-code-structure/platform-branching.md`, `03-api-data/internal-api-contracts.md`, `04-business-logic/use-cases.md`, `04-business-logic/call-flow-chains.md`, `05-security/app-shielding.md`
 
 > 개발 PM이 주요 비즈니스 Function과 공통 모듈, SDK, Library, 서버 간 통신, OS API 등 외부 스택 간의 호출 관계를 여러 관점에서 파악할 수 있도록 다중 관점 Call Flow를 생성한다.
 
@@ -332,6 +358,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자
 
 ### 2-4b. E2E Call Flow 완전성 검증 보강 항목
+> 📂 참조 산출물: `04-business-logic/e2e-call-flows.md`, `04-business-logic/call-flow-chains.md`, `04-business-logic/batch-scheduler-inventory.md`, `03-api-data/internal-api-contracts.md`, `03-api-data/service-communication-matrix.md`, `08-infra/external-systems.md`
 > PM 관점에서 설계도의 Call Flow 단절·누락을 방지하기 위한 추가 검증 항목
 
 #### 크로스 플랫폼 핵심 Journey E2E Call Flow
@@ -379,6 +406,7 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - → 대상: PM, 개발자, 품질센터
 
 ### 2-14. PM 의사결정 지원 다이어그램
+> 📂 참조 산출물: `03-api-data/erd.md`, `03-api-data/service-communication-matrix.md`, `01-code-structure/cicd-pipeline.md`, `01-code-structure/config-profiles.md`, `01-code-structure/tech-debt-markers.md`, `01b-dead-code/dead-code-report.md`, `04-business-logic/call-flow-chains.md`, `05-security/security-layer-compliance.md`, `06-quality/test-automation-inventory.md`, `06-quality/dependency-health.md`, `06-quality/logging-observability.md`, `08-infra/deployment-topology.md`
 > 개발 PM이 프로젝트 관리·의사결정에 활용하는 추가 시각화 산출물.
 > Phase 1~2 전체 결과를 종합하여 PM 관점의 의사결정 지원 다이어그램을 생성한다.
 
@@ -423,6 +451,34 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 통합 산출물(30개 서비스 전체 대상)은 `docs-integrated/views/` 하위에 생성
 - 모든 다이어그램에 데이터 출처(어떤 Step의 어떤 산출물 기반인지)를 명시하라
 - → 대상: PM, 개발 리드
+
+## 🔀 분할 실행 가이드
+
+> Step 09는 15개 View 섹션(2-1 ~ 2-14, 2-4b 포함)으로 구성되어 있어 한 번에 실행하면 컨텍스트 윈도우를 초과할 수 있다.
+> 아래와 같이 4개 그룹으로 나누어 실행하라.
+
+### 그룹 A: 시스템 구조 View (2-1 ~ 2-4, 2-4b)
+```
+#09-architecture-views 서비스: {폴더명} 범위: 2-1 시스템 컨텍스트, 2-2 컴포넌트, 2-3 비즈니스 규칙, 2-4 이벤트/E2E Call Flow, 2-4b E2E 완전성 검증
+```
+
+### 그룹 B: 데이터/UX/보안 View (2-5 ~ 2-8)
+```
+#09-architecture-views 서비스: {폴더명} 범위: 2-5 데이터, 2-6 UI/UX, 2-7 보안, 2-8 품질
+```
+
+### 그룹 C: 특화/인프라 View (2-9 ~ 2-11)
+```
+#09-architecture-views 서비스: {폴더명} 범위: 2-9 STB 리소스, 2-10 장애 복원력/DR, 2-11 AI 거버넌스
+```
+
+### 그룹 D: 종합 분석 View (2-12 ~ 2-14)
+```
+#09-architecture-views 서비스: {폴더명} 범위: 2-12 Layer Stack, 2-13 Function-External Stack, 2-14 PM 의사결정 지원
+```
+
+> 📌 그룹 A → B → C → D 순서로 실행하라. 각 그룹 완료 후 산출물이 정상 생성되었는지 확인한 뒤 다음 그룹을 진행하라.
+> 📌 STB/IoT 해당 없는 서비스는 그룹 C에서 2-9를 건너뛰고, AI 미사용 서비스는 2-11을 건너뛰어도 된다.
 
 ## 📍 소스 로케이터 필수 규칙
 
@@ -563,11 +619,21 @@ title 시스템 컨텍스트 다이어그램
 - [ ] **Step 01~08 전체 → 각 extraction 산출물 업데이트 필요?**
   - 아키텍처 View를 그리면서 발견한 누락/불일치가 원본 extraction 산출물에 반영되어 있는지 확인
   - 특히 Call Flow View에서 발견한 서비스 간 호출 관계가 Step 03 API 인벤토리에 반영되어 있는지 확인
+  - 검증 방법: View 작성 중 새로 발견한 서비스 간 호출을 목록화하고, `grepSearch`로 `03-api-data/api-endpoints.md`와 `03-api-data/service-communication-matrix.md`에서 해당 호출이 등재되어 있는지 확인. 또한 `01-code-structure/directory-structure.md`에서 View에 등장하는 모든 모듈/컴포넌트가 코드 구조에 반영되어 있는지 확인. 누락 항목은 원본 산출물에 추가
 - [ ] **Step 04 → business-rules.md 업데이트 필요?**
   - 비즈니스 규칙 View에서 규칙 간 충돌/중복을 발견한 경우 원본 문서에 반영
+  - 검증 방법: `grepSearch`로 `views/business-rules/` 산출물에서 `충돌|중복|불일치|⚠️`를 검색하여 규칙 간 충돌 항목을 추출하고, `04-business-logic/business-rules.md`에서 해당 규칙 ID를 검색하여 충돌 표기가 반영되어 있는지 확인
 - [ ] **Step 05 → security 산출물 업데이트 필요?**
   - 보안 View에서 발견한 보안 갭이 원본 보안 추출 문서에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `views/security/` 산출물에서 `❌|미적용|미구현|Gap`을 검색하여 보안 갭 목록을 추출하고, `05-security/` 하위 원본 산출물(credential-management.md, pii-privacy-map.md 등)에서 해당 갭이 기록되어 있는지 확인. 누락 시 원본 산출물에 갭 항목 추가
 - [ ] **Step 08 → infra 산출물 업데이트 필요?**
   - Resilience/DR View에서 발견한 인프라 이슈가 인프라 문서에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `views/resilience-dr/` 산출물에서 `SPOF|단일 장애점|장애|🔴`를 검색하여 인프라 이슈 목록을 추출하고, `08-infra/external-systems.md`와 `08-infra/deployment-topology.md`에서 해당 이슈가 반영되어 있는지 확인. 누락 시 인프라 산출물에 이슈 항목 추가
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 10 — 추적성 매핑 및 Gap 분석 (Phase 3)](10-gap-analysis.md)
+- 이전: [Step 08 — 인프라, 외부 연동, STB, 비기능 설계도 추출](08-infra-and-integration.md)

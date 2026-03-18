@@ -5,9 +5,11 @@ inclusion: manual
 # Step 6: 품질 관련 설계도 추출
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-6. 품질 관련 추출
+> 📖 기술 용어: [용어 사전](../../glossary.md) — EOL, CVE, OOM, TPS, APM, CI/CD 등
 
 ## 선행 산출물 참조
 
+- **Step 04(비즈니스 로직)**: `04-business-logic/use-cases.md`에서 Use Case 목록을, `04-business-logic/state-machines.md`에서 상태 전이를 참조하라. 테스트-기능 추적(2번) 시 Use Case별 테스트 존재 여부를 교차 매핑하고, 상태 전이 경로별 테스트 커버리지를 확인하는 데 활용.
 - **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 코드의 테스트는 품질 분석에서 제외하라. Dead Code를 테스트하는 테스트 코드 자체도 Dead로 분류하라.
 - **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 모듈의 테스트 커버리지를 별도 집계하라. 공통 모듈은 영향 범위가 넓으므로(🔴 High) 테스트 미비 시 고위험으로 분류하라.
 
@@ -129,9 +131,18 @@ Reactor/RxJava 비동기 패턴도 포함해줘.
 
 - [ ] **Step 01b → dead-code 목록 업데이트 필요?**
   - 테스트 코드 분석에서 발견한 테스트 전용 코드가 dead-code로 오분류되어 있지 않은지 확인
+  - 검증 방법: `grepSearch`로 `01b-dead-code/dead-code-report.md`에서 `Test|Spec|test|spec`을 검색하여, Dead 판정(🔴)된 항목 중 테스트 전용 코드(테스트 헬퍼, Mock, Fixture)가 포함되어 있는지 확인. 테스트 전용 코드가 Dead로 오분류된 경우 판정을 `⚠️ 테스트 전용`으로 변경
 - [ ] **Step 04 → business-rules.md 업데이트 필요?**
   - 테스트 케이스에서 발견한 비즈니스 규칙 경계값이 비즈니스 로직 문서에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `06-quality/test-feature-traceability.md`에서 경계값 테스트 케이스(예: `boundary|edge|min|max|limit`)를 검색하고, 해당 경계값이 `04-business-logic/business-rules.md`에 규칙으로 명시되어 있는지 대조. 누락된 경계값 규칙이 있으면 `business-rules.md`에 추가
 - [ ] **Step 03 → api-inventory.md 업데이트 필요?**
   - 성능 테스트/부하 테스트에서 식별된 병목 API가 API 인벤토리에 성능 속성으로 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `06-quality/performance-hotspots.md`에서 `API|endpoint|/api`를 검색하여 병목 API 목록을 추출하고, `03-api-data/api-endpoints.md`에서 해당 API의 성능 속성(응답시간, TPS 등) 컬럼이 존재하는지 확인. 누락 시 성능 속성 컬럼을 추가하고 병목 표기(⚠️) 반영
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 07 — UX 관련 설계도 추출](07-ux-extraction.md)
+- 이전: [Step 05 — 보안 관련 설계도 추출](05-security-extraction.md)

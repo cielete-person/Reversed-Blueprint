@@ -5,9 +5,11 @@ inclusion: manual
 # Step 7: UX 관련 설계도 추출
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-10. UX 관련 추출
+> 📖 기술 용어: [용어 사전](../../glossary.md) — APNs, FCM, SRI, CDN 등
 
 ## 선행 산출물 참조
 
+- **Step 04(비즈니스 로직)**: `04-business-logic/use-case-scenarios.md`에서 Use Case 시나리오를 참조하라. 각 시나리오의 화면 전이 경로와 UX 인터랙션 패턴(1번)을 교차 매핑하여, 시나리오상 누락된 UX 처리(로딩, 에러 피드백 등)를 식별하는 데 활용.
 - **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 화면/인터랙션 핸들러는 UX 분석에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
 - **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 UI 컴포넌트(공통 로딩, 공통 에러 화면, 공통 다이얼로그 등)를 식별하여, UX 패턴 분석 시 "공통 UX 패턴" 섹션으로 별도 정리하라.
 
@@ -126,9 +128,18 @@ Firebase Remote Config, LaunchDarkly 등 외부 서비스 연동도 확인해줘
 
 - [ ] **Step 02 → screen-inventory.md 업데이트 필요?**
   - UX 분석에서 발견한 숨겨진 화면 상태(로딩/에러/빈 상태)가 화면 인벤토리에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `07-ux/loading-ux-patterns.md`에서 화면 ID(`SCR-|POP-|MOD-`)를 검색하여 로딩/에러/빈 상태가 있는 화면 목록을 추출하고, `02-screens/screen-inventory.md`에서 해당 화면 ID를 검색하여 상태 화면이 등재되어 있는지 확인. 누락된 상태 화면은 `screen-inventory.md`에 추가
 - [ ] **Step 04 → business-rules.md 업데이트 필요?**
   - 프론트엔드 검증 규칙이 비즈니스 규칙과 일치하는지, 불일치 항목이 있는지 확인
+  - 검증 방법: `grepSearch`로 `07-ux/validation-rules.md`에서 검증 규칙(예: `필수|최소|최대|형식|패턴`)을 검색하고, `04-business-logic/business-rules.md`에서 동일 필드의 규칙을 검색하여 대조. 프론트엔드와 백엔드 규칙이 불일치하면 양쪽 문서에 ⚠️ 불일치 표기 추가
 - [ ] **Step 03 → api-inventory.md 업데이트 필요?**
   - 화면 조작→API 호출 매핑에서 발견한 누락 API가 있는지 확인
+  - 검증 방법: `grepSearch`로 `07-ux/interaction-patterns.md`에서 API 호출 패턴(`/api|fetch|request|call`)을 검색하여 화면에서 호출하는 API 목록을 추출하고, `03-api-data/api-endpoints.md`에서 해당 API가 등재되어 있는지 확인. 누락된 API는 `api-endpoints.md`에 추가
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 08 — 인프라, 외부 연동, STB, 비기능 설계도 추출](08-infra-and-integration.md)
+- 이전: [Step 06 — 품질 관련 설계도 추출](06-quality-extraction.md)

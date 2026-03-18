@@ -5,6 +5,7 @@ inclusion: manual
 # Step 10: 추적성 매핑 및 Gap 분석 (Phase 3)
 
 > 참조: #[[file:project/extraction-checklist.md]] — Phase 3 전체
+> 📖 기술 용어: [용어 사전](../../glossary.md) — SPOF, DLQ, Idempotency, Circuit Breaker, CVE, EOL, CORS, CSRF, XSS 등
 
 ## ⚡ 컨텍스트 복원 (새 세션 시작 시)
 
@@ -239,9 +240,18 @@ Gap 분석에서 식별된 각 문제점은 아래 형식으로 기술하라:
 - [ ] **Step 01~09 전체 → 각 extraction/view 산출물 업데이트 필요?**
   - Gap 분석에서 발견한 누락 항목이 원본 extraction 산출물에 반영되어야 하는지 확인
   - 추적성 매트릭스에서 매핑 실패한 항목의 원인이 이전 Step 산출물 누락인지 확인
+  - 검증 방법: `grepSearch`로 `gap-analysis/traceability-matrix.md`에서 `❌|미매핑|누락|N/A`를 검색하여 매핑 실패 항목을 추출하고, 해당 항목의 원인이 되는 Step 산출물(예: `01-code-structure/`, `03-api-data/`, `04-business-logic/`)에서 관련 키워드를 검색하여 누락 여부를 확인. 원본 산출물에 누락이 있으면 해당 파일에 항목 추가
 - [ ] **Step 09 → architecture view 산출물 업데이트 필요?**
   - Gap 분석 결과가 아키텍처 View의 수정을 요구하는지 확인 (예: 새로운 컴포넌트 발견)
+  - 검증 방법: `grepSearch`로 `gap-analysis/hidden-dependencies.md`와 `gap-analysis/cross-service-inconsistency.md`에서 새로 발견된 컴포넌트/서비스 간 관계를 검색하고, `views/system-context/`와 `views/component-code/` 산출물에서 해당 항목이 다이어그램에 반영되어 있는지 확인. 누락 시 View 산출물에 새 노드/연결선 추가
 - [ ] **Step 05 → security 산출물 업데이트 필요?**
   - 보안 Gap 항목이 원본 보안 추출 문서에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 `gap-analysis/security-gap.md`에서 `❌|미준수|Critical|🔴`를 검색하여 보안 Gap 목록을 추출하고, `05-security/` 하위 원본 산출물(credential-management.md, pii-privacy-map.md, security-layer-compliance.md 등)에서 해당 Gap이 기록되어 있는지 확인. 누락 시 원본 보안 산출물에 Gap 항목 추가
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: 없음 (마지막 Step) → 전체 서비스 통합(`docs-integrated/`)으로 진행
+- 이전: [Step 09 — 아키텍처 View 생성 (Phase 2)](09-architecture-views.md)

@@ -5,9 +5,12 @@ inclusion: manual
 # Step 4: 비즈니스 로직 추출
 
 > 참조: #[[file:project/extraction-checklist.md]] — 1-4. 비즈니스 로직
+> 📖 기술 용어: [용어 사전](../../glossary.md) — Circuit Breaker, Fallback, Retry, Idempotency 등
 
 ## 선행 산출물 참조
 
+- **Step 02(화면 인벤토리)**: `02-screens/screen-inventory.md`에서 화면 ID 목록을 참조하라. Use Case(5번)에서 화면 ID와 교차 매핑할 때 필수.
+- **Step 03(API & 데이터)**: `03-api-data/api-endpoints.md`에서 API 엔드포인트 목록을 참조하라. Call Flow(4-2번) 및 Use Case에서 API 매핑할 때 필수. `03-api-data/erd.md`에서 DB 스키마를 참조하여 상태값 추출(3번)에 활용하라.
 - **Step 1b(Dead Code)**: `01b-dead-code/` 산출물에서 Dead 판정(🔴)된 비즈니스 로직, 이벤트 핸들러, 배치 작업은 본 Step에서 제외하라. 조건부 Dead(🟡)는 포함하되 `⚠️ Dead 의심` 표기.
 - **Step 1c(공통 모듈)**: `01c-common-modules/` 산출물에서 공통 예외 처리(GlobalExceptionHandler 등), 공통 이벤트 발행/구독 모듈을 식별하여, 비즈니스 로직 분석 시 공통 모듈 기반 처리와 서비스 고유 처리를 구분하라.
 
@@ -283,10 +286,19 @@ XML 설정 기반 스케줄러도 포함해줘.
 
 - [ ] **Step 01 → code-structure.md 업데이트 필요?**
   - 비즈니스 로직에서 발견한 숨겨진 모듈 의존성이 코드 구조에 반영되어 있는지 확인
+  - 검증 방법: `grepSearch`로 새로 발견한 Service 클래스명을 `01-code-structure/directory-structure.md`에서 검색
 - [ ] **Step 02 → screen-inventory.md 업데이트 필요?**
   - 비즈니스 규칙에 의한 조건부 화면 분기가 화면 인벤토리에 반영되어 있는지 확인
+  - 검증 방법: 상태 전이에서 발견한 화면 전이 대상을 `02-screens/screen-inventory.md`에서 화면 ID로 검색
 - [ ] **Step 03 → api-inventory.md 업데이트 필요?**
   - 비즈니스 로직 내부에서 호출하는 내부/외부 API가 API 인벤토리에 누락되어 있는지 확인
   - 비즈니스 규칙에 따른 API 호출 조건/분기가 API 문서에 반영되어 있는지 확인
+  - 검증 방법: Call Flow에서 식별한 API URL을 `03-api-data/api-endpoints.md`에서 검색. 없으면 누락
 
 > 업데이트가 필요한 경우, 해당 산출물 파일을 직접 수정하고 `_context-notes.md`에 변경 사유를 기록하세요.
+
+
+## ➡️ 다음 Step
+
+- 다음: [Step 05 — 보안 관련 설계도 추출](05-security-extraction.md)
+- 이전: [Step 03 — API 엔드포인트 추출 및 DB 스키마 역추적](03-api-and-data.md)
