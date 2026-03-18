@@ -424,6 +424,12 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 - 모든 다이어그램에 데이터 출처(어떤 Step의 어떤 산출물 기반인지)를 명시하라
 - → 대상: PM, 개발 리드
 
+## 📍 소스 로케이터 필수 규칙
+
+> 모든 산출물 테이블에 `소스 위치` 컬럼을 필수로 포함하라.
+> 포맷: [source-locator-standard.md](../project/source-locator-standard.md) 참조
+> 각 Step 완료 시 주요 항목을 `reverse-lookup-index.md`에 등록하라.
+
 ## 산출물
 
 `services/{서비스명}/docs/views/` 에 아래 구조로 생성:

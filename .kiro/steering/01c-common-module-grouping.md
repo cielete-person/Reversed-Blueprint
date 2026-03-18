@@ -115,6 +115,12 @@ inclusion: manual
 
 `services/{서비스명}/src/` — 분석 대상 소스코드
 
+## 📍 소스 로케이터 필수 규칙
+
+> 모든 산출물 테이블에 `소스 위치` 컬럼을 필수로 포함하라.
+> 포맷: [source-locator-standard.md](../project/source-locator-standard.md) 참조
+> 각 Step 완료 시 주요 항목을 `reverse-lookup-index.md`에 등록하라.
+
 ## 산출물
 
 `services/{서비스명}/docs/extraction/01c-common-modules/` 에 아래 파일 생성:
