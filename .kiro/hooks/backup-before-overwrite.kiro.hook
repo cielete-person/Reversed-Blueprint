@@ -1,8 +1,7 @@
 {
-  "enabled": true,
   "name": "설계도 백업",
+  "version": "1.0.0",
   "description": "services/ 또는 docs-integrated/ 하위의 설계도 .md 파일을 덮어쓰기 전에, 기존 파일이 존재하면 같은 폴더의 _backup/ 하위에 {원본파일명}_v{버전}_{yyyyMMdd_HHmm}.md 형식으로 백업합니다. README.md 파일은 백업 대상에서 제외합니다.",
-  "version": "1",
   "when": {
     "type": "preToolUse",
     "toolTypes": [

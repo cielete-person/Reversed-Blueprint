@@ -1,8 +1,7 @@
 {
-  "enabled": true,
   "name": "프롬프트 노하우 피드백 수집",
+  "version": "2.0.0",
   "description": "설계도 추출 작업 완료 시, 효과적인 프롬프트 패턴이 있는지 확인하고 prompt-cookbook.md에 기록한 뒤, 원본 Repo에 PR을 시도합니다. PR 실패 시 로컬 저장으로 fallback합니다.",
-  "version": "2",
   "when": {
     "type": "agentStop"
   },

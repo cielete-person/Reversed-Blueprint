@@ -1,8 +1,7 @@
 {
-  "enabled": true,
   "name": "수작업 보충 항목 리마인더",
+  "version": "1.0.0",
   "description": "services/*/docs/ 하위에 산출물 .md 파일을 생성할 때, 해당 Step의 수작업 보충 항목을 작업자에게 안내합니다.",
-  "version": "1",
   "when": {
     "type": "postToolUse",
     "toolTypes": [

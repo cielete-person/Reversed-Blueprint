@@ -1,8 +1,7 @@
 {
-  "enabled": true,
   "name": "산출물 완전성 자가진단",
+  "version": "1.0.0",
   "description": "services/*/docs/ 하위에 산출물(.md)이 생성되면, 해당 산출물의 완전성 자가진단 리포트가 포함되어 있는지 확인하고, 신뢰도가 🔴 LOW인 경우 작업자에게 경고와 추가 검증 프롬프트를 안내합니다.",
-  "version": "1",
   "when": {
     "type": "fileCreated",
     "patterns": [
