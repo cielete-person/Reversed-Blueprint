@@ -498,8 +498,13 @@ Step 1b(Dead Code), Step 1c(공통 모듈 그룹핑) 산출물도 포함.
 #09-architecture-views 서비스: {폴더명} 범위: 2-12 Layer Stack, 2-13 Function-External Stack, 2-14 PM 의사결정 지원
 ```
 
-> 📌 그룹 A → B → C → D 순서로 실행하라. 각 그룹 완료 후 산출물이 정상 생성되었는지 확인한 뒤 다음 그룹을 진행하라.
+> 📌 그룹 A → B → C → D 순서로 실행하라. 각 그룹 완료 후 `project/artifact-checklist.md`에서 생성 여부를 체크한 뒤 다음 그룹을 진행하라.
 > 📌 STB/IoT 해당 없는 서비스는 그룹 C에서 2-9를 건너뛰고, AI 미사용 서비스는 2-11을 건너뛰어도 된다.
+> 📌 각 그룹 내에서도 산출물이 많으면 View 단위로 추가 분할 가능하다. 예:
+> ```
+> #09-architecture-views 서비스: {폴더명} 범위: 그룹 A 중 2-1 시스템 컨텍스트만
+> #09-architecture-views 서비스: {폴더명} 범위: 그룹 A 중 2-4, 2-4b E2E Call Flow만
+> ```
 
 ## 📍 소스 로케이터 필수 규칙
 

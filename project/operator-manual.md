@@ -396,6 +396,34 @@ KIRO가 prompt-cookbook.md에 피드백을 기록한 후, 자동으로 원본 Re
 특히 DB 관련, 캐시, 메시지 큐 항목을 집중 검증해줘.
 ```
 
+**Step별 Part 분할 프롬프트 예시:**
+
+각 Step의 steering 파일에 `🔀 분할 생성 가이드`가 있다. 아래는 주요 Step의 분할 프롬프트 예시이다.
+
+```
+# Step 01: 3분할
+#01-code-structure-scan 서비스: media-iptv-vod 범위: Part 1 (기술 프로파일, 디렉토리 구조, 의존성)
+#01-code-structure-scan 서비스: media-iptv-vod 범위: Part 2 (설정 프로파일, 플랫폼 분기)
+#01-code-structure-scan 서비스: media-iptv-vod 범위: Part 3 (기술 부채, IaC, CI/CD)
+
+# Step 03: 2분할 (API / DB)
+#03-api-and-data 서비스: media-iptv-vod 범위: Part 1 (API 엔드포인트, 스키마, 버전, 내부 계약, 통신 매트릭스)
+#03-api-and-data 서비스: media-iptv-vod 범위: Part 2 (ERD, 쿼리 패턴, 마이그레이션)
+
+# Step 04: 3분할
+#04-business-logic 서비스: media-iptv-vod 범위: Part 1 (비즈니스 규칙, 에러 처리, 상태 전이)
+#04-business-logic 서비스: media-iptv-vod 범위: Part 2 (이벤트 흐름, 배치, Call Flow, E2E)
+#04-business-logic 서비스: media-iptv-vod 범위: Part 3 (Use Case Tree, 카탈로그, 시나리오)
+
+# Step 05: 3분할
+#05-security-extraction 서비스: media-iptv-vod 범위: Part 1 (크리덴셜, 개인정보, 세션/토큰)
+#05-security-extraction 서비스: media-iptv-vod 범위: Part 2 (입력보안, API보안, 감사로그, 암호화)
+#05-security-extraction 서비스: media-iptv-vod 범위: Part 3 (하드닝, 서드파티, 앱쉴딩, Security Layer)
+```
+
+> 📌 각 Part 완료 후 반드시 [산출물 체크리스트](artifact-checklist.md)에서 해당 Step의 산출물 누락 여부를 확인하라.
+> 전체 105개 산출물 목록과 Part 분할 정보가 체크리스트에 정리되어 있다.
+
 **멀티 Repo 서비스 분할:**
 
 ```
@@ -646,6 +674,7 @@ git push origin main
 | 프로젝트 개요 | `README.md` | 프로젝트 목표, 폴더 구조, Phase 구성 |
 | 자동 가이드 Steering | `.kiro/steering/00-project-entry.md` | KIRO 자동 로드 진입점 (프롬프트 감지 → 자동 안내) |
 | 추출 항목 체크리스트 | `project/extraction-checklist.md` | 전체 추출 항목 상세 (Phase 1/2/3) |
+| 산출물 생성 체크리스트 | `project/artifact-checklist.md` | 전체 105개 산출물 파일 목록 및 생성 여부 확인 |
 | 서비스 인벤토리 | `project/service-inventory.md` | 서비스 목록, Repo URL, 진행 현황 |
 | 플랫폼 서비스 인벤토리 | `project/platform-service-inventory.md` | 앱/단말/서버 관계 참조 |
 | 보안 체크리스트 | `project/security-layer-checklist.md` | 보안센터 217항목 |

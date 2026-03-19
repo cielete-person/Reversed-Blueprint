@@ -117,6 +117,23 @@ Firebase Remote Config, LaunchDarkly 등 외부 서비스 연동도 확인해줘
 | P2-1 | Stakeholder 리뷰 (UX) | `[확정]` | PO, UX센터가 화면 카탈로그의 화면 누락, 화면명 정확성을 리뷰 |
 | P1-1 | 런타임 트래픽 데이터 수집 | `[런타임]` | 화면별 체류 시간, 이탈률 데이터를 GA/Firebase에서 수집하여 UX 분석 보충 |
 
+## 🔀 분할 생성 가이드
+
+> 산출물 6개를 한 번에 생성하면 컨텍스트 윈도우 한계로 후반부 품질이 저하될 수 있다.
+> 인터랙션·검증·로딩과 다국어·딥링크·피처 플래그를 분리하여 실행하라.
+
+### 분할 전략: 2분할 (인터랙션·검증·로딩 / 다국어·딥링크·피처)
+
+| Part | 산출물 | 프롬프트 예시 |
+|---|---|---|
+| Part 1: 인터랙션·검증·로딩 | `interaction-patterns.md`, `validation-rules.md`, `loading-ux-patterns.md` | `#07-ux-extraction 서비스: {서비스명} 범위: Part 1 (인터랙션 패턴, 유효성 검증, 로딩 UX)` |
+| Part 2: 다국어·딥링크·피처 | `i18n-accessibility.md`, `entry-points.md`, `feature-flags.md` | `#07-ux-extraction 서비스: {서비스명} 범위: Part 2 (다국어/접근성, 딥링크, 피처 플래그)` |
+
+### 분할 실행 시 주의사항
+- Part 1에서 식별한 화면 ID를 Part 2 딥링크 매핑 시 참조하라
+- 모든 Part 완료 후 `project/artifact-checklist.md`의 Step 07 섹션에서 6개 산출물 생성 여부를 확인하라
+- 화면 수가 30개 미만인 소규모 서비스에서는 분할 없이 한 번에 실행 가능
+
 ## 완료 기준
 - 화면별 조작→반응 매핑이 완성됨
 - 입력 필드별 검증 규칙이 프론트/백엔드 구분되어 정리됨

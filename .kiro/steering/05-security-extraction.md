@@ -138,6 +138,31 @@ inclusion: manual
 
 산출물: `services/{서비스명}/docs/extraction/05-security/security-layer-compliance.md`
 
+## 🔀 분할 생성 가이드
+
+> Step 05는 산출물 11개로 구성되어 있어 한 번에 생성하면 컨텍스트 윈도우를 초과할 수 있다.
+> 아래와 같이 3개 Part로 나누어 실행하라.
+
+### Part 1: 크리덴셜/개인정보/세션 (3개)
+```
+#05-security-extraction 서비스: {폴더명} 범위: Part 1 — credential-management, pii-privacy-map, session-token-management
+```
+- `credential-management.md`, `pii-privacy-map.md`, `session-token-management.md`
+
+### Part 2: 입력보안/API보안/감사로그/암호화 (4개)
+```
+#05-security-extraction 서비스: {폴더명} 범위: Part 2 — input-security, api-security, audit-log, encryption
+```
+- `input-security-validation.md`, `api-security-posture.md`, `audit-log-status.md`, `encryption-inventory.md`
+
+### Part 3: 하드닝/서드파티/앱쉴딩/Security Layer (4개)
+```
+#05-security-extraction 서비스: {폴더명} 범위: Part 3 — security-hardening, third-party, app-shielding, security-layer-compliance
+```
+- `security-hardening.md`, `third-party-scripts.md`, `app-shielding.md`, `security-layer-compliance.md`
+
+> 📌 Part 1 → 2 → 3 순서로 실행하라. 각 Part 완료 후 `project/artifact-checklist.md`에서 생성 여부를 체크하라.
+
 ## 💡 효과적인 추가 프롬프트 예시
 
 > 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)

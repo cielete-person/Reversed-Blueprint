@@ -115,6 +115,23 @@ ops/, deploy/, k8s/, helm/ 폴더도 확인해줘.
 | P2-2 | STB 하드웨어 스펙 수집 | `[인터뷰]` | 기종별 실제 하드웨어 스펙, 미들웨어/펌웨어 버전, 리소스 사용량 수집 |
 | P2-3 | 운영 환경 정보 수집 | `[인터뷰]` | 인스턴스 수, 리소스 할당, LB/CDN 구성, 환경별 차이, 모니터링 대시보드 구성 수집 |
 
+## 🔀 분할 생성 가이드
+
+> 산출물 5개를 한 번에 생성하면 컨텍스트 윈도우 한계로 후반부 품질이 저하될 수 있다.
+> 외부 연동과 배포·STB·NFR을 분리하여 실행하라.
+
+### 분할 전략: 2분할 (외부 연동 / 배포·STB·NFR)
+
+| Part | 산출물 | 프롬프트 예시 |
+|---|---|---|
+| Part 1: 외부 연동 | `external-systems.md`, `runtime-data.md` | `#08-infra-and-integration 서비스: {서비스명} 범위: Part 1 (외부 연동 인벤토리, 런타임 데이터)` |
+| Part 2: 배포·STB·NFR | `deployment-topology.md`, `stb-resources.md`, `nfr-baseline.md` | `#08-infra-and-integration 서비스: {서비스명} 범위: Part 2 (배포 토폴로지, STB 리소스, NFR)` |
+
+### 분할 실행 시 주의사항
+- Part 1에서 식별한 외부 시스템 목록을 Part 2 배포 토폴로지에서 참조하라
+- STB 관련 산출물은 IPTV/홈 사업 서비스에만 해당 (비해당 서비스는 `stb-resources.md`에 "해당 없음" 기재)
+- 모든 Part 완료 후 `project/artifact-checklist.md`의 Step 08 섹션에서 5개 산출물 생성 여부를 확인하라
+
 ## 완료 기준
 - 외부 연동 시스템이 연동 방식과 함께 목록화됨
 - 배포 환경별 구성 차이가 식별됨

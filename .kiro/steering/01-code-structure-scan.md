@@ -151,6 +151,24 @@ Dockerfile, *.tf, Chart.yaml, values.yaml, kustomization.yaml 을 찾아줘.
 | P1-7 | IaC 파일 수집 | `[문서수집]` | IaC 파일이 소스 Repo에 없는 경우 인프라팀에 별도 요청하여 수집 |
 | P1-6 | DB 마이그레이션 이력 수집 | `[도구실행]` | Flyway/Liquibase 마이그레이션 스크립트 수집 및 주요 변경점 정리 |
 
+## 🔀 분할 생성 가이드
+
+> 대용량 Repo(10,000파일 이상) 또는 멀티 모듈(3개 이상) 서비스에서는 산출물 8개를 한 번에 생성하면
+> 컨텍스트 윈도우 한계로 후반부 산출물 품질이 저하된다. 아래 분할 전략을 적용하라.
+
+### 분할 전략: 3분할 (구조·스캔 / 설정·플랫폼 / 부채·인프라)
+
+| Part | 산출물 | 프롬프트 예시 |
+|---|---|---|
+| Part 1: 구조 스캔 | `tech-profile.md`, `directory-structure.md`, `dependencies.md` | `#01-code-structure-scan 서비스: {서비스명} 범위: Part 1 (기술 프로파일, 디렉토리 구조, 의존성)` |
+| Part 2: 설정·플랫폼 | `config-profiles.md`, `platform-branching.md` | `#01-code-structure-scan 서비스: {서비스명} 범위: Part 2 (설정 프로파일, 플랫폼 분기)` |
+| Part 3: 부채·인프라 | `tech-debt-markers.md`, `iac-inventory.md`, `cicd-pipeline.md` | `#01-code-structure-scan 서비스: {서비스명} 범위: Part 3 (기술 부채, IaC, CI/CD)` |
+
+### 분할 실행 시 주의사항
+- Part 1 완료 후 Part 2 실행 시, Part 1 산출물을 참조하여 정합성을 유지하라
+- 모든 Part 완료 후 `project/artifact-checklist.md`의 Step 01 섹션에서 8개 산출물 생성 여부를 확인하라
+- 소규모 Repo(5,000파일 미만)에서는 분할 없이 한 번에 실행 가능
+
 ## 완료 기준
 - 대상 서비스의 기술 프로파일이 작성됨
 - 각 항목에 확인 상태(✅/⚠️/❌/🔍)가 표기됨

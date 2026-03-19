@@ -120,6 +120,23 @@ Reactor/RxJava 비동기 패턴도 포함해줘.
 | P1-1 | 런타임 트래픽 데이터 수집 | `[런타임]` | 에러율 상위 API 목록을 APM에서 수집하여 품질 위험 영역과 교차 검증 |
 | P2-1 | Stakeholder 리뷰 (품질) | `[확정]` | 품질센터가 테스트 Gap, 성능 병목 산출물을 리뷰 |
 
+## 🔀 분할 생성 가이드
+
+> 산출물 8개를 한 번에 생성하면 컨텍스트 윈도우 한계로 후반부 품질이 저하된다.
+> 테스트·로깅과 성능·정합성을 분리하여 실행하라.
+
+### 분할 전략: 2분할 (테스트·로깅 / 성능·정합성)
+
+| Part | 산출물 | 프롬프트 예시 |
+|---|---|---|
+| Part 1: 테스트·로깅 | `test-automation-inventory.md`, `test-feature-traceability.md`, `change-frequency.md`, `logging-observability.md` | `#06-quality-extraction 서비스: {서비스명} 범위: Part 1 (테스트 현황, 추적 매핑, 변경 빈도, 로깅)` |
+| Part 2: 성능·정합성 | `dependency-health.md`, `concurrency-patterns.md`, `data-integrity.md`, `performance-hotspots.md` | `#06-quality-extraction 서비스: {서비스명} 범위: Part 2 (의존성 건강도, 동시성, 정합성, 성능 병목)` |
+
+### 분할 실행 시 주의사항
+- Part 1에서 식별한 Test Gap 영역을 Part 2 성능 병목 분석 시 교차 참조하라
+- 모든 Part 완료 후 `project/artifact-checklist.md`의 Step 06 섹션에서 8개 산출물 생성 여부를 확인하라
+- 소규모 서비스(소스 파일 1,000개 미만)에서는 분할 없이 한 번에 실행 가능
+
 ## 완료 기준
 - 테스트 피라미드 현황(단위 > 통합 > E2E 비율)이 파악됨
 - 고위험 영역(변경 빈도 높음 + 테스트 없음)이 식별됨

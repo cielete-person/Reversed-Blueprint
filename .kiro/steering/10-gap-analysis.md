@@ -213,6 +213,38 @@ Gap 분석에서 식별된 각 문제점은 아래 형식으로 기술하라:
 - `glossary-final.md` — 용어 사전 확정본
 - `improvement-recommendations.md` — 개선 권고사항 종합
 
+## 🔀 분할 생성 가이드
+
+> Step 10은 산출물 21개로 구성되어 있어 한 번에 생성하면 컨텍스트 윈도우를 초과할 수 있다.
+> 아래와 같이 5개 Part로 나누어 실행하라.
+
+### Part 1: 추적성/화면-API/Dead Code/Orphan (4개)
+```
+#10-gap-analysis 서비스: {폴더명} 범위: Part 1 — traceability-matrix, screen-api-impact, dead-code-unused, orphan-screens
+```
+
+### Part 2: 시나리오/크로스플랫폼/품질/보안 (4개)
+```
+#10-gap-analysis 서비스: {폴더명} 범위: Part 2 — user-scenario-gap, cross-platform-gap, quality-infra-gap, security-gap
+```
+
+### Part 3: 위험도/정합성/STB/의존성 (4개)
+```
+#10-gap-analysis 서비스: {폴더명} 범위: Part 3 — code-quality-risk-matrix, data-integrity-risk, stb-resource-gap, hidden-dependencies
+```
+
+### Part 4: SPOF/메시지/AI/교차검증/합리화 (5개)
+```
+#10-gap-analysis 서비스: {폴더명} 범위: Part 4 — spof-gap, message-stability-gap, ai-governance-gap, cross-service-inconsistency, service-rationalization
+```
+
+### Part 5: E2E/PM/용어/개선 (4개)
+```
+#10-gap-analysis 서비스: {폴더명} 범위: Part 5 — e2e-callflow-gap, pm-decision-gap, glossary-final, improvement-recommendations
+```
+
+> 📌 Part 1 → 2 → 3 → 4 → 5 순서로 실행하라. 각 Part 완료 후 `project/artifact-checklist.md`에서 생성 여부를 체크하라.
+
 ## 🔧 작업자 수작업 보충 항목
 
 > 이 Step에서 KIRO 자동 추출만으로는 완성할 수 없는 항목입니다.

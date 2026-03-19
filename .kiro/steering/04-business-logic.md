@@ -236,6 +236,32 @@ inclusion: manual
 - `use-cases.md` — Use Case 카탈로그 (공통 + 서비스 특화, ID/구현여부/API/화면 매핑)
 - `use-case-scenarios.md` — 주요 Use Case 시나리오 상세 (정상/대안/예외, NFR 체크포인트 인라인 태그 포함)
 
+## 🔀 분할 생성 가이드
+
+> Step 04는 산출물 10개로 구성되어 있어 한 번에 생성하면 컨텍스트 윈도우를 초과할 수 있다.
+> 아래와 같이 3개 Part로 나누어 실행하라.
+
+### Part 1: 규칙/에러/상태 (3개)
+```
+#04-business-logic 서비스: {폴더명} 범위: Part 1 — business-rules, error-handling, state-machines
+```
+- `business-rules.md`, `error-handling.md`, `state-machines.md`
+
+### Part 2: 이벤트/배치/Call Flow (4개)
+```
+#04-business-logic 서비스: {폴더명} 범위: Part 2 — event-flows, batch-scheduler, call-flow-chains, e2e-call-flows
+```
+- `event-flows.md`, `batch-scheduler-inventory.md`, `call-flow-chains.md`, `e2e-call-flows.md`
+
+### Part 3: Use Case (3개)
+```
+#04-business-logic 서비스: {폴더명} 범위: Part 3 — use-case-tree, use-cases, use-case-scenarios
+```
+- `use-case-tree.md`, `use-cases.md`, `use-case-scenarios.md`
+
+> 📌 Part 1 → 2 → 3 순서로 실행하라. 각 Part 완료 후 `project/artifact-checklist.md`에서 생성 여부를 체크하라.
+> 📌 대용량 Repo에서는 Part 내에서도 모듈별로 추가 분할 가능하다.
+
 ## 💡 효과적인 추가 프롬프트 예시
 
 > 출처: [prompt-cookbook.md](../project/prompt-cookbook.md)

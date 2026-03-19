@@ -1,12 +1,12 @@
 ---
-inclusion: auto
+inclusion: manual
 ---
 
-# 설계도 완전성 검증 체크리스트 (매 작업 시 자동 적용)
+# 설계도 완전성 검증 체크리스트
 
-> 이 steering은 `inclusion: auto`로 설정되어 모든 대화에 자동 로드됩니다.
-> KIRO가 `services/*/docs/` 하위에 산출물을 생성·수정할 때마다 아래 검증을 수행하세요.
-> 작업자가 매번 요청하지 않아도 KIRO가 자동으로 체크합니다.
+> 이 steering은 `inclusion: manual`로 설정되어 필요 시 `#00-verification-checklist`로 호출합니다.
+> KIRO가 `services/*/docs/` 하위에 산출물을 생성·수정할 때 아래 검증을 수행하세요.
+> 💡 각 Step steering에 핵심 검증 항목이 인라인으로 포함되어 있으므로, 이 문서는 전체 검증 시에만 참조하세요.
 
 ---
 

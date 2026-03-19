@@ -118,6 +118,23 @@ Modal, Dialog, Popup, BottomSheet, Alert, Toast, Snackbar 컴포넌트를 모두
 | P1-5 | 화면명 정규화 최종 확정 | `[확정]` | KIRO가 제시한 화면명 정규화 후보를 PO/UX 담당자가 검토하고 대표 명칭 확정 |
 | P1-1 | 런타임 트래픽 데이터 수집 | `[런타임]` | 화면별 진입 빈도(GA/Firebase Analytics)를 수집하여 DAU 기준 PV, 이탈률, 체류 시간 보충 |
 
+## 🔀 분할 생성 가이드
+
+> 멀티 Repo(앱+서버) 또는 크로스 플랫폼(iOS+Android+STB) 서비스에서는 플랫폼별로 분할 실행하라.
+
+### 분할 전략: 플랫폼별 분할
+
+| Part | 대상 | 프롬프트 예시 |
+|---|---|---|
+| Part 1: Android/STB | `src/app-android/`, `src/app-stb/` 화면 추출 | `#02-screen-inventory 서비스: {서비스명} 범위: Android/STB 화면만` |
+| Part 2: iOS | `src/app-ios/` 화면 추출 | `#02-screen-inventory 서비스: {서비스명} 범위: iOS 화면만` |
+| Part 3: 통합 매핑 | 크로스 플랫폼 매핑표 + 정규화 | `#02-screen-inventory 서비스: {서비스명} 범위: 크로스 플랫폼 통합 매핑` |
+
+### 분할 실행 시 주의사항
+- Part 1, 2 완료 후 Part 3에서 양 플랫폼 화면을 통합 매핑하고 화면 ID를 확정하라
+- 단일 플랫폼 서비스(서버만, 웹만)에서는 분할 없이 한 번에 실행 가능
+- 모든 Part 완료 후 `project/artifact-checklist.md`의 Step 02 섹션에서 3개 산출물 생성 여부를 확인하라
+
 ## 완료 기준
 - 모든 라우트/페이지가 식별되고 화면 ID가 부여됨
 - 서브 화면(팝업/모달 등)이 누락 없이 포함됨
